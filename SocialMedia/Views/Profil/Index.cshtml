@@ -1,0 +1,163 @@
+﻿@model SocialMedia.Data.Profils
+<div>
+
+    <div class="container">
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline">
+                <button class="btn btn-outline-success " type="button">Галерия</button>
+                <a class="btn btn-sm btn-outline-secondary" type="button">Съобщение</a>
+                <a class="btn btn-sm btn-outline-secondary" type="button">Чат</a>
+
+            </form>
+        </nav>
+        <div class="row">
+            <div class="col">
+                <img src="https://pbs.twimg.com/media/EnNVaoOUUAA8V5V.jpg" alt="..." width="500">
+
+            </div>
+
+            <div class="col">
+                
+                <a class="btn btn-sm btn-outline-secondary" type="button">Редактирай Профила</a>
+
+                <table class="table table-striped" style="width: 80%">
+
+                    <thead>
+                        <tr>
+
+                            <th scope="col"><H2>@Model.UserName</H2></th>
+                            @*<th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Пол</th>
+                            <td>@Model.Gender</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Харесва</th>
+                            <td>@Model.Likes</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Години</th>
+                            <td>@Model.Age</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">От</th>
+                            <td>@Model.From</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Височина</th>
+                            <td>@Model.Height</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Кг</th>
+                            <td>@Model.Weight</td>
+
+                        </tr>
+
+                        <tr>
+                            <th scope="row">Цвят на очите</th>
+                            <td>@Model.EyesColor</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Цвят на косата</th>
+                            <td>@Model.EyesColor</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Статус</th>
+                            <td>@Model.Status</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Търси</th>
+                            <td>@Model.LookingFor</td>
+
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Цигари</th>
+                            <td>@Model.Cigarettes</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Алкохол</th>
+                            <td>@Model.Alcohol</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col">
+
+                <div class="card">
+                    <div class="card-header">
+                        Описание
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Special title treatment</h5>
+                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    </div>
+                </div>
+            </div>
+            @*<div class="col">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>mddso</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>fdsat</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>twitter</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>*@
+        </div>
+    </div>
+</div>

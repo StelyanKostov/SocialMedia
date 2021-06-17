@@ -12,5 +12,20 @@ namespace SocialMedia.Data
             : base(options)
         {
         }
+
+        public DbSet<Profils> Profils { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasOne(b => b.Profil)
+                .WithOne(i => i.ApplicationUser)
+                .HasForeignKey<Profils>(b => b.ApplicationUserId);
+        }
+
+        
+
     }
 }
