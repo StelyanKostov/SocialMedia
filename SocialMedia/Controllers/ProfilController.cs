@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Data;
 using SocialMedia.Services;
+using SocialMedia.ViewModels.Profil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,31 @@ namespace SocialMedia.Controllers
         }
         public IActionResult Index()
         {
-            var id = _userManager.GetUserId(this.User);
-            var userProfil = profilService.getUserById(id);
-            return View(userProfil);
+            var id = this._userManager.GetUserId(this.User);
+            var viewModel = this.profilService.getProfilById(id);
+            return this.View(viewModel);
+        }
+
+        public IActionResult Edit(string id)
+        {
+            var viewModel = this.profilService.getProfilById(id);
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(ProfilViewModel viewModel)
+        {
+            var user = this._userManager.GetUserAsync(this.User);
+
+            viewModel.ApplicationUser = user.Result;
+            this.profilService.EditProfil(viewModel);
+            return this.RedirectToAction("Index");
+        }
+
+        public IActionResult Gallery()
+        {
+            return this.View();
         }
     }
 }

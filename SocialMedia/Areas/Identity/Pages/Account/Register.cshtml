@@ -4,6 +4,17 @@
     ViewData["Title"] = "Register";
 }
 
+<style>
+    label {
+        display: block;
+        font: 1rem 'Fira Sans', sans-serif;
+    }
+
+    input,
+    label {
+        margin: .4rem 0;
+    }
+</style>
 <h1>@ViewData["Title"]</h1>
 
 <div class="row">
@@ -12,6 +23,11 @@
             <h4>Create a new account.</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Input.UserName"></label>
+                <input asp-for="Input.UserName" class="form-control" />
+                <span asp-validation-for="Input.UserName" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control" />
@@ -26,6 +42,43 @@
                 <label asp-for="Input.ConfirmPassword"></label>
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Gender"></label>
+                <select asp-for="Input.Gender">
+                    <option value="Мъж">Мъж</option>
+                    <option value="Жена">Жена</option>
+
+                </select>
+            </div>
+
+            <div class="form-group">
+
+                <label asp-for="Input.Day">Ден</label>
+                <select asp-for="Input.Day">
+                    @for (int i = 1; i < 32; i++)
+                    {
+                        <option value="@i">@i</option>
+
+                    }
+                </select>
+                <label asp-for="Input.Month">Месец</label>
+                <select asp-for="Input.Month">
+                    @for (int i = 1; i < 13; i++)
+                    {
+                        <option value="@i">@i</option>
+
+                    }
+                </select>
+                <label asp-for="Input.Year">Година</label>
+                <select asp-for="Input.Year">
+                    @for (int i = 1940; i < DateTime.Now.Year - 18; i++)
+                    {
+                        <option value="@i">@i</option>
+
+                    }
+                </select>
+
             </div>
             <button type="submit" class="btn btn-primary">Register</button>
         </form>

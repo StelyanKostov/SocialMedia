@@ -1,0 +1,143 @@
+﻿@model SocialMedia.ViewModels.Profil.ProfilViewModel
+
+@{
+    Model.ApplicationUser = Model.ApplicationUser;
+    Model.ApplicationUserId = Model.ApplicationUserId;
+
+}
+<h1>@Model.ApplicationUserId</h1>
+
+
+<div class="col-1">
+    <form method="post">
+        <input type="hidden" asp-for="@Model.ApplicationUserId" value="@Model.ApplicationUserId" />
+        <input type="hidden" asp-for="@Model.id" value="@Model.id" />
+        <input type="hidden" asp-for="@Model.UserName" value="@Model.UserName" />
+        <input type="hidden" asp-for="@Model.Gender" value="@Model.Gender" />
+        <input type="hidden" asp-for="@Model.DateBirthday" value="@Model.DateBirthday" />
+
+
+
+
+
+        <label asp-for="@Model.Height">Височина</label>
+        <select asp-for="@Model.Height" class="Height">
+
+            @for (int i = 150; i < 210; i++)
+            {
+                if (Model.Height == i)
+                {
+                    <option value="@i" selected>@i</option>
+                    continue;
+                }
+                <option value="@i">@i</option>
+
+            }
+        </select>
+        <label asp-for="@Model.Weight">Килограми</label>
+        <select asp-for="@Model.Weight">
+
+            @for (int i = 35; i < 150; i++)
+            {
+                if (Model.Weight == i)
+                {
+                    <option value="@i" selected>@i</option>
+                    continue;
+                }
+                <option value="@i">@i</option>
+
+            }
+        </select>
+
+        <label asp-for="@Model.From">От</label>
+        <input asp-for="@Model.From" />@Model.From
+
+        <label asp-for="@Model.Likes">Харесва</label>
+        <select asp-for="@Model.Likes">
+
+            <option value="@Model.Likes" selected>@Model.Likes</option>
+            <option value="Мъже">Мъже</option>
+            <option value="Жени">Жени</option>
+            <option value="Жени и мъже">Жени и мъже</option>
+
+
+
+
+        </select>
+
+        <label asp-for="@Model.LookingFor">Tърси</label>
+        <select asp-for="@Model.LookingFor">
+
+            <option value="@Model.LookingFor" selected>@Model.LookingFor</option>
+            <option value="Нови запознанства">Нови Запознанства</option>
+            <option value="Връзка">Връзка</option>
+            <option value="Каквото стане">Каквото стане</option>
+            <option value="Убивам време">Убивам време</option>
+            <option value="Дискретна връзка">Дискретна връзка</option>
+            <option value="Забавления">Забавления</option>
+
+        </select>
+
+        <label asp-for="@Model.Status">Статус</label>
+        <select asp-for="@Model.Status">
+
+            <option value="@Model.Status" selected>@Model.Status</option>
+            <option value="Обвързан">Обвързан</option>
+            <option value="Свободен">Свободен</option>
+            <option value="Няма значение">Няма значение</option>
+
+
+
+        </select>
+        <label asp-for="@Model.EyesColor">Цвят на очите</label>
+        <select asp-for="@Model.EyesColor">
+
+            <option value="@Model.EyesColor" selected>@Model.EyesColor</option>
+            <option value="Сини">Сини</option>
+            <option value="Зелени">Зелени</option>
+            <option value="Кафяви">Кафяви</option>
+            <option value="Черни">Черни</option>
+            <option value="Пъстри">Пъстри</option>
+        </select>
+
+        <label asp-for="@Model.HairColor">Цвят на косата</label>
+        <select asp-for="@Model.HairColor">
+
+            <option value="@Model.HairColor" selected>@Model.HairColor</option>
+            <option value="Кестенява">Кестенява</option>
+            <option value="Руса">Руса</option>
+            <option value="Черна">Черна</option>
+            <option value="Червен">Червен</option>
+            <option value="Бръсната глава">Бръсната глава</option>
+            <option value="Друга">Друга</option>
+
+
+        </select>
+
+        <label asp-for="@Model.Cigarettes">Цигари</label>
+        <select asp-for="@Model.Cigarettes">
+
+            <option value="@Model.Cigarettes" selected>@Model.Cigarettes</option>
+            <option value="да">да</option>
+            <option value="не">не</option>
+            <option value="Пуша като комин">Пуша като комин</option>
+
+        </select>
+
+        <label asp-for="@Model.Alcohol">Алкохол</label>
+        <select asp-for="@Model.Alcohol">
+
+            <option value="@Model.Alcohol" selected>@Model.Alcohol</option>
+            <option value="да">да</option>
+            <option value="не">не</option>
+            <option value="Не знам дали ми е останал черен дроб">Не знам дали ми е останал черен дроб</option>
+
+        </select>
+
+        <label asp-for="@Model.Description">Описание</label>
+        <textarea asp-for="@Model.Description">@Model.Description</textarea>
+      
+
+        <button class="btn btn-dark" type="submit">Запази</button>
+    </form>
+</div>

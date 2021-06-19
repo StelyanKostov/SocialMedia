@@ -1,4 +1,5 @@
 ﻿using SocialMedia.Data;
+using SocialMedia.ViewModels.Profil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,11 @@ namespace SocialMedia.Services
 {
     public interface IProfilService
     {
-        public Profils getUserById(string id);
+        public ProfilViewModel getProfilById(string id);
+
+        public void EditProfil(ProfilViewModel viewModel);
+
+
+
     }
 }

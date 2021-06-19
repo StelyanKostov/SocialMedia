@@ -64,6 +64,21 @@ namespace SocialMedia.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            public string Gender { get; set; }
+
+            [Required]           
+            public int Day { get; set; }
+
+            [Required]
+            public int Month { get; set; }
+
+            [Required]
+            public int Year { get; set; }
+
+            [Required]
+            public string UserName { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -78,6 +93,7 @@ namespace SocialMedia.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -101,8 +117,10 @@ namespace SocialMedia.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);                       
-                        AddIdToProfil(user.Id);
+                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        
+                        AddIdToProfil(user.Id ,Input.UserName, Input.Gender , new DateTime(Input.Year,Input.Month,Input.Day));
+
                         return LocalRedirect(returnUrl);
                     }
                 }
@@ -116,11 +134,15 @@ namespace SocialMedia.Areas.Identity.Pages.Account
             return Page();
         }
 
-        public void AddIdToProfil(string id)
-        {           
+        public void AddIdToProfil(string id , string userName ,string gender, DateTime dateBirthday)
+        {
             this.db.Profils.Add(new Profils()
             {
-                ApplicationUserId = id
+                ApplicationUserId = id,
+                UserName = userName,
+                Gender = gender,
+                DateBirthday = dateBirthday
+
             });
             db.SaveChanges();
         }

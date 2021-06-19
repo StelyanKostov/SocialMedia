@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using SocialMedia.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SocialMedia.Data
+namespace SocialMedia.ViewModels.Profil
 {
-    public class Profils
+    public class ProfilViewModel
     {
         public int id { get; set; }
 

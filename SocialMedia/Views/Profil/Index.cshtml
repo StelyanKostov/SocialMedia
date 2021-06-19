@@ -1,12 +1,12 @@
-﻿@model SocialMedia.Data.Profils
+﻿@model SocialMedia.ViewModels.Profil.ProfilViewModel
 <div>
 
     <div class="container">
         <nav class="navbar navbar-light bg-light">
             <form class="form-inline">
-                <button class="btn btn-outline-success " type="button">Галерия</button>
-                <a class="btn btn-sm btn-outline-secondary" type="button">Съобщение</a>
-                <a class="btn btn-sm btn-outline-secondary" type="button">Чат</a>
+                <a asp-controller="Profil" asp-action="Gallery" class="btn btn-outline-success " type="button">Галерия</a>
+                <a class="btn btn-sm btn-outline-secondary" >Съобщение</a>
+                <a class="btn btn-sm btn-outline-secondary">Чат</a>
 
             </form>
         </nav>
@@ -18,7 +18,7 @@
 
             <div class="col">
                 
-                <a class="btn btn-sm btn-outline-secondary" type="button">Редактирай Профила</a>
+                <a class="btn btn-sm btn-outline-secondary" asp-controller="Profil" asp-action="Edit" asp-route-id="@Model.ApplicationUserId">Редактирай Профила</a>
 
                 <table class="table table-striped" style="width: 80%">
 
@@ -107,22 +107,21 @@
 
                         </tr>
                         <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
+                            <th scope="row">Дата на раждане</th>
+                            <td>@Model.DateBirthday</td>
 
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col">
+            <div class="col-5">
 
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header" >
                         Описание
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <p class="card-text" >@Model.Description</p>
                     </div>
                 </div>
             </div>

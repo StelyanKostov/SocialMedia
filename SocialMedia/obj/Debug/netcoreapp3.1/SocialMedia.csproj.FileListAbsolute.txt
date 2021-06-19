@@ -433,3 +433,6 @@ C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razo
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\_ViewImports.cshtml.g.cs
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\_ViewImports.cshtml.g.cs
+C:\Users\kosto\source\repos\SocialMedia\SocialMedia\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Profil\Edit.cshtml.g.cs
+C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Profil\Gallery.cshtml.g.cs

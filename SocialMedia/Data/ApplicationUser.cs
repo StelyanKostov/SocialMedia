@@ -21,7 +21,7 @@ namespace SocialMedia.Data
 
         public DateTime? DeletedOn { get; set; }
 
-        public int ProfilId { get; set; }
+       
         public Profils Profil { get; set; }
 
 
