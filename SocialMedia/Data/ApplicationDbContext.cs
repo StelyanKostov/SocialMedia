@@ -15,6 +15,9 @@ namespace SocialMedia.Data
 
         public DbSet<Profils> Profils { get; set; }
 
+        public DbSet<Image> images { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

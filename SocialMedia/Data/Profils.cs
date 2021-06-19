@@ -8,6 +8,11 @@ namespace SocialMedia.Data
 {
     public class Profils
     {
+        public Profils()
+        {
+            this.Images = new HashSet<Image>();
+
+        }
         public int id { get; set; }
 
         public string UserName { get; set; }
@@ -41,5 +46,7 @@ namespace SocialMedia.Data
         public string Alcohol { get; set; }
 
         public string Cigarettes { get; set; }
+
+        public ICollection<Image> Images { get; set; }
     }
 }

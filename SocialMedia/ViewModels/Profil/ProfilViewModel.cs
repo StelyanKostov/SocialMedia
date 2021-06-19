@@ -1,4 +1,5 @@
-﻿using SocialMedia.Data;
+﻿using Microsoft.AspNetCore.Http;
+using SocialMedia.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,11 @@ namespace SocialMedia.ViewModels.Profil
 {
     public class ProfilViewModel
     {
+        public ProfilViewModel()
+        {
+            this.Images = new HashSet<Image>();
+
+        }
         public int id { get; set; }
 
         public string UserName { get; set; }
@@ -41,5 +47,10 @@ namespace SocialMedia.ViewModels.Profil
         public string Alcohol { get; set; }
 
         public string Cigarettes { get; set; }
+
+        public ICollection<Image> Images { get; set; }
+
+        public IEnumerable<IFormFile> ImagesVieModel { get; set; }
+
     }
 }

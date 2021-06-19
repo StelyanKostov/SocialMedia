@@ -14,6 +14,8 @@ namespace SocialMedia.AutoMapper
             CreateMap<Data.Profils, ViewModels.Profil.ProfilViewModel>();
             CreateMap<ViewModels.Profil.ProfilViewModel, Data.Profils>();
 
+
+
         }
 
     }

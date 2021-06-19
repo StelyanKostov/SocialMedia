@@ -1,4 +1,5 @@
-﻿using SocialMedia.Data;
+﻿using Microsoft.AspNetCore.Http;
+using SocialMedia.Data;
 using SocialMedia.ViewModels.Profil;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace SocialMedia.Services
 
         public void EditProfil(ProfilViewModel viewModel);
 
-
+        public void AddImgae(IEnumerable<IFormFile> ImagesVieModel, string imagePath, string userId);
 
     }
 }

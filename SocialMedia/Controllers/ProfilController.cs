@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Data;
 using SocialMedia.Services;
@@ -15,17 +17,20 @@ namespace SocialMedia.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IProfilService profilService;
+        private readonly IWebHostEnvironment environment;
 
         //private readonly RoleManager<IdentityRole> roleManager;
 
         public ProfilController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IProfilService profilService
+            IProfilService profilService,
+            IWebHostEnvironment environment
           /*  RoleManager<IdentityRole> roleManager*/)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this.profilService = profilService;
+            this.environment = environment;
             //this.roleManager = roleManager;
         }
         public IActionResult Index()
@@ -55,6 +60,25 @@ namespace SocialMedia.Controllers
         public IActionResult Gallery()
         {
             return this.View();
+        }
+
+        [HttpPost]
+         public IActionResult Gallery(ProfilViewModel viewModel)
+        {
+            var userId = this._userManager.GetUserId(this.User);
+            var path = $"{this.environment.WebRootPath}/images";
+          
+            try
+            {
+                this.profilService.AddImgae(viewModel.ImagesVieModel, path, userId);
+            }
+            catch (Exception ex)
+            {
+
+                return this.Content(ex.Message);
+
+            }
+            return this.Content(path);
         }
     }
 }

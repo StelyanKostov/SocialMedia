@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialMedia.Data;
 
 namespace SocialMedia.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210619161721_ImagesTable")]
+    partial class ImagesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -225,27 +227,6 @@ namespace SocialMedia.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SocialMedia.Data.Image", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Extension")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProfilId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RemoteImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProfilId");
-
-                    b.ToTable("images");
-                });
-
             modelBuilder.Entity("SocialMedia.Data.Profils", b =>
                 {
                     b.Property<int>("id")
@@ -370,15 +351,6 @@ namespace SocialMedia.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SocialMedia.Data.Image", b =>
-                {
-                    b.HasOne("SocialMedia.Data.Profils", "Profil")
-                        .WithMany("Images")
-                        .HasForeignKey("ProfilId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

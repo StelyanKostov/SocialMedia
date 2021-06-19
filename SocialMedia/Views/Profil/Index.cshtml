@@ -12,7 +12,11 @@
         </nav>
         <div class="row">
             <div class="col">
-                <img src="https://pbs.twimg.com/media/EnNVaoOUUAA8V5V.jpg" alt="..." width="500">
+                @foreach (var item in Model.Images)
+                {
+                    <img src="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" alt="..." width="500">
+
+                }
 
             </div>
 

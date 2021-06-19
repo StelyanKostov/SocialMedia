@@ -1,1 +1,11 @@
-﻿<H1>hello from galery</H1>
+﻿@model SocialMedia.ViewModels.Profil.ProfilViewModel
+<form method="post" class="col-md-6 offset-md-3"
+      enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="@Model.ImagesVieModel"></label>
+        <input asp-for="@Model.ImagesVieModel" class="form-control" />
+        <span asp-validation-for="@Model.ImagesVieModel" class="text-danger"></span>
+    </div>
+
+    <input type="submit" class="btn btn-primary" />
+</form>
