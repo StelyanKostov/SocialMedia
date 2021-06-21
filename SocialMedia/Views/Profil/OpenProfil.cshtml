@@ -14,7 +14,7 @@
         <nav class="navbar navbar-light bg-light">
             <form class="form-inline">
                 <a asp-controller="Profil" asp-action="Gallery" asp-route-id="@Model.id" class="btn btn-outline-success " type="button">Галерия</a>
-                <a class="btn btn-sm btn-outline-secondary" >Съобщение</a>
+                <a class="btn btn-sm btn-outline-secondary">Съобщение</a>
                 <a class="btn btn-sm btn-outline-secondary">Чат</a>
 
             </form>
@@ -28,14 +28,13 @@
                 else
                 {
                     <img src="~/images/ProfilImage/@Model.UserName/@image.Id.@image.Extension" alt="..." width="500">
-    
+
                 }
 
             </div>
 
             <div class="col">
-                
-                <a class="btn btn-sm btn-outline-secondary" asp-controller="Profil" asp-action="Edit" asp-route-id="@Model.ApplicationUserId">Редактирай Профила</a>
+
 
                 <table class="table table-striped" style="width: 80%">
 
@@ -43,9 +42,7 @@
                         <tr>
 
                             <th scope="col"><H2>@Model.UserName</H2></th>
-                            @*<th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>*@
+                         
                         </tr>
                     </thead>
                     <tbody>
@@ -134,46 +131,14 @@
             <div class="col-5">
 
                 <div class="card">
-                    <div class="card-header" >
+                    <div class="card-header">
                         Описание
                     </div>
                     <div class="card-body">
-                        <p class="card-text" >@Model.Description</p>
+                        <p class="card-text">@Model.Description</p>
                     </div>
                 </div>
-            </div>
-            @*<div class="col">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mddso</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>fdsat</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>twitter</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>*@
+            </div>         
         </div>
     </div>
 </div>

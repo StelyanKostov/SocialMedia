@@ -32,7 +32,13 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Profil" asp-action="Index">Profil</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Profil" asp-action="Index">Профил</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Profil" asp-action="AllProfils">Профили</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Messages" asp-action="Index">Съобщения</a>
                             </li>
                         }
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -12,12 +13,14 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Controllers
 {
+    [Authorize]
     public class ProfilController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IProfilService profilService;
         private readonly IWebHostEnvironment environment;
+
 
         //private readonly RoleManager<IdentityRole> roleManager;
 
@@ -36,13 +39,12 @@ namespace SocialMedia.Controllers
         public IActionResult Index()
         {
             var id = this._userManager.GetUserId(this.User);
-            var viewModel = this.profilService.getProfilById(id);
+            var viewModel = this.profilService.getProfilByUserId(id);
             return this.View(viewModel);
         }
-
-        public IActionResult Edit(string id)
+        public IActionResult Edit(string id )
         {
-            var viewModel = this.profilService.getProfilById(id);
+            var viewModel = this.profilService.getProfilByUserId(id);
 
             return this.View(viewModel);
         }
@@ -52,14 +54,17 @@ namespace SocialMedia.Controllers
         {
             var user = this._userManager.GetUserAsync(this.User);
 
+
             viewModel.ApplicationUser = user.Result;
             this.profilService.EditProfil(viewModel);
             return this.RedirectToAction("Index");
         }
 
-        public IActionResult Gallery()
+        public IActionResult Gallery(int id)
         {
-            return this.View();
+
+            var viewModel = this.profilService.getProfilByProfilId(id);
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -78,7 +83,37 @@ namespace SocialMedia.Controllers
                 return this.Content(ex.Message);
 
             }
-            return this.Content(path);
+            return this.RedirectToAction("Gallery", new { id = viewModel.id });
+        }
+
+        public IActionResult RealDeleteImage(int idProfil , string idImage)
+        {
+            this.profilService.RealDeleteImage(idProfil, idImage);
+
+            return this.RedirectToAction("Gallery", new { id = idProfil });
+        }
+
+        public IActionResult SetProfilImage(string idProfil, string idImage)
+        {
+            this.profilService.SetProfilImage(idProfil, idImage);
+            return this.RedirectToAction("Index");
+        }
+
+        //todooooo
+        public IActionResult AllProfils()
+        {
+            var profils = this.profilService.AllProfils();
+
+            var viewModel = new AllProfils();
+
+            viewModel.profils = profils;
+            return this.View(viewModel);
+        }
+
+       public IActionResult OpenProfil(int id)
+        {
+            var profil = this.profilService.getProfilByProfilId(id);
+            return this.View(profil);
         }
     }
 }

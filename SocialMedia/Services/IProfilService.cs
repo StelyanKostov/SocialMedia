@@ -10,11 +10,20 @@ namespace SocialMedia.Services
 {
     public interface IProfilService
     {
-        public ProfilViewModel getProfilById(string id);
+        public ProfilViewModel getProfilByUserId(string id);
 
         public void EditProfil(ProfilViewModel viewModel);
 
         public void AddImgae(IEnumerable<IFormFile> ImagesVieModel, string imagePath, string userId);
+
+        public void RealDeleteImage(int idProfil, string idImage);
+        public void SetProfilImage(string idProfil, string idImage);
+
+        public List<ProfilViewModel> AllProfils();
+
+        public ProfilViewModel getProfilByProfilId(int id);
+
+
 
     }
 }

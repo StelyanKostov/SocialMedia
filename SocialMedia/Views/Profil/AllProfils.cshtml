@@ -1,0 +1,29 @@
+﻿@model SocialMedia.ViewModels.Profil.AllProfils
+
+@{
+
+}
+
+@foreach (var item in Model.profils)
+{
+    <div class="container">
+        
+        <div class="col border">
+            <a asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.id">
+                <p>@item.UserName</p>
+
+                @if (item.Images.Count == 0 || item.Images.Where(x => x.ProfilImage).FirstOrDefault() == null)
+                {
+                }
+                else
+                {
+                    <img src="~/images/ProfilImage/@item.UserName/@item.Images.Where(x =>x.ProfilImage).FirstOrDefault().Id.@item.Images.Where(x =>x.ProfilImage).FirstOrDefault().Extension" alt="Alternate Text" width="20%" />
+
+                }
+
+                
+            </a>
+
+        </div>
+    </div>
+}

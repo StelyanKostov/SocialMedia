@@ -22,6 +22,7 @@ namespace SocialMedia.Data
 
         //// The contents of the image is in the file system
 
+        public bool ProfilImage { get; set; }
         public string RemoteImageUrl { get; set; }
 
         

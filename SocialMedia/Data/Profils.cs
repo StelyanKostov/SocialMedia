@@ -12,6 +12,8 @@ namespace SocialMedia.Data
         {
             this.Images = new HashSet<Image>();
 
+            this.Messages = new HashSet<Messages>();
+
         }
         public int id { get; set; }
 
@@ -48,5 +50,9 @@ namespace SocialMedia.Data
         public string Cigarettes { get; set; }
 
         public ICollection<Image> Images { get; set; }
+
+        public ICollection<Messages> Messages { get; set; }
+
+
     }
 }

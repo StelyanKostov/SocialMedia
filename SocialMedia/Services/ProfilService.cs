@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SocialMedia.Data;
+using SocialMedia.ViewModels.Messages;
 using SocialMedia.ViewModels.Profil;
 using System;
 using System.Collections.Generic;
@@ -24,10 +25,33 @@ namespace SocialMedia.Services
             this._mapper = mapper;
         }
 
+        //TODOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
         public void EditProfil(ProfilViewModel viewModel)
         {
             var profil = getProfil(viewModel.ApplicationUserId);
-            var rezult = _mapper.Map(viewModel, profil);
+            //var rezult = _mapper.Map(viewModel, profil);
+
+            profil.Alcohol = viewModel.Alcohol;
+
+            profil.Cigarettes = viewModel.Cigarettes;
+
+            profil.Description = viewModel.Description;
+
+            profil.EyesColor = viewModel.EyesColor;
+
+            profil.From = viewModel.From;
+
+            profil.HairColor = viewModel.HairColor;
+
+            profil.Height = viewModel.Height;
+
+            profil.Likes = viewModel.Likes;
+
+            profil.LookingFor = viewModel.LookingFor;
+
+            profil.Status = viewModel.Status;
+
+            profil.Weight = viewModel.Weight;
 
             this.db.SaveChanges();
         }
@@ -38,15 +62,10 @@ namespace SocialMedia.Services
             return profile;
         }
 
-        public ProfilViewModel getProfilById(string id)
+        public ProfilViewModel getProfilByUserId(string id)
         {
-            var profil = getProfil(id);
-            
-            
+            var profil = getProfil(id);                        
             var profilViewModel = _mapper.Map<ProfilViewModel>(profil);
-
-            
-
             return profilViewModel;
 
         }
@@ -78,5 +97,58 @@ namespace SocialMedia.Services
                 this.db.SaveChanges();
             }
         }
+
+
+        public void RealDeleteImage(int idProfil , string idImage)
+        {
+            var profil = this.db.Profils.Include(x => x.Images).Where(x => x.id == idProfil).FirstOrDefault();
+
+            var image = profil.Images.Where(x => x.Id == idImage).FirstOrDefault();
+
+
+            this.db.images.Remove(image);
+
+           this.db.SaveChanges();
+        }
+
+        public void SetProfilImage(string idProfil, string idImage)
+        {
+            var profil = this.getProfil(idProfil);
+
+            var image = profil.Images.Where(x => x.ProfilImage).FirstOrDefault();
+
+            if (image != null)
+            {
+                image.ProfilImage = false;
+
+            }
+
+            var newProfilImage = profil.Images.Where(x => x.Id == idImage).FirstOrDefault();
+
+            newProfilImage.ProfilImage = true;
+
+            this.db.SaveChanges();
+
+        }
+
+        public List<ProfilViewModel> AllProfils()
+        {
+            var profils = this.db.Profils.Include(x => x.Images).ToList();
+
+            var profilViewModel = _mapper.Map<List<ProfilViewModel>>(profils);
+
+            return profilViewModel;
+        }
+
+        public ProfilViewModel getProfilByProfilId(int id)
+        {
+            var profil = this.db.Profils.Include(x=> x.Images).Where(x => x.id == id).FirstOrDefault();
+
+            var profilViewModel = _mapper.Map<ProfilViewModel>(profil);
+
+            return profilViewModel;
+
+        }
+     
     }
 }

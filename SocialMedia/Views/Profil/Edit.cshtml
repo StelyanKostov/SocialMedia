@@ -1,9 +1,7 @@
 ﻿@model SocialMedia.ViewModels.Profil.ProfilViewModel
 
-@{
-    Model.ApplicationUser = Model.ApplicationUser;
-    Model.ApplicationUserId = Model.ApplicationUserId;
-
+@{ 
+    var profil = Model;
 }
 <h1>@Model.ApplicationUserId</h1>
 
@@ -12,10 +10,10 @@
     <form method="post">
         <input type="hidden" asp-for="@Model.ApplicationUserId" value="@Model.ApplicationUserId" />
         <input type="hidden" asp-for="@Model.id" value="@Model.id" />
-        <input type="hidden" asp-for="@Model.UserName" value="@Model.UserName" />
-        <input type="hidden" asp-for="@Model.Gender" value="@Model.Gender" />
-        <input type="hidden" asp-for="@Model.DateBirthday" value="@Model.DateBirthday" />
 
+        @*<input type="hidden" asp-for="@Model.UserName" value="@Model.UserName" />
+        <input type="hidden" asp-for="@Model.Gender" value="@Model.Gender" />
+        <input type="hidden" asp-for="@Model.DateBirthday" value="@Model.DateBirthday" />*@
 
 
 
@@ -136,7 +134,7 @@
 
         <label asp-for="@Model.Description">Описание</label>
         <textarea asp-for="@Model.Description">@Model.Description</textarea>
-      
+
 
         <button class="btn btn-dark" type="submit">Запази</button>
     </form>

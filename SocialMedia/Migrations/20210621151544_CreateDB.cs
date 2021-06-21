@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
 
-namespace SocialMedia.Data.Migrations
+namespace SocialMedia.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class CreateDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +39,11 @@ namespace SocialMedia.Data.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: true),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,7 +55,7 @@ namespace SocialMedia.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -73,7 +76,7 @@ namespace SocialMedia.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -153,6 +156,83 @@ namespace SocialMedia.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Profils",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UserName = table.Column<string>(nullable: true),
+                    ApplicationUserId = table.Column<string>(nullable: true),
+                    DateBirthday = table.Column<DateTime>(nullable: false),
+                    Gender = table.Column<string>(nullable: true),
+                    From = table.Column<string>(nullable: true),
+                    Likes = table.Column<string>(nullable: true),
+                    LookingFor = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    Height = table.Column<int>(nullable: false),
+                    Weight = table.Column<int>(nullable: false),
+                    EyesColor = table.Column<string>(nullable: true),
+                    HairColor = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: true),
+                    Alcohol = table.Column<string>(nullable: true),
+                    Cigarettes = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Profils", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Profils_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "images",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    ProfilId = table.Column<int>(nullable: false),
+                    Extension = table.Column<string>(nullable: true),
+                    ProfilImage = table.Column<bool>(nullable: false),
+                    RemoteImageUrl = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_images", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_images_Profils_ProfilId",
+                        column: x => x.ProfilId,
+                        principalTable: "Profils",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Seen = table.Column<bool>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
+                    CreateOn = table.Column<DateTime>(nullable: false),
+                    ProfilId = table.Column<int>(nullable: false),
+                    SecondProfilId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Messages_Profils_ProfilId",
+                        column: x => x.ProfilId,
+                        principalTable: "Profils",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -191,6 +271,23 @@ namespace SocialMedia.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_images_ProfilId",
+                table: "images",
+                column: "ProfilId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_ProfilId",
+                table: "Messages",
+                column: "ProfilId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Profils_ApplicationUserId",
+                table: "Profils",
+                column: "ApplicationUserId",
+                unique: true,
+                filter: "[ApplicationUserId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,7 +308,16 @@ namespace SocialMedia.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "images");
+
+            migrationBuilder.DropTable(
+                name: "Messages");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Profils");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

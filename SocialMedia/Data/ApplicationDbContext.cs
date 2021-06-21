@@ -17,6 +17,8 @@ namespace SocialMedia.Data
 
         public DbSet<Image> images { get; set; }
 
+        public DbSet<Messages> Messages { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

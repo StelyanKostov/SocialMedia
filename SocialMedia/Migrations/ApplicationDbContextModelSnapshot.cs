@@ -3,21 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialMedia.Data;
 
-namespace SocialMedia.Data.Migrations
+namespace SocialMedia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210617110957_addColToProfil")]
-    partial class addColToProfil
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.12")
+                .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -227,15 +225,65 @@ namespace SocialMedia.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("SocialMedia.Data.Profils", b =>
+            modelBuilder.Entity("SocialMedia.Data.Image", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Extension")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProfilId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ProfilImage")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RemoteImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfilId");
+
+                    b.ToTable("images");
+                });
+
+            modelBuilder.Entity("SocialMedia.Data.Messages", b =>
                 {
                     b.Property<int>("id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Age")
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ProfilId")
                         .HasColumnType("int");
+
+                    b.Property<int>("SecondProfilId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Seen")
+                        .HasColumnType("bit");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("ProfilId");
+
+                    b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("SocialMedia.Data.Profils", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Alcohol")
                         .HasColumnType("nvarchar(max)");
@@ -245,6 +293,9 @@ namespace SocialMedia.Data.Migrations
 
                     b.Property<string>("Cigarettes")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateBirthday")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -271,6 +322,9 @@ namespace SocialMedia.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Weight")
@@ -348,6 +402,24 @@ namespace SocialMedia.Data.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SocialMedia.Data.Image", b =>
+                {
+                    b.HasOne("SocialMedia.Data.Profils", "Profil")
+                        .WithMany("Images")
+                        .HasForeignKey("ProfilId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("SocialMedia.Data.Messages", b =>
+                {
+                    b.HasOne("SocialMedia.Data.Profils", "Profil")
+                        .WithMany("Messages")
+                        .HasForeignKey("ProfilId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

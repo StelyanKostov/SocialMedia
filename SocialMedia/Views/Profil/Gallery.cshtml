@@ -1,11 +1,39 @@
-﻿@model SocialMedia.ViewModels.Profil.ProfilViewModel
-<form method="post" class="col-md-6 offset-md-3"
-      enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="@Model.ImagesVieModel"></label>
-        <input asp-for="@Model.ImagesVieModel" class="form-control" />
-        <span asp-validation-for="@Model.ImagesVieModel" class="text-danger"></span>
+﻿@using Microsoft.AspNetCore.Identity
+@using SocialMedia.Data
+@model SocialMedia.ViewModels.Profil.ProfilViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@if (this.SignInManager.UserManager.GetUserId(this.User) == Model.ApplicationUserId)
+{
+    <form method="post" class="col-md-6 offset-md-3"
+          enctype="multipart/form-data">
+        <div class="form-group">
+            <label asp-for="@Model.ImagesVieModel"></label>
+            <input asp-for="@Model.ImagesVieModel" class="form-control" />
+            <span asp-validation-for="@Model.ImagesVieModel" class="text-danger"></span>
+        </div>
+
+        <input type="submit" class="btn btn-primary" />
+    </form>
+}
+
+<div class="container">
+    <div class="row">
+
+        @foreach (var item in @Model.Images)
+        {
+            <div class="col">
+                <a href="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" data-toggle="lightbox" data-gallery="gallery" class="col-md-4">
+                    <img src="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" class="img-fluid rounded">
+                </a>
+                @if (this.SignInManager.UserManager.GetUserId(this.User) == Model.ApplicationUserId)
+                {
+                    <a class="btn  btn-primary" asp-controller="Profil" asp-action="RealDeleteImage" asp-route-idProfil="@Model.id" asp-route-idImage="@item.Id">Delete</a>
+                    <a class="btn  btn-primary" asp-controller="Profil" asp-action="SetProfilImage" asp-route-idProfil="@Model.ApplicationUserId" asp-route-idImage="@item.Id">Направи профилна</a>
+                }
+
+            </div>}
+
     </div>
 
-    <input type="submit" class="btn btn-primary" />
-</form>
+</div>
