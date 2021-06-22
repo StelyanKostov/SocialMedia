@@ -1,4 +1,7 @@
-﻿@model SocialMedia.ViewModels.Profil.ProfilViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using SocialMedia.Data
+@model SocialMedia.ViewModels.Profil.ProfilViewModel
+@inject SignInManager<ApplicationUser> SignInManager
 
 @{
     var image = Model.Images.Where(x => x.ProfilImage).Select(x => new
@@ -14,9 +17,11 @@
         <nav class="navbar navbar-light bg-light">
             <form class="form-inline">
                 <a asp-controller="Profil" asp-action="Gallery" asp-route-id="@Model.id" class="btn btn-outline-success " type="button">Галерия</a>
-                <a class="btn btn-sm btn-outline-secondary">Съобщение</a>
-                <a class="btn btn-sm btn-outline-secondary">Чат</a>
-
+                @if (SignInManager.UserManager.GetUserId(this.User) != Model.ApplicationUserId)
+                {
+                    <a class="btn btn-sm btn-outline-secondary" asp-controller="Messages" asp-action="SendMessages" asp-route-id="@Model.id">Съобщение</a>
+                    <a class="btn btn-sm btn-outline-secondary">Чат</a>
+                }
             </form>
         </nav>
         <div class="row">
@@ -42,7 +47,7 @@
                         <tr>
 
                             <th scope="col"><H2>@Model.UserName</H2></th>
-                         
+
                         </tr>
                     </thead>
                     <tbody>
@@ -138,7 +143,7 @@
                         <p class="card-text">@Model.Description</p>
                     </div>
                 </div>
-            </div>         
+            </div>
         </div>
     </div>
 </div>

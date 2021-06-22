@@ -53,7 +53,7 @@ namespace SocialMedia.ViewModels.Profil
 
         public IEnumerable<IFormFile> ImagesVieModel { get; set; }
 
-        public ICollection<MessagesViewModel> Messages { get; set; }
+        public List<MessagesViewModel> Messages { get; set; }
 
     }
 }

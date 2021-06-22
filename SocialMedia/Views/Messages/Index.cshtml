@@ -1,1 +1,16 @@
-﻿<h1> H1 from Messages</h1>
+﻿@model List<SocialMedia.ViewModels.Profil.ProfilViewModel>
+
+
+
+
+@foreach (var item in Model)
+{
+
+    <a asp-action="OpenMessages" asp-route-id="@item.id">
+
+        <h3>@item.UserName</h3>
+        <p>@item.Messages.OrderByDescending(x => x.CreateOn).FirstOrDefault().Content</p>
+
+    </a>
+}
+

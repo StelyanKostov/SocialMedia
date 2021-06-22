@@ -1,0 +1,56 @@
+﻿@model List<SocialMedia.ViewModels.Messages.MessagesViewModel>
+
+<button id="buttonResponse" class="btn btn-primary" type="button">Отговори</button>
+
+
+
+<div class="Response">
+    <form class="formForResponse" asp-action="SendMessages" method="post">
+        <input type="hidden" asp-for="@Model.FirstOrDefault().ProfilId" value="@Model.FirstOrDefault().ProfilId" />
+        <input type="hidden" asp-for="@Model.FirstOrDefault().SecondProfilId" value="@Model.FirstOrDefault().SecondProfilId" />
+
+
+    </form>
+</div>
+@foreach (var item in Model.OrderByDescending(x => x.CreateOn))
+{
+
+    <h3>@item.Profil.UserName</h3>
+
+    <p>@item.Content</p>
+
+    <p>@item.CreateOn</p>
+
+
+
+}
+
+
+<script>
+
+    var response = document.getElementsByClassName('formForResponse')[0];
+    console.log(response);
+    var buttonElement = document.getElementById('buttonResponse').addEventListener('click', function (e) {
+
+
+        e.currentTarget.remove();
+
+        var elementTextArea = document.createElement('textarea');
+        elementTextArea.setAttribute('id', 'Content')
+        elementTextArea.setAttribute('name', 'Content')
+        elementTextArea.style = "height: 100px; width: 600px ; resize: none"
+
+        response.appendChild(elementTextArea);
+
+
+        var newButttonElement = document.createElement('button');
+        newButttonElement.setAttribute('type', 'submit');
+        newButttonElement.classList.add('btn-primary');
+        newButttonElement.innerHTML = 'изпрати'
+
+        response.appendChild(newButttonElement);
+
+
+    })
+
+</script>
