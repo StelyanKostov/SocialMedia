@@ -39,7 +39,7 @@ namespace SocialMedia.Services
 
         public List<ProfilViewModel> GetMessagesByProfilId(int myProfilId)
         {
-            var profilMes = this.db.Profils.Include(x => x.Messages).Where(y => y.Messages.Any(x => x.SecondProfilId == myProfilId)).ToList();
+            var profilMes = this.db.Profils.Include(x => x.Messages).Include(x=> x.Images).Where(y => y.Messages.Any(x => x.SecondProfilId == myProfilId)).ToList();
 
             var viewModel = this._mapper.Map<List<ProfilViewModel>>(profilMes);
 
@@ -49,22 +49,8 @@ namespace SocialMedia.Services
 
         public List<MessagesViewModel> GetMessagesByOneProfil(int myProfilId , int sendProfilId)
         {
-            //var pofilMes = this.db.Profils.Include(x => x.Messages).Where(y => y.Messages.Any(x => x.SecondProfilId == sendProfilId && x.ProfilId == myProfilId)).FirstOrDefault();
-            //var pofilMes2 = this.db.Messages.Include(x => x.Profil).Where(x => x.SecondProfilId == myProfilId && x.ProfilId == sendProfilId).ToList();
-
-            //var viewModel = this._mapper.Map<ProfilViewModel>(pofilMes);
-            //var viewModel2 = this._mapper.Map<List<MessagesViewModel>>(pofilMes2);
-            //if (viewModel == null)
-            //{
-            //    viewModel = this._mapper.Map<ProfilViewModel>(this.db.Profils.Include(x => x.Messages).Where(x => x.id == myProfilId).FirstOrDefault());
-            //    viewModel.Messages = new List<MessagesViewModel>();
-            //}
-
-            //viewModel.Messages.AddRange(viewModel2);
-
-
-            var mes = this.db.Messages.Include(x => x.Profil).Where(x => x.ProfilId == myProfilId && x.SecondProfilId == sendProfilId).ToList();
-            var mes2 = this.db.Messages.Include(x => x.Profil).Where(x => x.ProfilId == sendProfilId && x.SecondProfilId == myProfilId).ToList();
+            var mes = this.db.Messages.Include(x => x.Profil).Include(x => x.Profil.Images).Where(x => x.ProfilId == myProfilId && x.SecondProfilId == sendProfilId).ToList();
+            var mes2 = this.db.Messages.Include(x => x.Profil).Include(x=> x.Profil.Images).Where(x => x.ProfilId == sendProfilId && x.SecondProfilId == myProfilId).ToList();
 
             var viewModel = this._mapper.Map<List<MessagesViewModel>>(mes);
 
@@ -73,10 +59,6 @@ namespace SocialMedia.Services
             viewModel.AddRange(viewModel2);
 
             return viewModel;
-
-
-            //return viewModel;
-
         }
     }
 }

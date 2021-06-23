@@ -6,11 +6,22 @@
 @foreach (var item in Model)
 {
 
-    <a asp-action="OpenMessages" asp-route-id="@item.id">
+<a asp-action="OpenMessages" asp-route-id="@item.id">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <img src="~/images/ProfilImage/@item.UserName/@item.Images.Where(x=> x.ProfilImage).Select(x=> (x.Id + "." + x.Extension).ToString()).FirstOrDefault()" alt="Alternate Text" width="20%" />
+            </div>
+            <div class="col">
+                <h3>@item.UserName</h3>
+                <p>@item.Messages.OrderByDescending(x => x.CreateOn).FirstOrDefault().Content</p>
+            </div>
+           
+        </div>
+    </div>
+    
+   
 
-        <h3>@item.UserName</h3>
-        <p>@item.Messages.OrderByDescending(x => x.CreateOn).FirstOrDefault().Content</p>
-
-    </a>
+</a>
 }
 

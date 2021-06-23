@@ -15,25 +15,82 @@
 
         <input type="submit" class="btn btn-primary" />
     </form>
-}
 
-<div class="container">
-    <div class="row">
+    <div class="container">
+        <div class="row">
 
-        @foreach (var item in @Model.Images)
-        {
-            <div class="col">
-                <a href="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" data-toggle="lightbox" data-gallery="gallery" class="col-md-4">
-                    <img src="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" class="img-fluid rounded">
-                </a>
-                @if (this.SignInManager.UserManager.GetUserId(this.User) == Model.ApplicationUserId)
-                {
-                    <a class="btn  btn-primary" asp-controller="Profil" asp-action="RealDeleteImage" asp-route-idProfil="@Model.id" asp-route-idImage="@item.Id">Delete</a>
-                    <a class="btn  btn-primary" asp-controller="Profil" asp-action="SetProfilImage" asp-route-idProfil="@Model.ApplicationUserId" asp-route-idImage="@item.Id">Направи профилна</a>
-                }
+            @foreach (var item in @Model.Images)
+            {
+                <div class="col">
+                    <a href="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" data-toggle="lightbox" data-gallery="gallery" class="col-md-4">
+                        <img src="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" class="img-fluid rounded">
+                    </a>
+                    @if (this.SignInManager.UserManager.GetUserId(this.User) == Model.ApplicationUserId)
+                    {
+                        <a class="btn  btn-primary" asp-controller="Profil" asp-action="RealDeleteImage" asp-route-idProfil="@Model.id" asp-route-idImage="@item.Id">Delete</a>
+                        <a class="btn  btn-primary" asp-controller="Profil" asp-action="SetProfilImage" asp-route-idProfil="@Model.ApplicationUserId" asp-route-idImage="@item.Id">Направи профилна</a>
+                    }
 
-            </div>}
+                </div>}
+
+        </div>
 
     </div>
+}
+else
+{
 
-</div>
+    @section style {
+        <link href="https://fonts.googleapis.com/css?family=DM+Serif+Text|Lexend+Deca&display=swap" rel="stylesheet">
+        <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+        <link href="~/gallery/css/mini.css" rel="stylesheet" />
+        <link href="~/gallery/css/style.css" rel="stylesheet" />
+
+
+    }
+
+    <div class="content">
+        <div class="gg-container">
+            <div class="gg-box">
+                @foreach (var item in @Model.Images)
+                {
+                    <img src="~/images/ProfilImage/@item.Profil.UserName/@item.Id.@item.Extension">
+
+                }
+
+            </div>
+        </div>
+
+    </div>
+    @section Scripts {
+        @*<script src="~/gallery/js/mini.js"></script>*@
+
+        @*<script>
+            gridGallery({
+                selector: ".dark",
+                darkMode: true
+            });
+            gridGallery({
+                selector: "#horizontal",
+                layout: "horizontal"
+            });
+            gridGallery({
+                selector: "#square",
+                layout: "square"
+            });
+            gridGallery({
+                selector: "#gap",
+                gaplength: 10
+            });
+            gridGallery({
+                selector: "#heightWidth",
+                rowHeight: 180,
+                columnWidth: 280
+            });
+        </script>*@
+        <script src="~/gallery/js/main.js"></script>
+
+    }
+
+}
+

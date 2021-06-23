@@ -1,4 +1,11 @@
-﻿@model List<SocialMedia.ViewModels.Messages.MessagesViewModel>
+﻿@using Microsoft.AspNetCore.Identity
+@using SocialMedia.Data
+@model List<SocialMedia.ViewModels.Messages.MessagesViewModel>
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    var rezult = @Model.FirstOrDefault().ProfilId == @SignInManager.UserManager.GetUserAsync(this.User).Result.Profil.id ? @Model.FirstOrDefault().SecondProfilId : @Model.FirstOrDefault().ProfilId;
+}
 
 <button id="buttonResponse" class="btn btn-primary" type="button">Отговори</button>
 
@@ -6,8 +13,8 @@
 
 <div class="Response">
     <form class="formForResponse" asp-action="SendMessages" method="post">
-        <input type="hidden" asp-for="@Model.FirstOrDefault().ProfilId" value="@Model.FirstOrDefault().ProfilId" />
-        <input type="hidden" asp-for="@Model.FirstOrDefault().SecondProfilId" value="@Model.FirstOrDefault().SecondProfilId" />
+        <input type="hidden" asp-for="@Model.FirstOrDefault().ProfilId" value="@SignInManager.UserManager.GetUserAsync(this.User).Result.Profil.id" />
+        <input type="hidden" asp-for="@Model.FirstOrDefault().SecondProfilId" value="@rezult" />
 
 
     </form>
@@ -15,13 +22,24 @@
 @foreach (var item in Model.OrderByDescending(x => x.CreateOn))
 {
 
-    <h3>@item.Profil.UserName</h3>
 
-    <p>@item.Content</p>
-
-    <p>@item.CreateOn</p>
-
-
+    <div class="container border " style="font-weight:500" >
+        <div class="row">
+            <div class="col-2 ">
+                <img src="~/images/ProfilImage/@item.Profil.UserName/@item.Profil.Images.Where(x => x.ProfilImage).Select(x => (x.Id + "." + x.Extension).ToString()).FirstOrDefault()" alt="" width="100%" />
+            </div>
+            <div class="col">
+                <h3>@item.Profil.UserName</h3>
+                <p>@item.Content</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p>@item.CreateOn</p>
+            </div>
+        </div>
+    </div>
+    <hr />
 
 }
 
