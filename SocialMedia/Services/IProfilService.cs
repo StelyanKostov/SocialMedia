@@ -14,10 +14,7 @@ namespace SocialMedia.Services
 
         public void EditProfil(ProfilViewModel viewModel);
 
-        public void AddImgae(IEnumerable<IFormFile> ImagesVieModel, string imagePath, string userId);
-
-        public void RealDeleteImage(int idProfil, string idImage);
-        public void SetProfilImage(string idProfil, string idImage);
+        public Profils getProfil(string id);
 
         public List<ProfilViewModel> AllProfils();
 

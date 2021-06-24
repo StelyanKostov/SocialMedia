@@ -60,44 +60,7 @@ namespace SocialMedia.Controllers
             return this.RedirectToAction("Index");
         }
 
-        public IActionResult Gallery(int id)
-        {
-
-            var viewModel = this.profilService.getProfilByProfilId(id);
-            return this.View(viewModel);
-        }
-
-        [HttpPost]
-         public IActionResult Gallery(ProfilViewModel viewModel)
-        {
-            var userId = this._userManager.GetUserId(this.User);
-            var path = $"{this.environment.WebRootPath}/images";
-          
-            try
-            {
-                this.profilService.AddImgae(viewModel.ImagesVieModel, path, userId);
-            }
-            catch (Exception ex)
-            {
-
-                return this.Content(ex.Message);
-
-            }
-            return this.RedirectToAction("Gallery", new { id = viewModel.id });
-        }
-
-        public IActionResult RealDeleteImage(int idProfil , string idImage)
-        {
-            this.profilService.RealDeleteImage(idProfil, idImage);
-
-            return this.RedirectToAction("Gallery", new { id = idProfil });
-        }
-
-        public IActionResult SetProfilImage(string idProfil, string idImage)
-        {
-            this.profilService.SetProfilImage(idProfil, idImage);
-            return this.RedirectToAction("Index");
-        }
+  
 
         //todooooo
         public IActionResult AllProfils()

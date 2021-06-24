@@ -48,9 +48,12 @@ namespace SocialMedia
             services.AddRazorPages();
             services.AddTransient<IProfilService, ProfilService>();
             services.AddTransient<IMessagesService, MessagesService>();
+            services.AddTransient<IGalleryService, GalleryService>();
 
 
-            
+
+
+
 
             var mapperConfig = new MapperConfiguration(mc =>
             {

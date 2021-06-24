@@ -1,32 +1,24 @@
-﻿using System;
+﻿using SocialMedia.Data;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SocialMedia.Data
+namespace SocialMedia.ViewModels.Image
 {
-    public class Image
+    public class ImageViewModel
     {
-        public Image()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
         public string Id { get; set; }
-
-
-        public int ProfilId { get; set; }
         public virtual Profils Profil { get; set; }
 
         public string Extension { get; set; }
 
-        //// The contents of the image is in the file system
 
         public bool ProfilImage { get; set; }
         public string RemoteImageUrl { get; set; }
+
         public DateTime CreatedOn { get; set; }
 
         public string Description { get; set; }
-
     }
 }

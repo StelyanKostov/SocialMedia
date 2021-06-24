@@ -1,8 +1,37 @@
-﻿@{
+﻿@model List<SocialMedia.ViewModels.Image.ImageViewModel>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    @foreach (var item in Model.OrderByDescending(x => x.CreatedOn).ToList())
+    {
+
+
+
+        @*<div class="col-sm-4 border">
+
+            <a asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.Profil.id">
+                <h3>@item.Profil.UserName</h3>
+                <div class="text-center">
+                    <img src="~/images/ProfilImage/@item.Profil.UserName/@item.Id.@item.Extension" alt="Alternate Text" width="100%" class="rounded" />
+                </div>
+
+            </a>
+        </div>*@
+    <a asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.Profil.id">
+        <div class="card" style="width: 20rem;">
+            <h3>@item.Profil.UserName</h3>
+            <img class="card-img-top" src="~/images/ProfilImage/@item.Profil.UserName/@item.Id.@item.Extension" alt="Card image cap">
+            <div class="card-body">
+                <p class="card-text">@item.Description</p>
+            </div>
+        </div>
+        
+    </a>
+    }
+
+
 </div>

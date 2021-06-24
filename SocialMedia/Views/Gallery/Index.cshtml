@@ -12,6 +12,8 @@
             <input asp-for="@Model.ImagesVieModel" class="form-control" />
             <span asp-validation-for="@Model.ImagesVieModel" class="text-danger"></span>
         </div>
+        <label asp-for="@Model.Description">Описание</label>
+        <textarea asp-for="@Model.Description"></textarea>
 
         <input type="submit" class="btn btn-primary" />
     </form>
@@ -27,8 +29,8 @@
                     </a>
                     @if (this.SignInManager.UserManager.GetUserId(this.User) == Model.ApplicationUserId)
                     {
-                        <a class="btn  btn-primary" asp-controller="Profil" asp-action="RealDeleteImage" asp-route-idProfil="@Model.id" asp-route-idImage="@item.Id">Delete</a>
-                        <a class="btn  btn-primary" asp-controller="Profil" asp-action="SetProfilImage" asp-route-idProfil="@Model.ApplicationUserId" asp-route-idImage="@item.Id">Направи профилна</a>
+                        <a class="btn  btn-primary" asp-controller="Gallery" asp-action="RealDeleteImage" asp-route-idProfil="@Model.id" asp-route-idImage="@item.Id">Delete</a>
+                        <a class="btn  btn-primary" asp-controller="Gallery" asp-action="SetProfilImage" asp-route-idProfil="@Model.ApplicationUserId" asp-route-idImage="@item.Id">Направи профилна</a>
                     }
 
                 </div>}
@@ -66,28 +68,28 @@ else
         @*<script src="~/gallery/js/mini.js"></script>*@
 
         @*<script>
-            gridGallery({
-                selector: ".dark",
-                darkMode: true
-            });
-            gridGallery({
-                selector: "#horizontal",
-                layout: "horizontal"
-            });
-            gridGallery({
-                selector: "#square",
-                layout: "square"
-            });
-            gridGallery({
-                selector: "#gap",
-                gaplength: 10
-            });
-            gridGallery({
-                selector: "#heightWidth",
-                rowHeight: 180,
-                columnWidth: 280
-            });
-        </script>*@
+                gridGallery({
+                    selector: ".dark",
+                    darkMode: true
+                });
+                gridGallery({
+                    selector: "#horizontal",
+                    layout: "horizontal"
+                });
+                gridGallery({
+                    selector: "#square",
+                    layout: "square"
+                });
+                gridGallery({
+                    selector: "#gap",
+                    gaplength: 10
+                });
+                gridGallery({
+                    selector: "#heightWidth",
+                    rowHeight: 180,
+                    columnWidth: 280
+                });
+            </script>*@
         <script src="~/gallery/js/main.js"></script>
 
     }

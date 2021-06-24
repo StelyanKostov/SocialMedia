@@ -16,7 +16,7 @@ namespace SocialMedia.Services
     {
         private readonly ApplicationDbContext db;
         private readonly IMapper _mapper;
-        private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
+       
 
 
         public ProfilService(ApplicationDbContext db, IMapper mapper)
@@ -56,7 +56,7 @@ namespace SocialMedia.Services
             this.db.SaveChanges();
         }
 
-        private Profils getProfil(string id)
+        public Profils getProfil(string id)
         {
             var profile = this.db.Profils.Include(x=> x.Images).Where(x => x.ApplicationUserId == id).FirstOrDefault();
             return profile;
@@ -70,66 +70,7 @@ namespace SocialMedia.Services
 
         }
 
-        public void AddImgae(IEnumerable<IFormFile> ImagesVieModel, string imagePath, string userId)
-        {
-            var profil = this.getProfil(userId);
-
-            Directory.CreateDirectory($"{imagePath}/ProfilImage/{profil.UserName}/");
-            foreach (var image in ImagesVieModel)
-            {
-                var extension = Path.GetExtension(image.FileName).TrimStart('.');
-                if (!this.allowedExtensions.Any(x => extension.EndsWith(x)))
-                {
-                    throw new Exception($"Invalid image extension {extension}");
-                }
-
-                var dbImage = new Image
-                {
-                    ProfilId = profil.id,
-                    Extension = extension,
-                };
-                profil.Images.Add(dbImage);
-               
-                var physicalPath = $"{imagePath}/ProfilImage/{profil.UserName}/{dbImage.Id}.{extension}";
-                using Stream fileStream = new FileStream(physicalPath, FileMode.Create);
-                image.CopyTo(fileStream);
-
-                this.db.SaveChanges();
-            }
-        }
-
-
-        public void RealDeleteImage(int idProfil , string idImage)
-        {
-            var profil = this.db.Profils.Include(x => x.Images).Where(x => x.id == idProfil).FirstOrDefault();
-
-            var image = profil.Images.Where(x => x.Id == idImage).FirstOrDefault();
-
-
-            this.db.images.Remove(image);
-
-           this.db.SaveChanges();
-        }
-
-        public void SetProfilImage(string idProfil, string idImage)
-        {
-            var profil = this.getProfil(idProfil);
-
-            var image = profil.Images.Where(x => x.ProfilImage).FirstOrDefault();
-
-            if (image != null)
-            {
-                image.ProfilImage = false;
-
-            }
-
-            var newProfilImage = profil.Images.Where(x => x.Id == idImage).FirstOrDefault();
-
-            newProfilImage.ProfilImage = true;
-
-            this.db.SaveChanges();
-
-        }
+        
 
         public List<ProfilViewModel> AllProfils()
         {

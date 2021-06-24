@@ -1,4 +1,4 @@
-﻿.gg-container {
+﻿/*.gg-container {
     --main-color: #000;
     --secondary-color: #111;
     --txt-color: #fff;
@@ -129,3 +129,4 @@
         grid-template-columns: repeat(auto-fit,minmax(130px,1fr))
     }
 }
+*/
