@@ -19,5 +19,7 @@ namespace SocialMedia.Data
         public virtual Profils Profil { get; set; }
 
         public int SecondProfilId { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

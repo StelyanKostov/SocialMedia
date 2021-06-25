@@ -10,6 +10,7 @@ namespace SocialMedia.Data
     {
         public Image()
         {
+            this.Comments = new HashSet<Comments>();
             this.Id = Guid.NewGuid().ToString();
         }
         public string Id { get; set; }
@@ -27,6 +28,10 @@ namespace SocialMedia.Data
         public DateTime CreatedOn { get; set; }
 
         public string Description { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public ICollection<Comments> Comments { get; set; }
 
     }
 }

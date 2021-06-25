@@ -49,6 +49,8 @@ namespace SocialMedia.Data
 
         public string Cigarettes { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         public ICollection<Image> Images { get; set; }
 
         public ICollection<Messages> Messages { get; set; }
