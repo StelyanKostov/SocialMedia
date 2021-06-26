@@ -1,11 +1,14 @@
-﻿@model List<SocialMedia.ViewModels.Image.ImageViewModel>
+﻿@using Microsoft.AspNetCore.Identity
+@using SocialMedia.Data
+@inject SignInManager<ApplicationUser> SignInManager
+@model List<SocialMedia.ViewModels.Image.ImageViewModel>
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="mx-auto" style="width: 360px;">
-
+    <input type="hidden" class="profil-id" value="@SignInManager.UserManager.GetUserAsync(this.User).Result.Profil.id" />
     @foreach (var item in Model.OrderByDescending(x => x.CreatedOn).ToList())
     {
 
@@ -13,29 +16,82 @@
 
         @*<div class="col-sm-4 border">
 
-            <a asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.Profil.id">
-                <h3>@item.Profil.UserName</h3>
-                <div class="text-center">
-                    <img src="~/images/ProfilImage/@item.Profil.UserName/@item.Id.@item.Extension" alt="Alternate Text" width="100%" class="rounded" />
-                </div>
+                <a asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.Profil.id">
+                    <h3>@item.Profil.UserName</h3>
+                    <div class="text-center">
+                        <img src="~/images/ProfilImage/@item.Profil.UserName/@item.Id.@item.Extension" alt="Alternate Text" width="100%" class="rounded" />
+                    </div>
 
-            </a>
-        </div>*@
-    <a asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.Profil.id">
+                </a>
+            </div>*@
         <div class="card" style="width: 30rem;  margin-top: 20px !important">
-            <h5 class="font-italic">@item.Profil.UserName</h5>
-            <img class="card-img-top" src="~/images/ProfilImage/@item.Profil.UserName/@item.Id.@item.Extension" alt="Card image cap" >
-            <div class="card-body">
-                <p class="card-text">@item.Description</p>
-            </div>
-        </div>
-        
-    </a>
+            <a asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.Profil.id">
 
-    <div style=" margin-top: 10 !important;">
-                          
-    </div>
+                <h5 class="font-italic">@item.Profil.UserName</h5>
+                <img class="card-img-top" src="~/images/ProfilImage/@item.Profil.UserName/@item.Id.@item.Extension" alt="Card image cap">
+                <input type="hidden" class="img-id" value="@item.Id" />
+                <div class="card-body">
+                    <p class="card-text">@item.Description</p>
+                </div>
+            </a>
+            <button type="submit" class="button-comments bnt btn-primary">Comments</button>
+
+        </div>
+
+
+        <div style=" margin-top: 10 !important;">
+
+        </div>
     }
 
 
 </div>
+
+<script>
+
+    let buttonElement = document
+        .querySelectorAll('.button-comments')
+        .forEach(x => x.addEventListener('click', function (e) {
+            let formElement = document.createElement('form');
+
+            let textareaElement = document.createElement('textarea');
+            formElement.appendChild(textareaElement)
+
+            let buttonElement = document.createElement('button');
+            buttonElement.innerHTML = 'Коментирай'
+            buttonElement.classList.add('button-send-comment')
+            formElement.appendChild(buttonElement)
+
+            var divElement = e.currentTarget.parentNode;
+            buttonElement.addEventListener('click', function (e) {
+                e.preventDefault();
+
+
+                var content = textareaElement.value;
+                var imgId = divElement.getElementsByClassName('img-id')[0].value;
+                var profilIdCommented = document.getElementsByClassName('profil-id')[0].value;
+
+                fetch('FeatureImage/AddComment',
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json; charset=utf-8',
+                            'Content-Type': 'application/json;charset=UTF-8'
+                        },
+                        body: JSON.stringify([imgId, content, profilIdCommented])
+                    })
+                    .then(x => x.json)
+                    .then(x => console.log(x));
+
+                formElement.remove();
+            })
+            
+            e.currentTarget.parentNode.appendChild(formElement)
+
+            e.currentTarget.remove();
+        }));
+
+
+
+
+</script>

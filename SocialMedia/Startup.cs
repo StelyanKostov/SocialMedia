@@ -11,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using SocialMedia.AutoMapper;
 using SocialMedia.Data;
 using SocialMedia.Services;
+using SocialMedia.Services.FeatureImage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,10 +50,7 @@ namespace SocialMedia
             services.AddTransient<IProfilService, ProfilService>();
             services.AddTransient<IMessagesService, MessagesService>();
             services.AddTransient<IGalleryService, GalleryService>();
-
-
-
-
+            services.AddTransient<IFeatureImageService, FeatureImageService>();
 
 
             var mapperConfig = new MapperConfiguration(mc =>
