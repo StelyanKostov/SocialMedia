@@ -7,8 +7,12 @@
     ViewData["Title"] = "Home Page";
 }
 
+
 <div class="mx-auto" style="width: 360px;">
-    <input type="hidden" class="profil-id" value="@SignInManager.UserManager.GetUserAsync(this.User).Result.Profil.id" />
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <input type="hidden" class="profil-id" value="@SignInManager.UserManager.GetUserAsync(this.User).Result.Profil.id" />
+    }
     @foreach (var item in Model.OrderByDescending(x => x.CreatedOn).ToList())
     {
 
@@ -34,7 +38,10 @@
                     <p class="card-text">@item.Description</p>
                 </div>
             </a>
-            <button type="submit" class="button-comments bnt btn-primary">Comments</button>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <button type="submit" class="button-comments bnt btn-primary">Comments</button>
+            }
 
         </div>
 
@@ -63,12 +70,48 @@
             formElement.appendChild(buttonElement)
 
             var divElement = e.currentTarget.parentNode;
+            var imgId = divElement.getElementsByClassName('img-id')[0].value;
+
+            fetch(`FeatureImage/GetComments?ImgId=${imgId}`,
+                {
+                    headers: {
+                        'Accept': 'application/json; charset=utf-8',
+                        'Content-Type': 'application/json;charset=UTF-8'
+                    }
+
+                })
+                .then(x => x.json())
+                .then(x => {
+
+                    let divElementForComments = document.createElement('div');
+                    divElementForComments.innerHTML = 'Коментари';
+                    divElementForComments.classList.add('list-group');
+                    x[0].comments.forEach(x => {
+
+                        let path = '/Profil/OpenProfil/';
+                        let aElement = document.createElement('a');
+                        aElement.innerHTML ='from '+ x.username + ' : '+ x.content;
+                        aElement.classList.add('list-group-item');
+                        aElement.classList.add('list-group-item-action');
+
+                        aElement.setAttribute('href', path + x.commentingId);
+
+                        divElementForComments.appendChild(aElement);
+
+                    })
+
+                    divElement.appendChild(divElementForComments)
+                })
+                .catch(x => console.log(x))
+
+
+
             buttonElement.addEventListener('click', function (e) {
                 e.preventDefault();
 
 
                 var content = textareaElement.value;
-                var imgId = divElement.getElementsByClassName('img-id')[0].value;
+                //var imgId = divElement.getElementsByClassName('img-id')[0].value;
                 var profilIdCommented = document.getElementsByClassName('profil-id')[0].value;
 
                 fetch('FeatureImage/AddComment',
@@ -80,18 +123,15 @@
                         },
                         body: JSON.stringify([imgId, content, profilIdCommented])
                     })
-                    .then(x => x.json)
-                    .then(x => console.log(x));
+                
 
                 formElement.remove();
             })
-            
+
             e.currentTarget.parentNode.appendChild(formElement)
 
             e.currentTarget.remove();
         }));
-
-
 
 
 </script>

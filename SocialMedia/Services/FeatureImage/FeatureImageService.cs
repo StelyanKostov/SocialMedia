@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SocialMedia.Data;
+using SocialMedia.ViewModels.Comments;
+using SocialMedia.ViewModels.Image;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +23,7 @@ namespace SocialMedia.Services.FeatureImage
             this.profilService = profilService;
         }
 
-        public void AddComment(string ImgId , string content ,int ProfilIdCommented)
+        public void AddComment(string ImgId, string content, int ProfilIdCommented)
         {
             var image = this.db.images.Where(x => x.Id == ImgId).FirstOrDefault();
 
@@ -28,11 +31,34 @@ namespace SocialMedia.Services.FeatureImage
             {
                 Content = content,
                 CreatedOn = DateTime.Now,
-                ProfilIdCommented = ProfilIdCommented,               
+                ProfilIdCommented = ProfilIdCommented,
             });
 
             this.db.SaveChanges();
-            
+
+        }
+
+        public object GetCommentsImage(string ImgId)
+        {
+            var comments = this.db.images.Include(x => x.Comments).Include(x => x.Profil).Where(x => x.Id == ImgId).ToList();
+
+            var viewModel = _mapper.Map<List<ImageViewModel>>(comments);
+
+
+            var rezult = viewModel.Select(x => new
+            {
+                userNameCommend = x.Profil.UserName,
+                comments = x.Comments.Select(y => new
+                {
+                    content = y.Content,
+                    commentingId = y.ProfilIdCommented,
+                    username = this.profilService.getProfilByProfilId(y.ProfilIdCommented).UserName
+
+                }).ToList()
+
+            }).ToList();
+
+            return rezult;
         }
     }
 }

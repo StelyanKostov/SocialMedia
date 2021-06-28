@@ -18,11 +18,10 @@ namespace SocialMedia.AutoMapper
             CreateMap<Data.Messages, ViewModels.Messages.MessagesViewModel>();
 
             CreateMap<Data.Image, ViewModels.Image.ImageViewModel>();
+            CreateMap<ViewModels.Image.ImageViewModel, Data.Image>();
 
-
-
-
-
+            CreateMap<ViewModels.Comments.CommentsViewModel, Data.Comments>();
+            CreateMap<Data.Comments, ViewModels.Comments.CommentsViewModel>();
 
         }
 
