@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SocialMedia.Services.FeatureImage;
 using SocialMedia.ViewModels.Comments;
@@ -24,14 +25,28 @@ namespace SocialMedia.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult AddComment([FromBody]string[] data)
         {
-            this.featureImageService.AddComment(data[0], data[1], int.Parse(data[2]));
 
-            return this.Json(new {});
+            try
+            {
+              var rezultUsername = this.featureImageService.AddComment(data[0], data[1], int.Parse(data[2]));
+
+                return this.Json(new { commentingId = data[2], username = rezultUsername,content = data[1] });
+
+
+            }
+            catch (Exception)
+            {
+                return this.Json(new { });
+
+                throw;
+            }
+
         }
 
-        
+        [Authorize]
         public JsonResult GetComments([FromQuery]string ImgId)
         {
             var viewModel = this.featureImageService.GetCommentsImage(ImgId);
@@ -41,6 +56,7 @@ namespace SocialMedia.Controllers
             return this.Json(viewModel);
             
         }
+        [Authorize]
         [HttpPost]
         public IActionResult LikeImage([FromBody]string[] data)
         {

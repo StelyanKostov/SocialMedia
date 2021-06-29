@@ -23,7 +23,7 @@ namespace SocialMedia.Services.FeatureImage
             this.profilService = profilService;
         }
 
-        public void AddComment(string ImgId, string content, int ProfilIdCommented)
+        public string AddComment(string ImgId, string content, int ProfilIdCommented)
         {
             var image = this.db.images.Where(x => x.Id == ImgId).FirstOrDefault();
 
@@ -36,6 +36,7 @@ namespace SocialMedia.Services.FeatureImage
 
             this.db.SaveChanges();
 
+            return this.db.Profils.Where(x => x.id == ProfilIdCommented).FirstOrDefault().UserName;
         }
 
         public object GetCommentsImage(string ImgId)
