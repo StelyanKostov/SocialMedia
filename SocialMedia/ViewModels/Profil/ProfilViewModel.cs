@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SocialMedia.Data;
 using SocialMedia.ViewModels.Image;
+using SocialMedia.ViewModels.Likes;
 using SocialMedia.ViewModels.Messages;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,7 @@ namespace SocialMedia.ViewModels.Profil
         public IEnumerable<IFormFile> ImagesVieModel { get; set; }
 
         public List<MessagesViewModel> Messages { get; set; }
+
 
     }
 }

@@ -11,6 +11,8 @@ namespace SocialMedia.Data
         public Image()
         {
             this.Comments = new HashSet<Comments>();
+            this.Likes = new HashSet<Likes>();
+
             this.Id = Guid.NewGuid().ToString();
         }
         public string Id { get; set; }
@@ -32,6 +34,9 @@ namespace SocialMedia.Data
         public bool IsDeleted { get; set; }
 
         public ICollection<Comments> Comments { get; set; }
+
+        public ICollection<Likes> Likes { get; set; }
+
 
     }
 }

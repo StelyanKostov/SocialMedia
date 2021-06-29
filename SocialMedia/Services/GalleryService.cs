@@ -91,7 +91,7 @@ namespace SocialMedia.Services
         }
        public List<ImageViewModel> GetAllImage()
         {
-            var image = this.db.images.Include(x => x.Profil).ToList();
+            var image = this.db.images.Include(x => x.Profil).Include(x=> x.Likes).ToList();
 
             var viewModel = this._mapper.Map<List<ImageViewModel>>(image);
 

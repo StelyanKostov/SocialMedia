@@ -1,5 +1,6 @@
 ﻿using SocialMedia.Data;
 using SocialMedia.ViewModels.Comments;
+using SocialMedia.ViewModels.Likes;
 using SocialMedia.ViewModels.Profil;
 using System;
 using System.Collections.Generic;
@@ -24,5 +25,7 @@ namespace SocialMedia.ViewModels.Image
         public string Description { get; set; }
 
         public IEnumerable<CommentsViewModel> Comments { get; set; }
+        public ICollection<LikesViewModel> Likes { get; set; }
+
     }
 }

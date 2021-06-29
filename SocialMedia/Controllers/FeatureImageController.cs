@@ -8,6 +8,7 @@ using SocialMedia.ViewModels.Profil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -38,11 +39,18 @@ namespace SocialMedia.Controllers
             
 
             return this.Json(viewModel);
-            //return this.Json(new[] {
-            //    new { Name = "Niki2", Date = DateTime.UtcNow.ToString("O") },
-            //    new { Name = "Stoyan2", Date = DateTime.UtcNow.AddDays(1).ToString("O") },
-            //    new { Name = "Pesho2", Date = DateTime.UtcNow.AddDays(2).ToString("O") },
-            //});
+            
         }
+        [HttpPost]
+        public IActionResult LikeImage([FromBody]string[] data)
+        {
+
+            var count =   this.featureImageService.LikeImage(data[0], int.Parse(data[1]));
+
+            return this.Json(new {count = count });
+
+           
+        }
+       
     }
 }

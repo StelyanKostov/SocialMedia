@@ -21,6 +21,9 @@ namespace SocialMedia.Data
 
         public DbSet<Comments> Comments { get; set; }
 
+        public DbSet<Likes> Likes { get; set; }
+
+
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

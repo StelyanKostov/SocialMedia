@@ -40,7 +40,10 @@
             </a>
             @if (SignInManager.IsSignedIn(User))
             {
+                <p class="like-count">Likes: @item.Likes.Count()</p>
                 <button type="submit" class="button-comments bnt btn-primary">Comments</button>
+                <button type="submit" class="button-like bnt btn-primary">Like</button>
+
             }
 
         </div>
@@ -54,6 +57,36 @@
 
 </div>
 
+<script>
+    let likeButton = document.querySelectorAll('.button-like').forEach(x => x.addEventListener('click', function (e) {
+
+        let divElement = e.currentTarget.parentNode;
+        let imgid = divElement.getElementsByClassName('img-id')[0].value
+        var profilIdLiked = document.getElementsByClassName('profil-id')[0].value;
+
+
+        fetch('FeatureImage/LikeImage',
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify([imgid, profilIdLiked])
+            })
+            .then(x => x.json())
+            .then(x => {
+
+                let likesElement = divElement.getElementsByClassName('like-count')[0];
+
+                likesElement.innerHTML = `Likes: ${x.count}`
+               
+            }
+            )
+
+    }))
+
+</script>
 <script>
 
     let buttonElement = document
@@ -90,7 +123,7 @@
 
                         let path = '/Profil/OpenProfil/';
                         let aElement = document.createElement('a');
-                        aElement.innerHTML ='from '+ x.username + ' : '+ x.content;
+                        aElement.innerHTML = 'from ' + x.username + ' : ' + x.content;
                         aElement.classList.add('list-group-item');
                         aElement.classList.add('list-group-item-action');
 
@@ -123,7 +156,7 @@
                         },
                         body: JSON.stringify([imgId, content, profilIdCommented])
                     })
-                
+
 
                 formElement.remove();
             })

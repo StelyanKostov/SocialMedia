@@ -23,6 +23,11 @@ namespace SocialMedia.AutoMapper
             CreateMap<ViewModels.Comments.CommentsViewModel, Data.Comments>();
             CreateMap<Data.Comments, ViewModels.Comments.CommentsViewModel>();
 
+            CreateMap<Data.Likes, ViewModels.Likes.LikesViewModel>();
+            CreateMap<ViewModels.Likes.LikesViewModel, Data.Likes>();
+
+
+
         }
 
     }

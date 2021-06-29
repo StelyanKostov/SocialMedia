@@ -10,5 +10,7 @@ namespace SocialMedia.Services.FeatureImage
         public void AddComment(string id , string content, int ProfilIdCommented);
 
         public object GetCommentsImage(string ImgId);
+
+        public int LikeImage(string imdId, int profilIdLikedImg);
     }
 }

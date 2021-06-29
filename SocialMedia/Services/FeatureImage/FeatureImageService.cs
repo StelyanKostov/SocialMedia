@@ -60,5 +60,28 @@ namespace SocialMedia.Services.FeatureImage
 
             return rezult;
         }
+
+        public int LikeImage(string imdId, int profilIdLikedImg)
+        {
+            var img = this.db.images.Include(x=> x.Likes).Where(x => x.Id == imdId).FirstOrDefault();
+            
+            if (img.Likes.Any(x=> x.ProfilIdLiked == profilIdLikedImg))
+            {
+                
+            }
+            else
+            {
+                img.Likes.Add(new Likes()
+                {
+                    ProfilIdLiked = profilIdLikedImg,
+                    
+
+                });
+
+                this.db.SaveChanges();
+            }
+
+            return img.Likes.Count();
+        }
     }
 }
