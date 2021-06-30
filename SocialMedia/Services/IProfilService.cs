@@ -16,11 +16,11 @@ namespace SocialMedia.Services
 
         public Profils getProfil(string id);
 
-        public List<ProfilViewModel> AllProfils();
+        public AllProfils AllProfils();
 
         public ProfilViewModel getProfilByProfilId(int id);
 
 
-
+        public AllProfils SearchByUsername(string username);
     }
 }

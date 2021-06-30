@@ -72,13 +72,17 @@ namespace SocialMedia.Services
 
         
 
-        public List<ProfilViewModel> AllProfils()
+        public AllProfils AllProfils()
         {
             var profils = this.db.Profils.Include(x => x.Images).ToList();
 
             var profilViewModel = _mapper.Map<List<ProfilViewModel>>(profils);
 
-            return profilViewModel;
+            var viewModel = new AllProfils();
+
+            viewModel.profils = profilViewModel;
+
+            return viewModel;
         }
 
         public ProfilViewModel getProfilByProfilId(int id)
@@ -90,6 +94,19 @@ namespace SocialMedia.Services
             return profilViewModel;
 
         }
-     
+
+        public AllProfils SearchByUsername(string username)
+        {
+            var profils = this.db.Profils.Include(x => x.Images).Where(x => x.UserName.Contains(username)).ToList();
+
+            var mapProfils = _mapper.Map<List<ProfilViewModel>>(profils);
+
+
+            var viewModel = new AllProfils();
+
+            viewModel.profils = mapProfils;
+
+            return viewModel;
+        }
     }
 }

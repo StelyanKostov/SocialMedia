@@ -44,9 +44,9 @@
             @if (SignInManager.IsSignedIn(User))
             {
                 <nav>
-                    <i class="fas fa-thumbs-up button-like" style="font-size:25px"> @item.Likes.Count()</i>
+                    <button class="btn btn-primary btn-lg button-like" type="button"><i class="fas fa-thumbs-up" style="font-size:25px"> @item.Likes.Count()</i></button>
 
-                    <i class="fas fa-comments button-comments" style="font-size:25px">@item.Comments.Count()</i>
+                    <button class="btn btn-primary btn-lg button-comments"type="button">  <i class="fas fa-comments" style="font-size:25px"> @item.Comments.Count()</i></button>
                 </nav>
 
                 @*<button type="submit" class="button-comments bnt btn-primary">Comments</button>*@
@@ -89,10 +89,9 @@
             .then(x => x.json())
             .then(x => {
 
-                let likesElement = divElement.getElementsByClassName('button-like')[0];
+                let likesElement = divElement.getElementsByClassName('button-like')[0].querySelectorAll('i')[0];
 
                 likesElement.innerHTML = ' ' + x.count
-
             }
             )
 
@@ -149,7 +148,7 @@
                         divElementForComments.appendChild(aElement);
 
                     })
-                   
+
                     divElement.appendChild(divElementForComments)
                 })
                 .catch(x => console.log(x))
@@ -187,11 +186,11 @@
                         aElement.setAttribute('href', path + x.commentingId);
 
                         divCommentsElement.appendChild(aElement);
-                      
+
                     })
 
-                 
-               
+
+
 
                 formElement.remove();
             })

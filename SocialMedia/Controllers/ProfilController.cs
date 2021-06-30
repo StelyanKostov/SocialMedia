@@ -42,7 +42,7 @@ namespace SocialMedia.Controllers
             var viewModel = this.profilService.getProfilByUserId(id);
             return this.View(viewModel);
         }
-        public IActionResult Edit(string id )
+        public IActionResult Edit(string id)
         {
             var viewModel = this.profilService.getProfilByUserId(id);
 
@@ -60,20 +60,24 @@ namespace SocialMedia.Controllers
             return this.RedirectToAction("Index");
         }
 
-  
+
 
         //todooooo
-        public IActionResult AllProfils()
+        public IActionResult AllProfils(List<ProfilViewModel> viewModel)
         {
+
             var profils = this.profilService.AllProfils();
-
-            var viewModel = new AllProfils();
-
-            viewModel.profils = profils;
-            return this.View(viewModel);
+            return this.View(profils);
         }
 
-       public IActionResult OpenProfil(int id)
+        public IActionResult Search(string username)
+        {
+
+            var viewModel = this.profilService.SearchByUsername(username);
+            return this.View("AllProfils", viewModel);
+        }
+
+        public IActionResult OpenProfil(int id)
         {
             var profil = this.profilService.getProfilByProfilId(id);
             return this.View(profil);
