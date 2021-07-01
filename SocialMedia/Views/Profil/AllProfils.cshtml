@@ -10,13 +10,23 @@
     </form>
 </nav>
 
+<nav>
+    <label>Мъже</label>
+    <input type="checkbox" name="name" value=""  class="checkbox-male"/>
+    <label>Жени</label>
+    <input type="checkbox" name="name" value="" class="checkbox-female"/>
+
+</nav>
+
 @foreach (var item in Model.profils)
 {
     <div class="container">
-        
+
         <div class="col border">
             <a asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.id">
                 <p>@item.UserName</p>
+                <input type="hidden" class="gender-input" value="@item.Gender" />
+
 
                 @if (item.Images.Count == 0 || item.Images.Where(x => x.ProfilImage).FirstOrDefault() == null)
                 {
@@ -27,9 +37,49 @@
 
                 }
 
-                
+
             </a>
 
         </div>
     </div>
 }
+
+<script>
+
+    document.getElementsByClassName('checkbox-male')[0].addEventListener('change', function (e) {
+
+        if (this.checked) {
+
+            document.querySelectorAll('.gender-input').forEach(x => {
+
+                if (x.value ==='Жена') {
+
+
+                    x.parentElement.parentElement.parentElement.remove();
+                }
+            })
+        }
+        else {
+            console.log('is not ched')
+        }
+    })
+
+    document.getElementsByClassName('checkbox-female')[0].addEventListener('change', function (e) {
+
+        if (this.checked) {
+
+            document.querySelectorAll('.gender-input').forEach(x => {
+
+                if (x.value === 'Мъж') {
+
+
+                    x.parentElement.parentElement.parentElement.remove();
+                }
+            })
+        }
+        else {
+            console.log('is not ched')
+        }
+    })
+
+</script>

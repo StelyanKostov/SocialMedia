@@ -31,9 +31,9 @@ namespace SocialMedia.Controllers
 
             try
             {
-              var rezultUsername = this.featureImageService.AddComment(data[0], data[1], int.Parse(data[2]));
+              var rezultUsername = this.featureImageService.AddComment(data[0], data[1], data[2]);
 
-                return this.Json(new { commentingId = data[2], username = rezultUsername,content = data[1] });
+                return this.Json(new { username = rezultUsername,content = data[1] });
 
 
             }
@@ -51,8 +51,6 @@ namespace SocialMedia.Controllers
         {
             var viewModel = this.featureImageService.GetCommentsImage(ImgId);
 
-            
-
             return this.Json(viewModel);
             
         }
@@ -61,7 +59,7 @@ namespace SocialMedia.Controllers
         public IActionResult LikeImage([FromBody]string[] data)
         {
 
-            var count =   this.featureImageService.LikeImage(data[0], int.Parse(data[1]));
+            var count =   this.featureImageService.LikeImage(data[0], data[1]);
 
             return this.Json(new {count = count });
 

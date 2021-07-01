@@ -440,7 +440,4 @@ C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razo
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Messages\Index.cshtml.g.cs
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Messages\SendMessages.cshtml.g.cs
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Messages\OpenMessages.cshtml.g.cs
-C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Messages\test.cshtml.g.cs
-C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Messages\SendMessagesFromProfil.cshtml.g.cs
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Gallery\Index.cshtml.g.cs
-C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\FeatureImage\index.cshtml.g.cs

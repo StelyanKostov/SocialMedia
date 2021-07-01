@@ -23,20 +23,22 @@ namespace SocialMedia.Services.FeatureImage
             this.profilService = profilService;
         }
 
-        public string AddComment(string ImgId, string content, int ProfilIdCommented)
+        public string AddComment(string ImgId, string content, string userlIdCommented)
         {
             var image = this.db.images.Where(x => x.Id == ImgId).FirstOrDefault();
+
+            var profilIdCommented = this.profilService.getProfilByUserId(userlIdCommented).id;
 
             image.Comments.Add(new Comments()
             {
                 Content = content,
                 CreatedOn = DateTime.Now,
-                ProfilIdCommented = ProfilIdCommented,
+                ProfilIdCommented = profilIdCommented,
             });
 
             this.db.SaveChanges();
 
-            return this.db.Profils.Where(x => x.id == ProfilIdCommented).FirstOrDefault().UserName;
+            return this.db.Profils.Where(x => x.id == profilIdCommented).FirstOrDefault().UserName;
         }
 
         public object GetCommentsImage(string ImgId)
@@ -62,10 +64,12 @@ namespace SocialMedia.Services.FeatureImage
             return rezult;
         }
 
-        public int LikeImage(string imdId, int profilIdLikedImg)
+        public int LikeImage(string imdId,  string userlIdLiked)
         {
             var img = this.db.images.Include(x=> x.Likes).Where(x => x.Id == imdId).FirstOrDefault();
-            
+
+            var profilIdLikedImg = this.profilService.getProfilByUserId(userlIdLiked).id;
+
             if (img.Likes.Any(x=> x.ProfilIdLiked == profilIdLikedImg))
             {
                 

@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SocialMedia.Data;
 using SocialMedia.Models;
 using SocialMedia.Services;
 using System;
@@ -14,18 +16,19 @@ namespace SocialMedia.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IGalleryService galleryService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public HomeController(ILogger<HomeController> logger , IGalleryService galleryService)
+        public HomeController(ILogger<HomeController> logger , IGalleryService galleryService, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             this.galleryService = galleryService;
+            this.userManager = userManager;
         }
 
         public IActionResult Index()
         {
             var viewModel = this.galleryService.GetAllImage();
 
-            Console.WriteLine();
             
 
             return View(viewModel);
