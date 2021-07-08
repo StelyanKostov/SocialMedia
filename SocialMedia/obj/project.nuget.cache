@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9yy6A4a25+UkDoIvOf91HHqHmYQXucLkDL3udtz9rxbiE4jFFlzRy4yzNN3aBZWs64TzWLt9xP67vR1bdkD6xw==",
+  "dgSpecHash": "0jztilIju9n0ezNO6oXQ/ETtHqhaaZGXGj7tJ7RZ+nJeVfPM+fU4If4o/gPlEheR4a2BejVZI58H8fx0gJ3sCg==",
   "success": true,
   "projectFilePath": "C:\\Users\\kosto\\source\\repos\\SocialMedia\\SocialMedia\\SocialMedia.csproj",
   "expectedPackageFiles": [
@@ -65,6 +65,7 @@
     "C:\\Users\\kosto\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.templating\\3.1.5\\microsoft.visualstudio.web.codegeneration.templating.3.1.5.nupkg.sha512",
     "C:\\Users\\kosto\\.nuget\\packages\\microsoft.visualstudio.web.codegeneration.utils\\3.1.5\\microsoft.visualstudio.web.codegeneration.utils.3.1.5.nupkg.sha512",
     "C:\\Users\\kosto\\.nuget\\packages\\microsoft.visualstudio.web.codegenerators.mvc\\3.1.5\\microsoft.visualstudio.web.codegenerators.mvc.3.1.5.nupkg.sha512",
+    "C:\\Users\\kosto\\.nuget\\packages\\microsoft.web.librarymanager.build\\2.1.113\\microsoft.web.librarymanager.build.2.1.113.nupkg.sha512",
     "C:\\Users\\kosto\\.nuget\\packages\\microsoft.win32.primitives\\4.3.0\\microsoft.win32.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\kosto\\.nuget\\packages\\microsoft.win32.registry\\4.5.0\\microsoft.win32.registry.4.5.0.nupkg.sha512",
     "C:\\Users\\kosto\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
@@ -147,6 +148,7 @@
     "C:\\Users\\kosto\\.nuget\\packages\\system.runtime.handles\\4.3.0\\system.runtime.handles.4.3.0.nupkg.sha512",
     "C:\\Users\\kosto\\.nuget\\packages\\system.runtime.interopservices\\4.3.0\\system.runtime.interopservices.4.3.0.nupkg.sha512",
     "C:\\Users\\kosto\\.nuget\\packages\\system.runtime.interopservices.runtimeinformation\\4.3.0\\system.runtime.interopservices.runtimeinformation.4.3.0.nupkg.sha512",
+    "C:\\Users\\kosto\\.nuget\\packages\\system.runtime.loader\\4.3.0\\system.runtime.loader.4.3.0.nupkg.sha512",
     "C:\\Users\\kosto\\.nuget\\packages\\system.runtime.numerics\\4.3.0\\system.runtime.numerics.4.3.0.nupkg.sha512",
     "C:\\Users\\kosto\\.nuget\\packages\\system.runtime.serialization.formatters\\4.3.0\\system.runtime.serialization.formatters.4.3.0.nupkg.sha512",
     "C:\\Users\\kosto\\.nuget\\packages\\system.runtime.serialization.json\\4.3.0\\system.runtime.serialization.json.4.3.0.nupkg.sha512",

@@ -441,3 +441,5 @@ C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razo
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Messages\SendMessages.cshtml.g.cs
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Messages\OpenMessages.cshtml.g.cs
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Gallery\Index.cshtml.g.cs
+C:\Users\kosto\source\repos\SocialMedia\SocialMedia\bin\Debug\netcoreapp3.1\libman.json
+C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Chat\Index.cshtml.g.cs

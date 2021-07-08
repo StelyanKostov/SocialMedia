@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SocialMedia.AutoMapper;
 using SocialMedia.Data;
+using SocialMedia.Hubs;
 using SocialMedia.Services;
 using SocialMedia.Services.FeatureImage;
 using System;
@@ -47,6 +48,7 @@ namespace SocialMedia
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSignalR();
             services.AddTransient<IProfilService, ProfilService>();
             services.AddTransient<IMessagesService, MessagesService>();
             services.AddTransient<IGalleryService, GalleryService>();
@@ -86,6 +88,8 @@ namespace SocialMedia
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/chatter");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
