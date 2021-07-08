@@ -23,6 +23,9 @@ namespace SocialMedia.Data
 
         public DbSet<Likes> Likes { get; set; }
 
+        public DbSet<ChatRooms> ChatRooms { get; set; }
+
+
 
 
 

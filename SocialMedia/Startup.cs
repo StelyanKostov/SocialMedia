@@ -12,6 +12,7 @@ using SocialMedia.AutoMapper;
 using SocialMedia.Data;
 using SocialMedia.Hubs;
 using SocialMedia.Services;
+using SocialMedia.Services.Chat;
 using SocialMedia.Services.FeatureImage;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,9 @@ namespace SocialMedia
             services.AddTransient<IMessagesService, MessagesService>();
             services.AddTransient<IGalleryService, GalleryService>();
             services.AddTransient<IFeatureImageService, FeatureImageService>();
+            services.AddTransient<IChatRoomsService, ChatRoomsService>();
 
+            
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
