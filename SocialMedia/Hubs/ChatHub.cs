@@ -19,29 +19,50 @@ namespace SocialMedia.Hubs
         private readonly IProfilService profilService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IChatRoomsService chatRoomsService;
+        private readonly IRealTimeChatService realTimeChatService;
 
-        public ChatHub(IProfilService profilService, UserManager<ApplicationUser> userManager, IChatRoomsService chatRoomsService)
+        public ChatHub(
+            IProfilService profilService,
+            UserManager<ApplicationUser> userManager,
+            IChatRoomsService chatRoomsService ,
+            IRealTimeChatService realTimeChatService
+            )
         {
             this.profilService = profilService;
             this.userManager = userManager;
             this.chatRoomsService = chatRoomsService;
+            this.realTimeChatService = realTimeChatService;
         }
 
-        public async Task Send(string message)
-        {
-            var result = this.Clients.Groups("dasdas").SendAsync("dasdas" , new object());
+        //public async Task Send(string message)
+        //{
+        //    //var result = this.Clients.Groups("dasdas").SendAsync("dasdas" , new object());
 
-            
+        //    var userId = this.userManager.GetUserAsync(this.Context.User).Result.Id;
+        //    var profil = this.profilService.getProfilByUserId(userId);
+        //    await this.Clients.All.SendAsync(
+        //        "NewMessage",
+        //        new Message { User = profil.UserName, Text = message, });
+
+        //    this.chatRoomsService.AddMessages(profil.id, message);
+
+         
+        //    //this.Context.User.Identity.Name
+        //}
+        public async Task SendToOneProfil(string message, string recipientProfilId)
+        {           
+
+
             var userId = this.userManager.GetUserAsync(this.Context.User).Result.Id;
             var profil = this.profilService.getProfilByUserId(userId);
-            await this.Clients.All.SendAsync(
-                "NewMessage",
-                new Message { User = profil.UserName, Text = message, });
 
-            this.chatRoomsService.AddMessages(profil.id, message);
+            this.realTimeChatService.AddMessages(message, profil.id, int.Parse(recipientProfilId));
 
-            //this.Context.User.Identity.Name
+            await this.Clients.All.SendAsync("NewMessage",
+              new Message { User = profil.UserName, Text = message, });
+
         }
+
 
     }
 }

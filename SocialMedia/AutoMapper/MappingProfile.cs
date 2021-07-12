@@ -26,6 +26,11 @@ namespace SocialMedia.AutoMapper
             CreateMap<Data.Likes, ViewModels.Likes.LikesViewModel>();
             CreateMap<ViewModels.Likes.LikesViewModel, Data.Likes>();
 
+            CreateMap<ViewModels.Chat.RealTimeMessagesViewModel, Data.RealTimeChat>();
+            CreateMap<Data.RealTimeChat, ViewModels.Chat.RealTimeMessagesViewModel>();
+
+
+
 
 
         }

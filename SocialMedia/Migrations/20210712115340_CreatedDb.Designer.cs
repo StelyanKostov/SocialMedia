@@ -10,8 +10,8 @@ using SocialMedia.Data;
 namespace SocialMedia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210708132020_CreatedOnColChatRooms")]
-    partial class CreatedOnColChatRooms
+    [Migration("20210712115340_CreatedDb")]
+    partial class CreatedDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -426,6 +426,54 @@ namespace SocialMedia.Migrations
                     b.ToTable("Profils");
                 });
 
+            modelBuilder.Entity("SocialMedia.Data.RealTimeChat", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("New")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("RouteChatId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Seen")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RouteChatId");
+
+                    b.ToTable("RealTimeChat");
+                });
+
+            modelBuilder.Entity("SocialMedia.Data.RouteChat", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("CreatorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SecondProflId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CreatorId");
+
+                    b.ToTable("RouteChat");
+                });
+
             modelBuilder.Entity("SocialMedia.Data.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -539,6 +587,22 @@ namespace SocialMedia.Migrations
                     b.HasOne("SocialMedia.Data.ApplicationUser", "ApplicationUser")
                         .WithOne("Profil")
                         .HasForeignKey("SocialMedia.Data.Profils", "ApplicationUserId");
+                });
+
+            modelBuilder.Entity("SocialMedia.Data.RealTimeChat", b =>
+                {
+                    b.HasOne("SocialMedia.Data.RouteChat", "RouteChat")
+                        .WithMany("realTimeChats")
+                        .HasForeignKey("RouteChatId");
+                });
+
+            modelBuilder.Entity("SocialMedia.Data.RouteChat", b =>
+                {
+                    b.HasOne("SocialMedia.Data.Profils", "Creator")
+                        .WithMany("RouteChat")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

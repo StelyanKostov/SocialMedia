@@ -8,7 +8,7 @@ namespace SocialMedia.Data
     public class ChatRooms
     {
         public ChatRooms()
-        {            
+        {
 
             this.Id = Guid.NewGuid().ToString();
         }

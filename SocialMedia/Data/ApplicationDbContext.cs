@@ -25,6 +25,10 @@ namespace SocialMedia.Data
 
         public DbSet<ChatRooms> ChatRooms { get; set; }
 
+        public DbSet<RealTimeChat> RealTimeChat { get; set; }
+
+        public DbSet<RouteChat> RouteChat { get; set; }
+
 
 
 

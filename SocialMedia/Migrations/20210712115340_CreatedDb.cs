@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SocialMedia.Migrations
 {
-    public partial class CreateDB : Migration
+    public partial class CreatedDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -176,7 +176,8 @@ namespace SocialMedia.Migrations
                     HairColor = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: true),
                     Alcohol = table.Column<string>(nullable: true),
-                    Cigarettes = table.Column<string>(nullable: true)
+                    Cigarettes = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -190,6 +191,26 @@ namespace SocialMedia.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ChatRooms",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
+                    ProfilId = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChatRooms", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ChatRooms_Profils_ProfilId",
+                        column: x => x.ProfilId,
+                        principalTable: "Profils",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "images",
                 columns: table => new
                 {
@@ -197,7 +218,10 @@ namespace SocialMedia.Migrations
                     ProfilId = table.Column<int>(nullable: false),
                     Extension = table.Column<string>(nullable: true),
                     ProfilImage = table.Column<bool>(nullable: false),
-                    RemoteImageUrl = table.Column<string>(nullable: true)
+                    RemoteImageUrl = table.Column<string>(nullable: true),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -220,7 +244,8 @@ namespace SocialMedia.Migrations
                     Content = table.Column<string>(nullable: true),
                     CreateOn = table.Column<DateTime>(nullable: false),
                     ProfilId = table.Column<int>(nullable: false),
-                    SecondProfilId = table.Column<int>(nullable: false)
+                    SecondProfilId = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -231,6 +256,91 @@ namespace SocialMedia.Migrations
                         principalTable: "Profils",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RouteChat",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    CreatorId = table.Column<int>(nullable: false),
+                    SecondProflId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RouteChat", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RouteChat_Profils_CreatorId",
+                        column: x => x.CreatorId,
+                        principalTable: "Profils",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Comments",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageId = table.Column<string>(nullable: true),
+                    Content = table.Column<string>(nullable: true),
+                    ProfilIdCommented = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Comments", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Comments_images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Likes",
+                columns: table => new
+                {
+                    id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImageId = table.Column<string>(nullable: true),
+                    ProfilIdLiked = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Likes", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_Likes_images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "images",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RealTimeChat",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Seen = table.Column<bool>(nullable: false),
+                    Content = table.Column<string>(nullable: true),
+                    CreateOn = table.Column<DateTime>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    New = table.Column<bool>(nullable: false),
+                    RouteChatId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RealTimeChat", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RealTimeChat_RouteChat_RouteChatId",
+                        column: x => x.RouteChatId,
+                        principalTable: "RouteChat",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -273,9 +383,24 @@ namespace SocialMedia.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ChatRooms_ProfilId",
+                table: "ChatRooms",
+                column: "ProfilId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_ImageId",
+                table: "Comments",
+                column: "ImageId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_images_ProfilId",
                 table: "images",
                 column: "ProfilId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Likes_ImageId",
+                table: "Likes",
+                column: "ImageId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Messages_ProfilId",
@@ -288,6 +413,16 @@ namespace SocialMedia.Migrations
                 column: "ApplicationUserId",
                 unique: true,
                 filter: "[ApplicationUserId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RealTimeChat_RouteChatId",
+                table: "RealTimeChat",
+                column: "RouteChatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RouteChat_CreatorId",
+                table: "RouteChat",
+                column: "CreatorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -308,13 +443,28 @@ namespace SocialMedia.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "images");
+                name: "ChatRooms");
+
+            migrationBuilder.DropTable(
+                name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "Likes");
 
             migrationBuilder.DropTable(
                 name: "Messages");
 
             migrationBuilder.DropTable(
+                name: "RealTimeChat");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "images");
+
+            migrationBuilder.DropTable(
+                name: "RouteChat");
 
             migrationBuilder.DropTable(
                 name: "Profils");

@@ -14,6 +14,8 @@ namespace SocialMedia.Data
 
             this.Messages = new HashSet<Messages>();
 
+            this.RouteChat = new HashSet<RouteChat>();
+
         }
         public int id { get; set; }
 
@@ -55,6 +57,9 @@ namespace SocialMedia.Data
 
         public ICollection<Messages> Messages { get; set; }
 
+        public ICollection<RouteChat> RouteChat { get; set; }
 
+
+        
     }
 }

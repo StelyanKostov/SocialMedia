@@ -55,6 +55,8 @@ namespace SocialMedia
             services.AddTransient<IGalleryService, GalleryService>();
             services.AddTransient<IFeatureImageService, FeatureImageService>();
             services.AddTransient<IChatRoomsService, ChatRoomsService>();
+            services.AddTransient<IRealTimeChatService, RealTimeChatService>();
+
 
             
 
