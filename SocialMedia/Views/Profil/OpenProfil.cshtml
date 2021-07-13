@@ -20,12 +20,14 @@
                 @if (SignInManager.UserManager.GetUserId(this.User) != Model.ApplicationUserId)
                 {
                     <a class="btn btn-sm btn-outline-secondary" asp-controller="Messages" asp-action="SendMessages" asp-route-id="@Model.id">Съобщение</a>
-                    <a class="btn btn-sm btn-outline-secondary">Чат</a>
+                    <a class="btn btn-sm btn-outline-secondary" id="realTimeChat">Чат</a>
                 }
             </form>
+            
         </nav>
         <div class="row">
             <div class="col">
+                <input type="hidden" name="name" value="@Model.id" id="profilId"/>
                 @if (Model.Images.Count == 0 || image == null)
                 {
 
@@ -147,3 +149,64 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        var connection =
+                new signalR.HubConnectionBuilder()
+                    .withUrl("/chatter")
+                    .build();
+
+            connection.on("NewMessage",
+                function (message) {
+                    var chatInfo = `<div>[${message.user}] ${escapeHtml(message.text)}</div>`;
+                    $("#messagesList").append(chatInfo);
+                });
+
+        document
+            .getElementById('realTimeChat')
+            .addEventListener('click', function (e) {
+                let textareaElement = document.createElement("textarea");
+                textareaElement.setAttribute('id', 'messageInput');
+                e.currentTarget.parentElement.appendChild(textareaElement);
+                let buttonElement = document.createElement("button");
+                buttonElement.innerHTML = "Send"
+                buttonElement.setAttribute('id', 'sendButton');
+                buttonElement.setAttribute('type', 'button')
+                e.currentTarget.parentElement.appendChild(buttonElement);
+
+                $("#sendButton").click(function (event) {
+
+                    console.log(event);
+                    var message = $("#messageInput").val();
+                    var recipientProfilId = $("#profilId").val();
+                    //todoo
+                    var chatInfo = `<div>[me] ${escapeHtml(message)}</div>`;
+                    $("#messagesList").append(chatInfo);
+
+                    var data = message + '<>=!' + recipientProfilId;
+                    connection.invoke("SendToOneProfil", data);
+                    $("#messageInput").val("");
+
+                    
+                });
+
+                connection.start().catch(function (err) {
+                    return console.error(err.toString());
+                });
+
+                function escapeHtml(unsafe) {
+                    return unsafe
+                        .replace(/&/g, "&amp;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;")
+                        .replace(/"/g, "&quot;")
+                        .replace(/'/g, "&#039;");
+                }
+
+        })
+
+
+
+           </script>
+}

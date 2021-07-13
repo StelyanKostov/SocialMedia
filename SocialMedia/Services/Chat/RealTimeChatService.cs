@@ -31,6 +31,7 @@ namespace SocialMedia.Services.Chat
 
             };
             var route = this.db.RouteChat
+                .Include(x=>x.realTimeChats)
                 .Where(x => x.CreatorId == sendProfilId || x.SecondProflId == sendProfilId)
                 .Where(x => x.CreatorId == recipientProfilId || x.SecondProflId == recipientProfilId).FirstOrDefault();
             if (route == null)
@@ -39,13 +40,13 @@ namespace SocialMedia.Services.Chat
                 newRoute.CreatorId = sendProfilId;
                 newRoute.SecondProflId = recipientProfilId;
                 newRoute.realTimeChats.Add(newMessages);
-                this.db.RealTimeChat.Add(newMessages);
+                this.db.RouteChat.Add(newRoute);
                 this.db.SaveChanges();
             }
             else
             {
-                route.realTimeChats.Add(newMessages);
-                this.db.RouteChat.Add(route);
+                newMessages.RouteChatId = route.Id;
+                this.db.RealTimeChat.Add(newMessages);
                 this.db.SaveChanges();
 
             }
@@ -60,6 +61,7 @@ namespace SocialMedia.Services.Chat
 
             var viewModel = new List<RealTimeChatViewModel>();
 
+
             foreach (var item in route)
             {
                 var helperViewModel = new RealTimeChatViewModel();
@@ -70,11 +72,11 @@ namespace SocialMedia.Services.Chat
                 }
                 else if (profilId != item.SecondProflId)
                 {
-                    helperViewModel.WithProfilId = item.CreatorId;
+                    helperViewModel.WithProfilId = item.SecondProflId;
                     helperViewModel.WithProfilUserName = this.profilService.getProfilByProfilId(item.SecondProflId).UserName;
 
                 }
-                helperViewModel.Messages = this.mapper.Map<List<RealTimeMessagesViewModel>>(item.realTimeChats);
+                helperViewModel.Messages = this.mapper.Map<List<RealTimeMessagesViewModel>>(item.realTimeChats).OrderBy(x=> x.CreateOn).ToList();
 
                 viewModel.Add(helperViewModel);
             }
