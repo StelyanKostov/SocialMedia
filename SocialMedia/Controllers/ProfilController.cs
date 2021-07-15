@@ -1,15 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Data;
 using SocialMedia.Services;
+using SocialMedia.Services.Chat;
 using SocialMedia.ViewModels.Profil;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SocialMedia.Controllers
 {
@@ -20,6 +17,7 @@ namespace SocialMedia.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IProfilService profilService;
         private readonly IWebHostEnvironment environment;
+        private readonly IRealTimeChatService realTimeChatService;
 
 
         //private readonly RoleManager<IdentityRole> roleManager;
@@ -27,19 +25,27 @@ namespace SocialMedia.Controllers
         public ProfilController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IProfilService profilService,
-            IWebHostEnvironment environment
+            IWebHostEnvironment environment,
+            IRealTimeChatService realTimeChatService
           /*  RoleManager<IdentityRole> roleManager*/)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this.profilService = profilService;
             this.environment = environment;
+            this.realTimeChatService = realTimeChatService;
             //this.roleManager = roleManager;
         }
         public IActionResult Index()
         {
+
+
             var id = this._userManager.GetUserId(this.User);
             var viewModel = this.profilService.getProfilByUserId(id);
+
+            this.ViewData["RealTimeChatViewModel"] = this.realTimeChatService.GetMessages(viewModel.id);
+
+            var test = this.realTimeChatService.GetMessages(viewModel.id);
             return this.View(viewModel);
         }
         public IActionResult Edit(string id)
@@ -83,4 +89,5 @@ namespace SocialMedia.Controllers
             return this.View(profil);
         }
     }
+   
 }

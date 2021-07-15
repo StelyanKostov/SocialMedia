@@ -5,8 +5,6 @@ using SignalRChat.Models.Chat;
 using SocialMedia.Data;
 using SocialMedia.Services;
 using SocialMedia.Services.Chat;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 

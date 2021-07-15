@@ -1,17 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using SocialMedia.Services.FeatureImage;
-using SocialMedia.ViewModels.Comments;
-using SocialMedia.ViewModels.Image;
-using SocialMedia.ViewModels.Messages;
-using SocialMedia.ViewModels.Profil;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace SocialMedia.Controllers
 {

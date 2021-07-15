@@ -1,11 +1,8 @@
-﻿using SocialMedia.Data;
-using SocialMedia.ViewModels.Comments;
+﻿using SocialMedia.ViewModels.Comments;
 using SocialMedia.ViewModels.Likes;
 using SocialMedia.ViewModels.Profil;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SocialMedia.ViewModels.Image
 {

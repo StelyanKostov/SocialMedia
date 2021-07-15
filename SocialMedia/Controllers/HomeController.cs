@@ -4,11 +4,7 @@ using Microsoft.Extensions.Logging;
 using SocialMedia.Data;
 using SocialMedia.Models;
 using SocialMedia.Services;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SocialMedia.Controllers
 {
@@ -28,6 +24,8 @@ namespace SocialMedia.Controllers
         public IActionResult Index()
         {
             var viewModel = this.galleryService.GetAllImage();
+
+            //todoo
 
             
 

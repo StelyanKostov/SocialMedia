@@ -4,9 +4,6 @@ using SocialMedia.Data;
 using SocialMedia.Services;
 using SocialMedia.ViewModels.Messages;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SocialMedia.Controllers
 {

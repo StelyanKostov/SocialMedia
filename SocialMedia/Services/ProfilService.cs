@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using SocialMedia.Data;
-using SocialMedia.ViewModels.Messages;
 using SocialMedia.ViewModels.Profil;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace SocialMedia.Services
 {

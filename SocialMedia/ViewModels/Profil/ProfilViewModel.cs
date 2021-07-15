@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SocialMedia.Data;
+using SocialMedia.ViewModels.Chat;
 using SocialMedia.ViewModels.Image;
-using SocialMedia.ViewModels.Likes;
 using SocialMedia.ViewModels.Messages;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SocialMedia.ViewModels.Profil
 {
@@ -50,6 +48,8 @@ namespace SocialMedia.ViewModels.Profil
         public string Alcohol { get; set; }
 
         public string Cigarettes { get; set; }
+
+        public RealTimeChatViewModel RealTimeChat { get; set; }
 
         public ICollection<ImageViewModel> Images { get; set; }
 
