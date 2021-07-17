@@ -14,7 +14,7 @@
         position: fixed;
         bottom: 0;
         right: 0;
-        pointer-events: none;
+        /*pointer-events: none;*/
     }
 
     .chat {
@@ -43,19 +43,27 @@
     }
 </style>
 
+
 @if (Model != null)
 {
+
 
     <div class="containerr">
 
         @foreach (var item in Model)
         {
-            <div class="chat">
+            <label class="title popUpChat">
+                @item.WithProfilUserName
+            </label>
+
+
+            <div class="chat" style="display:none">
+
                 <div class="title">@item.WithProfilUserName</div>
                 <div class="text messagesList" id="@item.WithProfilUserName">
                     @foreach (var item2 in item.Messages)
                     {
-                        <p>@item2.Content</p>
+                        <p>@item2.Content [@item2.CreateOn]</p>
                     }
 
                 </div>
@@ -66,62 +74,78 @@
                 </div>
             </div>
 
+
         }
     </div>
 }
 
+<script>
+    let elements = document.querySelectorAll('.popUpChat').forEach(x => x.addEventListener('click', function (e) {
 
-    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+        let divChat = e.currentTarget.nextSibling.nextSibling;
+        divChat.style.display = "";
 
-    <script>
-        var connection = new signalR.HubConnectionBuilder()
-            .withUrl("/chatter")
-            .build();
+        let labelPopUp = e.currentTarget;
+        labelPopUp.style.display = "none";
 
-
-        connection.on("NewMessage",
-            function (message) {
-                var chatInfo = `<p>[${message.user}] ${escapeHtml(message.text)}</p>`;
-
-                $(`#${message.user}`).append(chatInfo);
-            });
-
-        /* $(".sendButton").click(function (event) {*/
-
-        document.querySelectorAll('.sendButton').forEach(x => x.addEventListener('click', function (event) {
-
-            console.log(event.target)
-            var message = event.currentTarget.parentElement.getElementsByClassName('messageInput')[0].value;
-            console.log(message)
-            var recipientProfilId = event.currentTarget.parentElement.getElementsByClassName('profilId')[0].value;
-            console.log(recipientProfilId)
+        divChat.getElementsByClassName('title')[0].addEventListener('click', function (e) {
 
 
-            //todoo
-            let element = event.currentTarget.parentElement.parentElement.getElementsByClassName('messagesList')[0];
+            e.currentTarget.parentElement.style.display = 'none';
 
-            console.log(element)
+            labelPopUp.style.display = '';
+        })
 
-            let pElement = document.createElement("p");
-            pElement.innerHTML = `[me] ${escapeHtml(message)}`
-            element.appendChild(pElement);
+    }));
+
+</script>
+<script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+<script>
+    var connection = new signalR.HubConnectionBuilder()
+        .withUrl("/chatter")
+        .build();
 
 
-            var data = message + '<>=!' + recipientProfilId;
-            connection.invoke("SendToOneProfil", data);
-            $(".messageInput").val("");
-        }));
+    connection.on("NewMessage",
+        function (message) {
+            var chatInfo = `<p>[${message.user}] ${escapeHtml(message.text)}</p>`;
 
-        connection.start().catch(function (err) {
-            return console.error(err.toString());
+            $(`#${message.user}`).append(chatInfo);
         });
 
-        function escapeHtml(unsafe) {
-            return unsafe
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-        }
-    </script>
+
+    document.querySelectorAll('.sendButton').forEach(x => x.addEventListener('click', function (event) {
+
+
+        var message = event.currentTarget.parentElement.getElementsByClassName('messageInput')[0].value;
+        var recipientProfilId = event.currentTarget.parentElement.getElementsByClassName('profilId')[0].value;
+
+
+        //todoo
+        let element = event.currentTarget.parentElement.parentElement.getElementsByClassName('messagesList')[0];
+
+        console.log(element)
+
+        let pElement = document.createElement("p");
+        pElement.innerHTML = `[me] ${escapeHtml(message)}`
+        element.appendChild(pElement);
+
+
+        var data = message + '<>=!' + recipientProfilId;
+        connection.invoke("SendToOneProfil", data);
+        $(".messageInput").val("");
+    }));
+
+    connection.start().catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    function escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+</script>

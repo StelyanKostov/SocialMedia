@@ -5,6 +5,27 @@
 
 @if (this.SignInManager.UserManager.GetUserId(this.User) == Model.ApplicationUserId)
 {
+    <style>
+        .fullscreen:-webkit-full-screen {
+            width: auto !important;
+            height: auto !important;
+            margin: auto !important;
+        }
+
+        .fullscreen:-moz-full-screen {
+            width: auto !important;
+            height: auto !important;
+            margin: auto !important;
+        }
+
+        .fullscreen:-ms-fullscreen {
+            width: auto !important;
+            height: auto !important;
+            margin: auto !important;
+        }
+    </style>
+
+
     <form method="post" class="col-md-6 offset-md-3"
           enctype="multipart/form-data">
         <div class="form-group">
@@ -24,20 +45,47 @@
             @foreach (var item in @Model.Images)
             {
                 <div class="col">
-                    <a href="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" data-toggle="lightbox" data-gallery="gallery" class="col-md-4">
-                        <img src="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" class="img-fluid rounded">
-                    </a>
-                    @if (this.SignInManager.UserManager.GetUserId(this.User) == Model.ApplicationUserId)
-                    {
-                        <a class="btn  btn-primary" asp-controller="Gallery" asp-action="RealDeleteImage" asp-route-idProfil="@Model.id" asp-route-idImage="@item.Id">Delete</a>
-                        <a class="btn  btn-primary" asp-controller="Gallery" asp-action="SetProfilImage" asp-route-idProfil="@Model.ApplicationUserId" asp-route-idImage="@item.Id">Направи профилна</a>
-                    }
+                    @*<a href="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" data-toggle="lightbox" data-gallery="gallery" class="col-md-4">*@
+                    @*<img src="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" class="img-fluid rounded" style="max-width: 40%; height: auto">*@
+                    <div>
+                        <img id="theImage" style="width:400px; height:auto;" class="fullscreen" src="~/images/ProfilImage/@Model.UserName/@item.Id.@item.Extension" onClick="makeFullScreen()"></img>
 
+                        @*</a>*@
+                        <nav>
+                            @if (this.SignInManager.UserManager.GetUserId(this.User) == Model.ApplicationUserId)
+                            {
+                                <a class="btn  btn-primary" asp-controller="Gallery" asp-action="RealDeleteImage" asp-route-idProfil="@Model.id" asp-route-idImage="@item.Id">Delete</a>
+                                <a class="btn  btn-primary" asp-controller="Gallery" asp-action="SetProfilImage" asp-route-idProfil="@Model.ApplicationUserId" asp-route-idImage="@item.Id">Направи профилна</a>
+                            }
+                        </nav>
+                    </div>
                 </div>}
 
         </div>
 
     </div>
+   
+    <script>
+        function makeFullScreen() {
+            var divObj = document.getElementById("theImage");
+            //Use the specification method before using prefixed versions
+            if (divObj.requestFullscreen) {
+                divObj.requestFullscreen();
+            }
+            else if (divObj.msRequestFullscreen) {
+                divObj.msRequestFullscreen();
+            }
+            else if (divObj.mozRequestFullScreen) {
+                divObj.mozRequestFullScreen();
+            }
+            else if (divObj.webkitRequestFullscreen) {
+                divObj.webkitRequestFullscreen();
+            } else {
+                console.log("Fullscreen API is not supported");
+            }
+
+        }
+    </script>
 }
 else
 {
