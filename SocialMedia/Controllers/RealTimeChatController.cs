@@ -28,6 +28,16 @@ namespace SocialMedia.Controllers
             var viewModel = realTimeChatService.GetMessages(profilId);
             return this.View(viewModel);
         }
+
+        
+        public IActionResult SeenMessages([FromQuery]int id2)
+        {
+            var id = this.userManager.GetUserId(this.User);
+            var profilId = this.profilService.getProfilByUserId(id).id;
+
+            this.realTimeChatService.SeenMessages(profilId, id2);
+            return this.Json(new { });
+        }
     }
 
    

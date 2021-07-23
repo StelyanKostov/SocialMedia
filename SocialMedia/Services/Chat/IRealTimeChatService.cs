@@ -8,5 +8,7 @@ namespace SocialMedia.Services.Chat
         public void AddMessages(string content, int sendProfilId, int recipientProfilId);
 
         public List<RealTimeChatViewModel> GetMessages(int profilId);
+
+        public void SeenMessages(int id, int id2);
     }
 }

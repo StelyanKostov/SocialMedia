@@ -82,5 +82,28 @@ namespace SocialMedia.Services.Chat
 
             return viewModel;
         }
+
+        public void SeenMessages(int id, int id2)
+        {
+            var mess = this.db.RouteChat.Include(x => x.realTimeChats).Where(x => x.CreatorId == id && x.SecondProflId == id2).FirstOrDefault();
+
+            if (mess == null)
+            {
+                mess = this.db.RouteChat.Where(x => x.CreatorId == id2 && x.SecondProflId == id).FirstOrDefault();
+            }
+
+
+
+            //foreach (var item in mess)
+            //{
+                foreach (var item2 in mess.realTimeChats)
+                {
+                    item2.Seen = true;
+                }
+            //}
+
+           
+            this.db.SaveChanges();
+        }
     }
 }

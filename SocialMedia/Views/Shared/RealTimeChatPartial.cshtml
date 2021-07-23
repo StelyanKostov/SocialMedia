@@ -25,21 +25,36 @@
         margin: 0 5px;
         pointer-events: auto;
         background: #fff;
-        height: 300px;
-        width: 350px;
+        height: 350px;
+        width: 400px;
         border: 1px solid #ACD8F0;
         overflow-x: auto;
         white-space: nowrap;
+        position: relative;
+        bottom: 0;
     }
 
     .title {
         padding: 0.5em;
-        background-color: blue;
+        background-color: royalblue;
         color: white;
     }
 
     .text {
         padding: 10px;
+        overflow: auto;
+        bottom: 0;
+        max-height: 200px;
+        position: relative;
+        width: 100%;
+    }
+
+    .chatbox {
+        bottom: 0;
+        position: fixed;
+    }
+
+    .messagesList {
     }
 </style>
 
@@ -52,25 +67,37 @@
 
         @foreach (var item in Model)
         {
-            <label class="title popUpChat">
+
+
+
+            <label class="popUpChat btn btn-primary">
+                <span class="badge">@item.Messages.Count(x => !x.Seen)</span>
                 @item.WithProfilUserName
             </label>
-
-
             <div class="chat" style="display:none">
-
-                <div class="title">@item.WithProfilUserName</div>
+                <div class="title ">@item.WithProfilUserName <i class="far fa-trash-alt removeIcon" style="margin-left:2em"></i></div>
                 <div class="text messagesList" id="@item.WithProfilUserName">
+
                     @foreach (var item2 in item.Messages)
                     {
                         <p>@item2.Content [@item2.CreateOn]</p>
+
+
                     }
+
 
                 </div>
                 <div class="chatbox">
-                    <input type="hidden" name="name" value="@item.WithProfilId" class="profilId" />
-                    <input type="text" class="messageInput" />
-                    <button class="sendButton">Send</button>
+                    <nav>
+                        <div class="input-group-append">
+                            <input type="hidden" name="name" value="@item.WithProfilId" class="profilId" />
+                            <input type="text" class="messageInput form-control" />
+
+                            <button class="sendButton btn btn-primary">Send</button>
+                        </div>
+
+                    </nav>
+
                 </div>
             </div>
 
@@ -80,10 +107,59 @@
 }
 
 <script>
+
+    let element = document.querySelectorAll('.removeIcon').forEach(x => x.addEventListener('click', function (e) {
+
+        console.log(e.currentTarget.parentElement.parentElement.previousSibling.previousSibling)
+        console.log(e.currentTarget.parentElement.parentElement)
+
+        e.currentTarget.parentElement.parentElement.previousSibling.previousSibling.remove();
+
+
+
+        e.currentTarget.parentElement.parentElement.remove()
+
+    }))
+    /* window.scroll(0, 10000)*/
+
+    /* eee.scroll(0, 1999)*/
+</script>
+
+
+<script>
     let elements = document.querySelectorAll('.popUpChat').forEach(x => x.addEventListener('click', function (e) {
+
+
 
         let divChat = e.currentTarget.nextSibling.nextSibling;
         divChat.style.display = "";
+
+        var id = divChat.getElementsByClassName('profilId')[0].value;
+
+        console.log(id)
+        fetch(`RealTimeChat/SeenMessages?id2=${id}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json; charset=utf-8',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                /*body: JSON.stringify(id)*/
+            })
+            .then(x => x.json())
+            .then(x => {
+
+                
+            })
+
+        e.currentTarget.getElementsByClassName('badge')[0].innerHTML = 0;
+
+        
+
+
+        var mlForScroll = divChat.getElementsByClassName('messagesList')[0];
+
+        mlForScroll.scrollTop = mlForScroll.scrollHeight;
 
         let labelPopUp = e.currentTarget;
         labelPopUp.style.display = "none";
@@ -111,29 +187,33 @@
             var chatInfo = `<p>[${message.user}] ${escapeHtml(message.text)}</p>`;
 
             $(`#${message.user}`).append(chatInfo);
+
+            let element = document.getElementById(message.user);
+            element.scrollTop = element.scrollHeight;
         });
 
 
     document.querySelectorAll('.sendButton').forEach(x => x.addEventListener('click', function (event) {
 
-
         var message = event.currentTarget.parentElement.getElementsByClassName('messageInput')[0].value;
+
         var recipientProfilId = event.currentTarget.parentElement.getElementsByClassName('profilId')[0].value;
 
-
         //todoo
-        let element = event.currentTarget.parentElement.parentElement.getElementsByClassName('messagesList')[0];
+        let elementMessagesList = event.currentTarget.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('messagesList')[0];
 
-        console.log(element)
 
         let pElement = document.createElement("p");
         pElement.innerHTML = `[me] ${escapeHtml(message)}`
-        element.appendChild(pElement);
+        elementMessagesList.appendChild(pElement);
 
 
         var data = message + '<>=!' + recipientProfilId;
         connection.invoke("SendToOneProfil", data);
         $(".messageInput").val("");
+
+        elementMessagesList.scrollTop = elementMessagesList.scrollHeight;
+
     }));
 
     connection.start().catch(function (err) {

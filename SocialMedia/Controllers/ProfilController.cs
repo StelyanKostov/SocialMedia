@@ -69,8 +69,11 @@ namespace SocialMedia.Controllers
 
 
         //todooooo
-        public IActionResult AllProfils(List<ProfilViewModel> viewModel)
+        public IActionResult AllProfils(/*List<ProfilViewModel> viewModel*/)
         {
+            var id = this._userManager.GetUserId(this.User);
+            var viewModelId = this.profilService.getProfilByUserId(id).id;
+            this.ViewData["RealTimeChatViewModel"] = this.realTimeChatService.GetMessages(viewModelId);
 
             var profils = this.profilService.AllProfils();
             return this.View(profils);
@@ -78,6 +81,9 @@ namespace SocialMedia.Controllers
 
         public IActionResult Search(string username)
         {
+            var id = this._userManager.GetUserId(this.User);
+            var viewModelId = this.profilService.getProfilByUserId(id).id;
+            this.ViewData["RealTimeChatViewModel"] = this.realTimeChatService.GetMessages(viewModelId);
 
             var viewModel = this.profilService.SearchByUsername(username);
             return this.View("AllProfils", viewModel);
@@ -85,6 +91,9 @@ namespace SocialMedia.Controllers
 
         public IActionResult OpenProfil(int id)
         {
+            var viewModelId = this.profilService.getProfilByUserId(this._userManager.GetUserId(this.User)).id;
+            this.ViewData["RealTimeChatViewModel"] = this.realTimeChatService.GetMessages(viewModelId);
+
             var profil = this.profilService.getProfilByProfilId(id);
             return this.View(profil);
         }
