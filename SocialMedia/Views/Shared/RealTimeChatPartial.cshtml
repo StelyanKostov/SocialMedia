@@ -65,7 +65,7 @@
 
     <div class="containerr">
 
-        @foreach (var item in Model)
+        @foreach (var item in Model.Where(x=> !x.IsDeleted))
         {
 
 
@@ -75,12 +75,15 @@
                 @item.WithProfilUserName
             </label>
             <div class="chat" style="display:none">
+                <input type="hidden" name="name" value="@item.Id" class="RouteChatId" />
+
                 <div class="title ">@item.WithProfilUserName <i class="far fa-trash-alt removeIcon" style="margin-left:2em"></i></div>
                 <div class="text messagesList" id="@item.WithProfilUserName">
 
                     @foreach (var item2 in item.Messages)
                     {
-                        <p>@item2.Content [@item2.CreateOn]</p>
+                        <p>@item2.Content @*[@item2.CreateOn]*@</p>
+                        <hr />
 
 
                     }
@@ -110,12 +113,28 @@
 
     let element = document.querySelectorAll('.removeIcon').forEach(x => x.addEventListener('click', function (e) {
 
-        console.log(e.currentTarget.parentElement.parentElement.previousSibling.previousSibling)
-        console.log(e.currentTarget.parentElement.parentElement)
+        //console.log(e.currentTarget.parentElement.parentElement.previousSibling.previousSibling)
+        //console.log(e.currentTarget.parentElement.parentElement)
 
         e.currentTarget.parentElement.parentElement.previousSibling.previousSibling.remove();
 
 
+        var routeId = e.currentTarget.parentElement.parentElement.getElementsByClassName('RouteChatId')[0].value;
+
+        fetch('FeatureMessages/DeltedRouteChat', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json; charset=utf-8',
+                'Content-Type': 'application/json;charset=UTF-8'
+            },
+            body: JSON.stringify(routeId)
+            
+
+        })
+            .then(x => x.json())
+            .then(x=> console.log(x))
+
+        console.log(routeId)
 
         e.currentTarget.parentElement.parentElement.remove()
 
@@ -123,6 +142,8 @@
     /* window.scroll(0, 10000)*/
 
     /* eee.scroll(0, 1999)*/
+
+    
 </script>
 
 
@@ -149,12 +170,12 @@
             .then(x => x.json())
             .then(x => {
 
-                
+
             })
 
         e.currentTarget.getElementsByClassName('badge')[0].innerHTML = 0;
 
-        
+
 
 
         var mlForScroll = divChat.getElementsByClassName('messagesList')[0];
@@ -196,6 +217,10 @@
     document.querySelectorAll('.sendButton').forEach(x => x.addEventListener('click', function (event) {
 
         var message = event.currentTarget.parentElement.getElementsByClassName('messageInput')[0].value;
+
+        if (message === '') {
+            return;
+        }
 
         var recipientProfilId = event.currentTarget.parentElement.getElementsByClassName('profilId')[0].value;
 

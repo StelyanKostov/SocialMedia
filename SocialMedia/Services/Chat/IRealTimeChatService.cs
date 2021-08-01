@@ -10,5 +10,7 @@ namespace SocialMedia.Services.Chat
         public List<RealTimeChatViewModel> GetMessages(int profilId);
 
         public void SeenMessages(int id, int id2);
+
+        public void DeletedRealTimeChat(string RouteChatId);
     }
 }

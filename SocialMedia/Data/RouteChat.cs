@@ -17,8 +17,10 @@ namespace SocialMedia.Data
         public Profils Creator { get; set; }
 
         public int SecondProflId { get; set; }
-        
 
+        public bool IsDeleted { get; set; }
+
+        public bool IsRealDeleted { get; set; }
         public ICollection<RealTimeChat> realTimeChats { get; set; } 
     }
 }

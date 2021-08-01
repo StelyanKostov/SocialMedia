@@ -33,6 +33,7 @@ namespace SocialMedia.Services.Chat
                 .Include(x=>x.realTimeChats)
                 .Where(x => x.CreatorId == sendProfilId || x.SecondProflId == sendProfilId)
                 .Where(x => x.CreatorId == recipientProfilId || x.SecondProflId == recipientProfilId).FirstOrDefault();
+            route.IsDeleted = false;
             if (route == null)
             {
                 var newRoute = new RouteChat();
@@ -52,6 +53,15 @@ namespace SocialMedia.Services.Chat
 
         }
 
+        public void DeletedRealTimeChat(string RouteChatId)
+        {
+            var routeChat = this.db.RouteChat.FirstOrDefault(x => x.Id == RouteChatId);
+
+            routeChat.IsDeleted = true;
+
+            db.SaveChanges();
+        }
+
         public List<RealTimeChatViewModel> GetMessages(int profilId)
         {
             var route = this.db.RouteChat.Include(x=> x.realTimeChats)
@@ -68,11 +78,16 @@ namespace SocialMedia.Services.Chat
                 {
                     helperViewModel.WithProfilId = item.CreatorId;
                     helperViewModel.WithProfilUserName = this.profilService.getProfilByProfilId(item.CreatorId).UserName;
+                    helperViewModel.Id = item.Id;
+                    helperViewModel.IsDeleted = item.IsDeleted;
+                    
                 }
                 else if (profilId != item.SecondProflId)
                 {
                     helperViewModel.WithProfilId = item.SecondProflId;
                     helperViewModel.WithProfilUserName = this.profilService.getProfilByProfilId(item.SecondProflId).UserName;
+                    helperViewModel.Id = item.Id;
+                    helperViewModel.IsDeleted = item.IsDeleted;
 
                 }
                 helperViewModel.Messages = this.mapper.Map<List<RealTimeMessagesViewModel>>(item.realTimeChats).OrderBy(x=> x.CreateOn).ToList();
@@ -105,5 +120,7 @@ namespace SocialMedia.Services.Chat
            
             this.db.SaveChanges();
         }
+
+        
     }
 }
