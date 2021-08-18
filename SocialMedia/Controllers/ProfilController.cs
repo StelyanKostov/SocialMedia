@@ -19,22 +19,18 @@ namespace SocialMedia.Controllers
         private readonly IWebHostEnvironment environment;
         private readonly IRealTimeChatService realTimeChatService;
 
-
-        //private readonly RoleManager<IdentityRole> roleManager;
-
         public ProfilController(UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IProfilService profilService,
             IWebHostEnvironment environment,
             IRealTimeChatService realTimeChatService
-          /*  RoleManager<IdentityRole> roleManager*/)
+        )
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
             this.profilService = profilService;
             this.environment = environment;
             this.realTimeChatService = realTimeChatService;
-            //this.roleManager = roleManager;
         }
         public IActionResult Index()
         {
@@ -67,9 +63,8 @@ namespace SocialMedia.Controllers
         }
 
 
-
         //todooooo
-        public IActionResult AllProfils(/*List<ProfilViewModel> viewModel*/)
+        public IActionResult AllProfils()
         {
             var id = this._userManager.GetUserId(this.User);
             var viewModelId = this.profilService.getProfilByUserId(id).id;

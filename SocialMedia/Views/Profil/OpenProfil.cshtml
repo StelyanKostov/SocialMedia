@@ -175,6 +175,8 @@
                 buttonElement.setAttribute('type', 'button')
                 e.currentTarget.parentElement.appendChild(buttonElement);
 
+                e.currentTarget.remove();
+
                 $("#sendButton").click(function (event) {
 
                     console.log(event);
@@ -188,6 +190,7 @@
                     connection.invoke("SendToOneProfil", data);
                     $("#messageInput").val("");
 
+                    
                     
                 });
 

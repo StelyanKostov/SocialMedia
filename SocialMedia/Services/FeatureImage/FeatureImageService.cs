@@ -23,22 +23,21 @@ namespace SocialMedia.Services.FeatureImage
             this.profilService = profilService;
         }
 
-        public string AddComment(string ImgId, string content, string userlIdCommented)
+        public string AddComment(string ImgId, string content, int profilIdCommend)
         {
             var image = this.db.images.Where(x => x.Id == ImgId).FirstOrDefault();
 
-            var profilIdCommented = this.profilService.getProfilByUserId(userlIdCommented).id;
 
             image.Comments.Add(new Comments()
             {
                 Content = content,
                 CreatedOn = DateTime.Now,
-                ProfilIdCommented = profilIdCommented,
+                ProfilIdCommented = profilIdCommend,
             });
 
             this.db.SaveChanges();
 
-            return this.db.Profils.Where(x => x.id == profilIdCommented).FirstOrDefault().UserName;
+            return this.db.Profils.Where(x => x.id == profilIdCommend).FirstOrDefault().UserName;
         }
 
         public object GetCommentsImage(string ImgId)

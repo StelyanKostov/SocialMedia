@@ -42,13 +42,9 @@ namespace SocialMedia.Controllers
                 this.ViewData["RealTimeChatViewModel"] = this.realTimeChatService.GetMessages(viewModelId);
             } 
 
-            
-
             var viewModel = this.galleryService.GetAllImage();
 
             //todoo
-
-            
 
             return View(viewModel);
         }

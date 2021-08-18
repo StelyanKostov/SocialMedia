@@ -36,9 +36,12 @@
 
                     let path = '/Profil/OpenProfil/';
                     let aElement = document.createElement('a');
-                    aElement.innerHTML = 'from ' + x.username + ' : ' + x.content;
+                    aElement.innerHTML = x.username + ' : ' + x.content;
                     aElement.classList.add('list-group-item');
                     aElement.classList.add('list-group-item-action');
+                    aElement.classList.add('btn');
+                    aElement.classList.add('btn-primary');
+
 
                     aElement.setAttribute('href', path + x.commentingId);
 
@@ -56,11 +59,14 @@
             e.preventDefault();
 
 
-            var content = textareaElement.value;
-            //var imgId = divElement.getElementsByClassName('img-id')[0].value;
-            var profilIdCommented = document.getElementsByClassName('user-id')[0].value;
+            var content = escapeHtml(textareaElement.value);
+            ////var imgId = divElement.getElementsByClassName('img-id')[0].value;
+            //var profilIdCommented = document.getElementsByClassName('user-id')[0].value;
 
             let divCommentsElement = e.currentTarget.parentNode.parentNode.parentNode.getElementsByClassName('list-group')[0]
+
+
+            let viewModel = { ImageId: imgId, Content: content };
 
             fetch('FeatureImage/AddComment',
                 {
@@ -69,16 +75,19 @@
                         'Accept': 'application/json; charset=utf-8',
                         'Content-Type': 'application/json;charset=UTF-8'
                     },
-                    body: JSON.stringify([imgId, content, profilIdCommented])
+                    body: JSON.stringify(viewModel)
+
                 })
                 .then(x => x.json())
                 .then(x => {
 
                     let path = '/Profil/OpenProfil/';
                     let aElement = document.createElement('a');
-                    aElement.innerHTML = 'from ' + x.username + ' : ' + x.content;
+                    aElement.innerHTML = x.username + ' : ' + x.content;
                     aElement.classList.add('list-group-item');
                     aElement.classList.add('list-group-item-action');
+                    aElement.classList.add('btn');
+                    aElement.classList.add('btn-primary');
 
 
                     divCommentsElement.appendChild(aElement);
@@ -96,5 +105,14 @@
         e.currentTarget.remove();
 
     }));
+
+function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
 
 

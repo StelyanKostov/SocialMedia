@@ -40,7 +40,7 @@ namespace SocialMedia.Hubs
             var profil = this.profilService.getProfilByUserId(userId);
             await this.Clients.All.SendAsync(
                 "NewMessage",
-                new Message { User = profil.UserName, Text = message, });
+                new Message { User = profil.UserName, Text = message, ProfilId = profil.id});
 
             this.chatRoomsService.AddMessages(profil.id, message);
 

@@ -11,5 +11,7 @@ namespace SocialMedia.ViewModels.Chat
         public bool Seen { get; set; }
 
         public DateTime CreateOn { get; set; }
+
+        public string Sender { get; set; }
     }
 }

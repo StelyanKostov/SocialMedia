@@ -13,7 +13,7 @@
     <div id="messagesList" style="font-size: 28px;">
         @foreach (var item in Model)
         {
-        <div>[@item.Profil.UserName] @item.Content</div>
+        <div><a asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.ProfilId">[@item.Profil.UserName]:</a> @item.Content</div>
         }
     </div>
 </div>
@@ -27,7 +27,7 @@
 
         connection.on("NewMessage",
             function (message) {
-                var chatInfo = `<div>[${message.user}] ${escapeHtml(message.text)}</div>`;
+                var chatInfo = `<div><a href="/Profil/OpenProfil/${message.profilId}">[${message.user}]:</a> ${escapeHtml(message.text)}</div>`;
                 $("#messagesList").append(chatInfo);
             });
 

@@ -7,7 +7,7 @@ namespace SocialMedia.Services.FeatureImage
     public interface IFeatureImageService
     {
    
-        public string AddComment(string id , string content, string userlIdCommented);
+        public string AddComment(string id , string content, int userlIdCommented);
 
         public object GetCommentsImage(string ImgId);
 

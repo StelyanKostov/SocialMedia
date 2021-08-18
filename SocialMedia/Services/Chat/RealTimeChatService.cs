@@ -25,6 +25,7 @@ namespace SocialMedia.Services.Chat
             var newMessages = new RealTimeChat()
             {
                 Content = content,
+                Sender = profilService.getProfilByProfilId(sendProfilId).UserName,
                 CreateOn = DateTime.Now,
                 New = true,
 
@@ -33,7 +34,12 @@ namespace SocialMedia.Services.Chat
                 .Include(x=>x.realTimeChats)
                 .Where(x => x.CreatorId == sendProfilId || x.SecondProflId == sendProfilId)
                 .Where(x => x.CreatorId == recipientProfilId || x.SecondProflId == recipientProfilId).FirstOrDefault();
-            route.IsDeleted = false;
+
+            if (route != null)
+            {
+                route.IsDeleted = false;
+
+            }
             if (route == null)
             {
                 var newRoute = new RouteChat();
@@ -104,18 +110,16 @@ namespace SocialMedia.Services.Chat
 
             if (mess == null)
             {
-                mess = this.db.RouteChat.Where(x => x.CreatorId == id2 && x.SecondProflId == id).FirstOrDefault();
+                mess = this.db.RouteChat.Include(x => x.realTimeChats).Where(x => x.CreatorId == id2 && x.SecondProflId == id).FirstOrDefault();
             }
 
 
-
-            //foreach (var item in mess)
-            //{
-                foreach (var item2 in mess.realTimeChats)
+            var username = this.profilService.getProfilByProfilId(id2).UserName;
+         
+                foreach (var item2 in mess.realTimeChats.Where(x=> x.Sender == this.profilService.getProfilByProfilId(id2).UserName))
                 {
                     item2.Seen = true;
                 }
-            //}
 
            
             this.db.SaveChanges();

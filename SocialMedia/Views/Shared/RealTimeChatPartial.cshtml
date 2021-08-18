@@ -43,8 +43,9 @@
     .text {
         padding: 10px;
         overflow: auto;
+       
         bottom: 0;
-        max-height: 200px;
+        max-height: 280px;
         position: relative;
         width: 100%;
     }
@@ -65,13 +66,12 @@
 
     <div class="containerr">
 
-        @foreach (var item in Model.Where(x=> !x.IsDeleted))
+        @foreach (var item in Model.Where(x => !x.IsDeleted))
         {
 
-
-
+            
             <label class="popUpChat btn btn-primary">
-                <span class="badge">@item.Messages.Count(x => !x.Seen)</span>
+                <span class="badge">@item.Messages.Where(x => x.Sender == item.WithProfilUserName).Count(x=> !x.Seen)</span>
                 @item.WithProfilUserName
             </label>
             <div class="chat" style="display:none">
@@ -82,9 +82,24 @@
 
                     @foreach (var item2 in item.Messages)
                     {
-                        <p>@item2.Content @*[@item2.CreateOn]*@</p>
-                        <hr />
 
+                        @if (item.WithProfilUserName == item2.Sender)
+                        {
+                            <blockquote class="blockquote text-right">
+                                <p class="mb-0" style="font-size: 100%;" >@item2.Content</p>
+                                <footer class="blockquote-footer" style="font-size: 50%;"> @item2.CreateOn@*<cite title="Source Title">@item2.CreateOn</cite>*@</footer>
+                            </blockquote>
+                        }
+                        else
+                        {
+                            <blockquote class="blockquote text-left">
+                                <p class="mb-0" style="font-size: 100%;">@*<mark>@item2.Sender</mark>*@@item2.Content</p>
+                                <footer class="blockquote-footer" style="font-size: 50%;"> @item2.CreateOn@*<cite title="Source Title">@item2.CreateOn</cite>*@</footer>
+                            </blockquote>
+                        }
+
+
+                        @*<hr />*@
 
                     }
 
@@ -113,9 +128,7 @@
 
     let element = document.querySelectorAll('.removeIcon').forEach(x => x.addEventListener('click', function (e) {
 
-        //console.log(e.currentTarget.parentElement.parentElement.previousSibling.previousSibling)
-        //console.log(e.currentTarget.parentElement.parentElement)
-
+       
         e.currentTarget.parentElement.parentElement.previousSibling.previousSibling.remove();
 
 
@@ -128,11 +141,11 @@
                 'Content-Type': 'application/json;charset=UTF-8'
             },
             body: JSON.stringify(routeId)
-            
+
 
         })
             .then(x => x.json())
-            .then(x=> console.log(x))
+            .then(x => console.log(x))
 
         console.log(routeId)
 
@@ -143,7 +156,7 @@
 
     /* eee.scroll(0, 1999)*/
 
-    
+
 </script>
 
 
@@ -156,7 +169,6 @@
         divChat.style.display = "";
 
         var id = divChat.getElementsByClassName('profilId')[0].value;
-
         console.log(id)
         fetch(`RealTimeChat/SeenMessages?id2=${id}`,
             {
@@ -174,8 +186,6 @@
             })
 
         e.currentTarget.getElementsByClassName('badge')[0].innerHTML = 0;
-
-
 
 
         var mlForScroll = divChat.getElementsByClassName('messagesList')[0];
@@ -205,12 +215,23 @@
 
     connection.on("NewMessage",
         function (message) {
-            var chatInfo = `<p>[${message.user}] ${escapeHtml(message.text)}</p>`;
+            //var chatInfo = `<p>[${message.user}] ${escapeHtml(message.text)}</p>`;
+            //$(`#${message.user}`).append(chatInfo);
 
-            $(`#${message.user}`).append(chatInfo);
+            let blockquoteElement = document.createElement("blockquote");
+            blockquoteElement.classList.add("blockquote");
+            blockquoteElement.classList.add("text-right");
+            blockquoteElement.innerHTML = `<p class="mb-0" style="font-size: 100%;">${escapeHtml(message.text)}</p>
+                                <footer class="blockquote-footer" style="font-size: 50%;">${new Date().toLocaleString()}</footer>`;
+            $(`#${message.user}`).append(blockquoteElement);
+
+
 
             let element = document.getElementById(message.user);
             element.scrollTop = element.scrollHeight;
+
+
+           
         });
 
 
@@ -228,9 +249,17 @@
         let elementMessagesList = event.currentTarget.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('messagesList')[0];
 
 
-        let pElement = document.createElement("p");
-        pElement.innerHTML = `[me] ${escapeHtml(message)}`
-        elementMessagesList.appendChild(pElement);
+        //let pElement = document.createElement("p");
+        //pElement.innerHTML = `[me] ${escapeHtml(message)}`
+        //elementMessagesList.appendChild(pElement);
+
+        let blockquoteElement = document.createElement("blockquote");
+        blockquoteElement.classList.add("blockquote");
+        blockquoteElement.classList.add("text-left");
+        blockquoteElement.innerHTML = `<p class="mb-0" style="font-size: 100%;">${escapeHtml(message)}</p>
+                                <footer class="blockquote-footer" style="font-size: 50%;">${new Date().toLocaleString()}</footer>`;
+        elementMessagesList.appendChild(blockquoteElement);
+
 
 
         var data = message + '<>=!' + recipientProfilId;
@@ -238,6 +267,12 @@
         $(".messageInput").val("");
 
         elementMessagesList.scrollTop = elementMessagesList.scrollHeight;
+
+
+        @*<blockquote class="blockquote text-left">
+                                <p class="mb-0" style="font-size: 100%;">@item2.Content</p>
+                                <footer class="blockquote-footer" style="font-size: 50%;"> @item2.CreateOn</footer>
+                            </blockquote>*@
 
     }));
 
@@ -253,4 +288,35 @@
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
     }
+</script>
+
+<script>
+    //listen = (id) => {
+    //    const socket = new WebSocket(`wss://localhost:44384/Coffee/${id}`);
+
+    //    socket.onmessage = event => {
+    //        document.getElementById("status").innerHTML = JSON.parse(event.data);
+    //    };
+
+    //    // We can send data back to the server: socket.send();
+    //};
+
+    //listen()
+
+    //document.getElementById("submit").addEventListener("click", e => {
+    //    e.preventDefault();
+    //    const product = document.getElementById("product").value;
+    //    const size = document.getElementById("size").value;
+    //    fetch("/Coffee",
+    //        {
+    //            method: "POST",
+    //            body: { product, size }
+    //        })
+    //        .then(response => response.text())
+    //        .then(id => {
+    //            document.getElementById("status").innerHTML = `Starting coffee #${id}`;
+    //            listen(id);
+    //        });
+    //});
+
 </script>
