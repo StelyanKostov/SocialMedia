@@ -28,10 +28,11 @@ namespace SocialMedia.Services.Chat
                 Sender = profilService.getProfilByProfilId(sendProfilId).UserName,
                 CreateOn = DateTime.Now,
                 New = true,
+                SenderId = sendProfilId
 
             };
             var route = this.db.RouteChat
-                .Include(x=>x.realTimeChats)
+                .Include(x => x.realTimeChats)
                 .Where(x => x.CreatorId == sendProfilId || x.SecondProflId == sendProfilId)
                 .Where(x => x.CreatorId == recipientProfilId || x.SecondProflId == recipientProfilId).FirstOrDefault();
 
@@ -70,7 +71,7 @@ namespace SocialMedia.Services.Chat
 
         public List<RealTimeChatViewModel> GetMessages(int profilId)
         {
-            var route = this.db.RouteChat.Include(x=> x.realTimeChats)
+            var route = this.db.RouteChat.Include(x => x.realTimeChats)
               .Where(x => x.CreatorId == profilId || x.SecondProflId == profilId)
              .ToList();
 
@@ -86,7 +87,7 @@ namespace SocialMedia.Services.Chat
                     helperViewModel.WithProfilUserName = this.profilService.getProfilByProfilId(item.CreatorId).UserName;
                     helperViewModel.Id = item.Id;
                     helperViewModel.IsDeleted = item.IsDeleted;
-                    
+
                 }
                 else if (profilId != item.SecondProflId)
                 {
@@ -96,10 +97,25 @@ namespace SocialMedia.Services.Chat
                     helperViewModel.IsDeleted = item.IsDeleted;
 
                 }
-                helperViewModel.Messages = this.mapper.Map<List<RealTimeMessagesViewModel>>(item.realTimeChats).OrderBy(x=> x.CreateOn).ToList();
+                helperViewModel.Messages = this.mapper.Map<List<RealTimeMessagesViewModel>>(item.realTimeChats).OrderBy(x => x.CreateOn).ToList();
 
                 viewModel.Add(helperViewModel);
             }
+
+            return viewModel;
+        }
+
+        public List<RealTimeMessagesViewModel> GetMessagesOneToOne(int ownerProfil, int otherProfil)
+        {
+            var data = this.db.RouteChat.Include(x => x.realTimeChats).Where(x => x.CreatorId == ownerProfil && x.SecondProflId == otherProfil).FirstOrDefault();
+
+            if (data == null)
+            {
+                data = this.db.RouteChat.Include(x => x.realTimeChats).Where(x => x.CreatorId == otherProfil && x.SecondProflId == ownerProfil).FirstOrDefault();
+
+            }
+
+            var viewModel = mapper.Map<List<RealTimeMessagesViewModel>>(data.realTimeChats).Where(x => x.SenderId == otherProfil).ToList();
 
             return viewModel;
         }
@@ -115,16 +131,16 @@ namespace SocialMedia.Services.Chat
 
 
             var username = this.profilService.getProfilByProfilId(id2).UserName;
-         
-                foreach (var item2 in mess.realTimeChats.Where(x=> x.Sender == this.profilService.getProfilByProfilId(id2).UserName))
-                {
-                    item2.Seen = true;
-                }
 
-           
+            foreach (var item2 in mess.realTimeChats.Where(x => x.Sender == this.profilService.getProfilByProfilId(id2).UserName))
+            {
+                item2.Seen = true;
+            }
+
+
             this.db.SaveChanges();
         }
 
-        
+
     }
 }

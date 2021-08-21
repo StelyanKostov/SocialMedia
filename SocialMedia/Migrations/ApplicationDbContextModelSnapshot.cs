@@ -450,6 +450,9 @@ namespace SocialMedia.Migrations
                     b.Property<string>("Sender")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RouteChatId");

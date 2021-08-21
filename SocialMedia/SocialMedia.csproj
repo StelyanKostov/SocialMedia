@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\ProfilImage\" />
+    <Folder Include="wwwroot\lib\signalr\dist\browser\" />
   </ItemGroup>
 
 </Project>

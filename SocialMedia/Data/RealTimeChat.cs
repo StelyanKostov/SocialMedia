@@ -13,6 +13,8 @@ namespace SocialMedia.Data
         public string Id { get; set; }
 
         public string Sender { get; set; }
+
+        public int SenderId { get; set; }
         public bool Seen { get; set; }
 
         public string Content { get; set; }

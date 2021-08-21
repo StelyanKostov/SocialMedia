@@ -48,6 +48,7 @@ namespace SocialMedia
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
             services.AddRazorPages();
             services.AddSignalR();
             services.AddTransient<IProfilService, ProfilService>();
@@ -83,6 +84,12 @@ namespace SocialMedia
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseWebSockets(
+                new WebSocketOptions
+                {
+                    KeepAliveInterval = TimeSpan.FromSeconds(120),
+                    ReceiveBufferSize = 4 * 1024,
+                });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

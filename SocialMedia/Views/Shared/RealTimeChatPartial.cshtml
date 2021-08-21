@@ -43,7 +43,6 @@
     .text {
         padding: 10px;
         overflow: auto;
-       
         bottom: 0;
         max-height: 280px;
         position: relative;
@@ -69,9 +68,9 @@
         @foreach (var item in Model.Where(x => !x.IsDeleted))
         {
 
-            
+
             <label class="popUpChat btn btn-primary">
-                <span class="badge">@item.Messages.Where(x => x.Sender == item.WithProfilUserName).Count(x=> !x.Seen)</span>
+                <span class="badge">@item.Messages.Where(x => x.Sender == item.WithProfilUserName).Count(x => !x.Seen)</span>
                 @item.WithProfilUserName
             </label>
             <div class="chat" style="display:none">
@@ -86,7 +85,7 @@
                         @if (item.WithProfilUserName == item2.Sender)
                         {
                             <blockquote class="blockquote text-right">
-                                <p class="mb-0" style="font-size: 100%;" >@item2.Content</p>
+                                <p class="mb-0" style="font-size: 100%;">@item2.Content</p>
                                 <footer class="blockquote-footer" style="font-size: 50%;"> @item2.CreateOn@*<cite title="Source Title">@item2.CreateOn</cite>*@</footer>
                             </blockquote>
                         }
@@ -128,7 +127,7 @@
 
     let element = document.querySelectorAll('.removeIcon').forEach(x => x.addEventListener('click', function (e) {
 
-       
+
         e.currentTarget.parentElement.parentElement.previousSibling.previousSibling.remove();
 
 
@@ -170,7 +169,7 @@
 
         var id = divChat.getElementsByClassName('profilId')[0].value;
         console.log(id)
-        fetch(`RealTimeChat/SeenMessages?id2=${id}`,
+        fetch(`/RealTimeChat/SeenMessages?id2=${id}`,
             {
                 method: 'GET',
                 headers: {
@@ -228,10 +227,21 @@
 
 
             let element = document.getElementById(message.user);
+            console.log();
+            let dataBadge = element.parentElement.previousSibling.previousSibling.getElementsByClassName("badge")[0];
+
+            console.log(dataBadge);
+            let valueBadge = parseInt(dataBadge.innerHTML) + 1;
+            console.log(valueBadge);
+
+            dataBadge.innerHTML = valueBadge;
+
+            console.log(dataBadge);
+
             element.scrollTop = element.scrollHeight;
 
 
-           
+
         });
 
 
@@ -290,33 +300,4 @@
     }
 </script>
 
-<script>
-    //listen = (id) => {
-    //    const socket = new WebSocket(`wss://localhost:44384/Coffee/${id}`);
 
-    //    socket.onmessage = event => {
-    //        document.getElementById("status").innerHTML = JSON.parse(event.data);
-    //    };
-
-    //    // We can send data back to the server: socket.send();
-    //};
-
-    //listen()
-
-    //document.getElementById("submit").addEventListener("click", e => {
-    //    e.preventDefault();
-    //    const product = document.getElementById("product").value;
-    //    const size = document.getElementById("size").value;
-    //    fetch("/Coffee",
-    //        {
-    //            method: "POST",
-    //            body: { product, size }
-    //        })
-    //        .then(response => response.text())
-    //        .then(id => {
-    //            document.getElementById("status").innerHTML = `Starting coffee #${id}`;
-    //            listen(id);
-    //        });
-    //});
-
-</script>

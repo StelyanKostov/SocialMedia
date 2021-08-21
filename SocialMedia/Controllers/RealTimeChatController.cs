@@ -5,6 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Data;
 using SocialMedia.Services;
 using SocialMedia.Services.Chat;
+using SocialMedia.ViewModels.Chat;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.WebSockets;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SocialMedia.Controllers
@@ -45,35 +52,6 @@ namespace SocialMedia.Controllers
             this.realTimeChatService.SeenMessages(profilId, id2);
             return this.Json(new { });
         }
-
-        //public async Task GetUpdateForSeenMessages(int id)
-        //{
-        //    var context = this.httpContextAccessor.HttpContext;
-        //    if (!context.WebSockets.IsWebSocketRequest)
-        //    {
-        //        context.Response.StatusCode = 400;
-        //        return;
-        //    }
-
-        //    var webSocket = await context.WebSockets.AcceptWebSocketAsync();
-        //    CheckResult result;
-        //    do
-        //    {
-        //        result = this.orderService.GetUpdate(id);
-        //        if (result.New)
-        //        {
-        //            var jsonMessage = $"\"{result.Update}\"";
-        //            var byteMessage = Encoding.UTF8.GetBytes(jsonMessage);
-        //            await webSocket.SendAsync(
-        //                buffer: new ArraySegment<byte>(byteMessage, 0, byteMessage.Length),
-        //                messageType: WebSocketMessageType.Text,
-        //                endOfMessage: true,
-        //                cancellationToken: CancellationToken.None);
-        //        }
-        //    }
-        //    while (!result.Finished);
-        //    await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "Done", CancellationToken.None);
-        //}
 
     }
 
