@@ -23,7 +23,10 @@
                     <a class="btn btn-sm btn-outline-secondary" id="realTimeChat">Чат</a>
                 }
             </form>
-            
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-area="Administration" asp-controller="Admin" asp-action="RealDeleteProfil" asp-route-profilId="@Model.id" class="btn btn-outline-success " type="button">Delete</a>
+            }
         </nav>
         <div class="row">
             <div class="col">

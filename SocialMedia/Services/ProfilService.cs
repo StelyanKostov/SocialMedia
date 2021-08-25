@@ -103,5 +103,14 @@ namespace SocialMedia.Services
 
             return viewModel;
         }
+
+        public void RealDeleteProfil(int profilId)
+        {
+            var data = this.db.Profils.Include(x => x.Images).Include(x => x.Messages).Include(x => x.RouteChat).Where(x=> x.id == profilId).FirstOrDefault();
+
+            db.Profils.Remove(data);
+
+            this.db.SaveChanges();
+        }
     }
 }

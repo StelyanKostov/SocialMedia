@@ -17,5 +17,7 @@ namespace SocialMedia.Services
 
 
         public AllProfils SearchByUsername(string username);
+
+        public void RealDeleteProfil(int profilId);
     }
 }

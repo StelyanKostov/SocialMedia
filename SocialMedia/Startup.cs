@@ -46,6 +46,8 @@ namespace SocialMedia
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
             })
+                 .AddRoles<IdentityRole>()
+
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddHttpContextAccessor();
@@ -57,9 +59,11 @@ namespace SocialMedia
             services.AddTransient<IFeatureImageService, FeatureImageService>();
             services.AddTransient<IChatRoomsService, ChatRoomsService>();
             services.AddTransient<IRealTimeChatService, RealTimeChatService>();
+            //services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>();
 
 
-            
+
+
 
             var mapperConfig = new MapperConfiguration(mc =>
             {
@@ -101,6 +105,11 @@ namespace SocialMedia
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<ChatHub>("/chatter");
+
+                endpoints.MapControllerRoute(
+                    "areaRoute",
+                    "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                    );
 
                 endpoints.MapControllerRoute(
                     name: "default",

@@ -57,11 +57,13 @@ namespace SocialMedia.Services
         }
 
 
-        public void RealDeleteImage(int idProfil, string idImage)
+        public void RealDeleteImage(string idImage)
         {
-            var profil = this.db.Profils.Include(x => x.Images).Where(x => x.id == idProfil).FirstOrDefault();
+            //var profil = this.db.Profils.Include(x => x.Images).Where(x => x.id == idProfil).FirstOrDefault();
 
-            var image = profil.Images.Where(x => x.Id == idImage).FirstOrDefault();
+            //var image = profil.Images.Where(x => x.Id == idImage).FirstOrDefault();
+
+            var image = this.db.images.Include(x=> x.Comments).Include(x=> x.Likes).Where(x => x.Id == idImage).FirstOrDefault();
 
 
             this.db.images.Remove(image);

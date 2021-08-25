@@ -1,0 +1,46 @@
+﻿@model List<SocialMedia.ViewModels.Image.ImageViewModel>
+
+
+<div class="mx-auto" style="width: 360px;">
+    @foreach (var item in Model)
+    {
+
+        <div class="card" style="width: 30rem;  margin-top: 20px !important">
+            <a asp-area="" asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.Profil.id">
+
+                <div class="card-body">
+                    <h4 class="card-title">@item.Profil.UserName</h4>
+
+                    <p class="card-text">@item.Description</p>
+                </div>
+
+                @*<h5 class="font-italic">@item.Profil.UserName</h5>*@
+                <img class="card-img-top" src="~/images/ProfilImage/@item.Profil.UserName/@item.Id.@item.Extension" alt="Card image cap">
+                <input type="hidden" class="img-id" value="@item.Id" />
+
+
+            </a>
+
+
+            <nav>
+                <button class="btn btn-primary btn-lg button-like" type="button"><i class="fas fa-thumbs-up" style="font-size:25px"> @item.Likes.Count()</i></button>
+
+                <button class="btn btn-primary btn-lg button-comments" type="button">  <i class="fas fa-comments" style="font-size:25px"> @item.Comments.Count()</i></button>
+
+                <a class="btn btn-danger btn-lg" asp-area="Administration" asp-controller="Admin" asp-action="DeleteImg" asp-route-imgId="@item.Id">   <i class="far fa-trash-alt"></i></a>
+
+
+            </nav>
+
+
+
+        </div>
+    }
+</div>
+
+@section Scripts{
+
+    <script src="~/scripts/Home/comments.js"></script>
+    <script src="~/scripts/Home/likes.js"></script>
+
+}

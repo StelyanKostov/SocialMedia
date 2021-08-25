@@ -6,7 +6,7 @@
 
 
     //var viewModel = { ImageId: imgid, ProfilIdLiked: profilIdLiked };
-    fetch('FeatureImage/LikeImage',
+    fetch('/FeatureImage/LikeImage',
         {
             method: 'POST',
             headers: {

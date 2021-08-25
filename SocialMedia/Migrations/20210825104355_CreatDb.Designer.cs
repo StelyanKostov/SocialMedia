@@ -10,8 +10,8 @@ using SocialMedia.Data;
 namespace SocialMedia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210712115340_CreatedDb")]
-    partial class CreatedDb
+    [Migration("20210825104355_CreatDb")]
+    partial class CreatDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,15 @@ namespace SocialMedia.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "238df304-ad4e-411f-9941-52e00cc855d8",
+                            ConcurrencyStamp = "238df304-ad4e-411f-9941-52e00cc855d8",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -204,6 +213,13 @@ namespace SocialMedia.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1",
+                            RoleId = "238df304-ad4e-411f-9941-52e00cc855d8"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -424,6 +440,17 @@ namespace SocialMedia.Migrations
                         .HasFilter("[ApplicationUserId] IS NOT NULL");
 
                     b.ToTable("Profils");
+
+                    b.HasData(
+                        new
+                        {
+                            id = 1,
+                            ApplicationUserId = "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1",
+                            DateBirthday = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Height = 0,
+                            IsDeleted = false,
+                            Weight = 0
+                        });
                 });
 
             modelBuilder.Entity("SocialMedia.Data.RealTimeChat", b =>
@@ -449,6 +476,12 @@ namespace SocialMedia.Migrations
                     b.Property<bool>("Seen")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Sender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SenderId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RouteChatId");
@@ -463,6 +496,12 @@ namespace SocialMedia.Migrations
 
                     b.Property<int>("CreatorId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsRealDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("SecondProflId")
                         .HasColumnType("int");
@@ -488,6 +527,26 @@ namespace SocialMedia.Migrations
                         .HasColumnType("bit");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "8a35ff0f-341e-481a-971d-f2cf3cba3e02",
+                            Email = "Admin@gmail.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@GMAIL.COM",
+                            NormalizedUserName = "ADMIN@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEpBLvO7akmFPAUwiXWoEaKUZga9BHSGJLfvkmgjGHU+XbpoW8W6Qe1apmaYvDcvcw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "AZVMXEHBSG3MTISR6RY6Y2IYTVD7SLKV",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin@gmail.com",
+                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsDeleted = false
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

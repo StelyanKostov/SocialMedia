@@ -15,7 +15,7 @@
 
         var imgId = divElement.getElementsByClassName('img-id')[0].value;
 
-        fetch(`FeatureImage/GetComments?ImgId=${imgId}`,
+        fetch(`/FeatureImage/GetComments?ImgId=${imgId}`,
             {
                 headers: {
                     'Accept': 'application/json; charset=utf-8',
@@ -68,7 +68,7 @@
 
             let viewModel = { ImageId: imgId, Content: content };
 
-            fetch('FeatureImage/AddComment',
+            fetch('/FeatureImage/AddComment',
                 {
                     method: 'POST',
                     headers: {

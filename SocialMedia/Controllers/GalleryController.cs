@@ -57,7 +57,7 @@ namespace SocialMedia.Controllers
 
         public IActionResult RealDeleteImage(int idProfil, string idImage)
         {
-            this.galleryService.RealDeleteImage(idProfil, idImage);
+            this.galleryService.RealDeleteImage(idImage);
 
             return this.RedirectToAction("Index", new { id = idProfil });
         }

@@ -8,7 +8,7 @@ namespace SocialMedia.Services
     {
         public void AddImgae(IEnumerable<IFormFile> ImagesVieModel, string imagePath, string userId,string description);
 
-        public void RealDeleteImage(int idProfil, string idImage);
+        public void RealDeleteImage(string idImage);
         public void SetProfilImage(string idProfil, string idImage);
 
         public List<ImageViewModel> GetAllImage();

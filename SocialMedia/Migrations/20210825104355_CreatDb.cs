@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SocialMedia.Migrations
 {
-    public partial class CreatedDb : Migration
+    public partial class CreatDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -264,7 +264,9 @@ namespace SocialMedia.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     CreatorId = table.Column<int>(nullable: false),
-                    SecondProflId = table.Column<int>(nullable: false)
+                    SecondProflId = table.Column<int>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    IsRealDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -325,6 +327,8 @@ namespace SocialMedia.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    Sender = table.Column<string>(nullable: true),
+                    SenderId = table.Column<int>(nullable: false),
                     Seen = table.Column<bool>(nullable: false),
                     Content = table.Column<string>(nullable: true),
                     CreateOn = table.Column<DateTime>(nullable: false),
@@ -342,6 +346,26 @@ namespace SocialMedia.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "238df304-ad4e-411f-9941-52e00cc855d8", "238df304-ad4e-411f-9941-52e00cc855d8", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CreatedOn", "DeletedOn", "IsDeleted" },
+                values: new object[] { "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1", 0, "8a35ff0f-341e-481a-971d-f2cf3cba3e02", "ApplicationUser", "Admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEEpBLvO7akmFPAUwiXWoEaKUZga9BHSGJLfvkmgjGHU+XbpoW8W6Qe1apmaYvDcvcw==", null, false, "AZVMXEHBSG3MTISR6RY6Y2IYTVD7SLKV", false, "Admin@gmail.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1", "238df304-ad4e-411f-9941-52e00cc855d8" });
+
+            migrationBuilder.InsertData(
+                table: "Profils",
+                columns: new[] { "id", "Alcohol", "ApplicationUserId", "Cigarettes", "DateBirthday", "Description", "EyesColor", "From", "Gender", "HairColor", "Height", "IsDeleted", "Likes", "LookingFor", "Status", "UserName", "Weight" },
+                values: new object[] { 1, null, "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, null, 0, false, null, null, null, null, 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
