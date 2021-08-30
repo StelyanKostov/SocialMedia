@@ -81,7 +81,9 @@ namespace SocialMedia.Data
             builder.Entity<Profils>().HasData(new Data.Profils
             {
                 ApplicationUserId = ADMIN_ID,
-                id = 1
+                id = 1,
+                UserName = "Admin"
+                
 
             });
 

@@ -3,7 +3,7 @@
 @{
 
 }
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light bg-light" style="background:#eeeeee !important">
     <form class="form-inline">
         <input name="username" class="form-control mr-sm-2" type="search" placeholder="Username" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" asp-controller="Profil" asp-action="Search">Search</button>
@@ -24,7 +24,7 @@
 
         <div class="col border">
             <a asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.id">
-                <p>@item.UserName</p>
+                <p class="h5" style=" font-family: Monospace">@item.UserName</p>
                 <input type="hidden" class="gender-input" value="@item.Gender" />
 
 

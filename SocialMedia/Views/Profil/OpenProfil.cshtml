@@ -14,7 +14,7 @@
 <div>
 
     <div class="container">
-        <nav class="navbar navbar-light bg-light">
+        <nav class="navbar navbar-light bg-light"  style="background:#eeeeee !important">
             <form class="form-inline">
                 <a asp-controller="Gallery" asp-action="Index" asp-route-id="@Model.id" class="btn btn-outline-success " type="button">Галерия</a>
                 @if (SignInManager.UserManager.GetUserId(this.User) != Model.ApplicationUserId)
@@ -25,7 +25,7 @@
             </form>
             @if (User.IsInRole("Admin"))
             {
-                <a asp-area="Administration" asp-controller="Admin" asp-action="RealDeleteProfil" asp-route-profilId="@Model.id" class="btn btn-outline-success " type="button">Delete</a>
+                <a asp-area="Administration" asp-controller="Admin" asp-action="RealDeleteProfil" asp-route-profilId="@Model.id" class="btn btn-danger " type="button">Delete</a>
             }
         </nav>
         <div class="row">

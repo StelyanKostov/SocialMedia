@@ -3,13 +3,24 @@
     .forEach(x => x.addEventListener('click', function (e) {
         let formElement = document.createElement('form');
 
+        let divforFormElement = document.createElement("div");
+        divforFormElement.classList.add("form-group");
+
         let textareaElement = document.createElement('textarea');
-        formElement.appendChild(textareaElement)
+        textareaElement.classList.add("form-control");
+        divforFormElement.appendChild(textareaElement)
+        //formElement.appendChild(textareaElement)
 
         let buttonElement = document.createElement('button');
         buttonElement.innerHTML = 'Коментирай'
         buttonElement.classList.add('button-send-comment')
-        formElement.appendChild(buttonElement)
+        buttonElement.classList.add('btn')
+        buttonElement.classList.add('btn-primary')
+
+        divforFormElement.appendChild(buttonElement)
+
+        //formElement.appendChild(buttonElement)
+        formElement.appendChild(divforFormElement)
 
         var divElement = e.currentTarget.parentNode.parentNode;
 
@@ -63,7 +74,8 @@
             ////var imgId = divElement.getElementsByClassName('img-id')[0].value;
             //var profilIdCommented = document.getElementsByClassName('user-id')[0].value;
 
-            let divCommentsElement = e.currentTarget.parentNode.parentNode.parentNode.getElementsByClassName('list-group')[0]
+
+            let divCommentsElement = e.currentTarget.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('list-group')[0]
 
 
             let viewModel = { ImageId: imgId, Content: content };

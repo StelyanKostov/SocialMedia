@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Data;
 using SocialMedia.Services;
@@ -8,6 +9,7 @@ using System;
 
 namespace SocialMedia.Controllers
 {
+    [Authorize]
     public class MessagesController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;

@@ -10,6 +10,7 @@ using System;
 
 namespace SocialMedia.Controllers
 {
+   
     public class FeatureImageController : Controller
     {
         private readonly IFeatureImageService featureImageService;

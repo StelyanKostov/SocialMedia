@@ -5,14 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Data;
 using SocialMedia.Services;
 using SocialMedia.Services.Chat;
-using SocialMedia.ViewModels.Chat;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.WebSockets;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace SocialMedia.Controllers
 {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Services.Chat;
 using System;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SocialMedia.Controllers
 {
-
+    [Authorize]
     public class FeatureMessagesController : Controller
     {
         private readonly IRealTimeChatService realTimeChatService;

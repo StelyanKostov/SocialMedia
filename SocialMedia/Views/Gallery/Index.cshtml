@@ -2,6 +2,9 @@
 @using SocialMedia.Data
 @model SocialMedia.ViewModels.Profil.ProfilViewModel
 @inject SignInManager<ApplicationUser> SignInManager
+@{ 
+    Model.Description = "";
+}
 
 @if (this.SignInManager.UserManager.GetUserId(this.User) == Model.ApplicationUserId)
 {
@@ -25,16 +28,16 @@
         }
     </style>
 
-
-    <form method="post" class="col-md-6 offset-md-3"
+    <h1> Tuk se poqvqva opisanieto na Profila</h1>
+    <form method="post" class="col-md-6 offset-md-3 card"
           enctype="multipart/form-data">
         <div class="form-group">
-            <label asp-for="@Model.ImagesVieModel"></label>
-            <input asp-for="@Model.ImagesVieModel" class="form-control" />
+            <label asp-for="@Model.ImagesVieModel" >Прикачи снимка</label>
+            <input asp-for="@Model.ImagesVieModel" class="form-control-file" />
             <span asp-validation-for="@Model.ImagesVieModel" class="text-danger"></span>
         </div>
         <label asp-for="@Model.Description">Описание</label>
-        <textarea asp-for="@Model.Description"></textarea>
+        <textarea asp-for="@Model.Description" class="form-control"></textarea>
 
         <input type="submit" class="btn btn-primary" />
     </form>

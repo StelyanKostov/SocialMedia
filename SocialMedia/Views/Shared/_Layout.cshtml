@@ -10,13 +10,60 @@
     <title>@ViewData["Title"] - SocialMedia</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/navbar.css" />
+
 
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
     @RenderSection("style", required: false)
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark fixed-top">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"><i class="fa fa-cube"></i>Social<b>Media</b></a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Collection of nav links, forms, and other content for toggling -->
+            <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+                @*<form class="navbar-form form-inline">
+            <div class="input-group search-box">
+                <input type="text" id="search" class="form-control" placeholder="Search here...">
+                <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+            </div>
+        </form>*@
+                <div class="navbar-nav ">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Home</span></a>
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <a asp-area="" asp-controller="Profil" asp-action="Index" class="nav-item nav-link"><i class="fas fa-user-circle"></i><span>Профил</span></a>
+                        <a asp-area="" asp-controller="Profil" asp-action="AllProfils" class="nav-item nav-link"><i class="fas fa-users"></i><span>Профили</span></a>
+                        <a asp-area="" asp-controller="Messages" asp-action="Index" class="nav-item nav-link"><i class="fa fa-envelope"></i><span>Messages</span></a>
+                        <a asp-area="" asp-controller="Chat" asp-action="Index" class="nav-item nav-link"><i class="fab fa-rocketchat"></i><span>Чат стая</span></a>
+
+                        <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a>
+
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a asp-area="Administration" asp-controller="Admin" asp-action="Index" class="nav-item nav-link"><i class="fas fa-user-cog"></i><span>Messages</span></a>
+
+                    }
+
+
+
+                </div>
+                <div class="ml-auto">
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+
+
+
+
+        @*----------------------------------------------------*@
+        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">*@
+        <!--<nav class="navbar navbar-expand-xl navbar-dark fixed-top  bg-info">
             <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">SocialMedia</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -28,11 +75,11 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        @*<li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </li>*@
-                        @if (SignInManager.IsSignedIn(User))
+                        </li>-->
+        @*<li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </li>*@
+        <!--@if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Profil" asp-action="Index">Профил</a>
@@ -49,7 +96,7 @@
                             @if (User.IsInRole("Admin"))
                             {
                                 <li class="nav-item"><a class="nav-link text-dark" asp-area="Administration" asp-controller="Admin" asp-action="Index">Admin</a></li>
-                                
+
 
                             }
 
@@ -60,7 +107,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav>-->
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -69,13 +116,13 @@
     </div>
     @if (SignInManager.IsSignedIn(User))
     {
-        <partial name="RealTimeChatPartial" model="@this.ViewData["RealTimeChatViewModel"]"/>
+        <partial name="RealTimeChatPartial" model="@this.ViewData["RealTimeChatViewModel"]" />
     }
     @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - SocialMedia - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
+            <div class="container">
+                &copy; 2021 - SocialMedia - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

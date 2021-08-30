@@ -10,8 +10,8 @@ using SocialMedia.Data;
 namespace SocialMedia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210825104355_CreatDb")]
-    partial class CreatDb
+    [Migration("20210827083637_CreateDb")]
+    partial class CreateDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,8 +50,8 @@ namespace SocialMedia.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "238df304-ad4e-411f-9941-52e00cc855d8",
-                            ConcurrencyStamp = "238df304-ad4e-411f-9941-52e00cc855d8",
+                            Id = "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c",
+                            ConcurrencyStamp = "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -217,8 +217,8 @@ namespace SocialMedia.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1",
-                            RoleId = "238df304-ad4e-411f-9941-52e00cc855d8"
+                            UserId = "24db1e13-757a-4ca6-a029-6a0e5f825509",
+                            RoleId = "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c"
                         });
                 });
 
@@ -445,10 +445,11 @@ namespace SocialMedia.Migrations
                         new
                         {
                             id = 1,
-                            ApplicationUserId = "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1",
+                            ApplicationUserId = "24db1e13-757a-4ca6-a029-6a0e5f825509",
                             DateBirthday = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Height = 0,
                             IsDeleted = false,
+                            UserName = "Admin",
                             Weight = 0
                         });
                 });
@@ -531,7 +532,7 @@ namespace SocialMedia.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1",
+                            Id = "24db1e13-757a-4ca6-a029-6a0e5f825509",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "8a35ff0f-341e-481a-971d-f2cf3cba3e02",
                             Email = "Admin@gmail.com",
@@ -539,7 +540,7 @@ namespace SocialMedia.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEpBLvO7akmFPAUwiXWoEaKUZga9BHSGJLfvkmgjGHU+XbpoW8W6Qe1apmaYvDcvcw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFBI0dQ2/zYcSMJRi5e3NkWeNSquBvxx5CzXlWUfdOHIZnc3jBbHaEdyBiV1D0+qdg==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "AZVMXEHBSG3MTISR6RY6Y2IYTVD7SLKV",
                             TwoFactorEnabled = false,

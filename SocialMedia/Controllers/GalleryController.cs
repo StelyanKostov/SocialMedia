@@ -1,13 +1,16 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Data;
+using SocialMedia.Models;
 using SocialMedia.Services;
 using SocialMedia.ViewModels.Profil;
 using System;
 
 namespace SocialMedia.Controllers
 {
+    [Authorize]
     public class GalleryController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -49,7 +52,7 @@ namespace SocialMedia.Controllers
             catch (Exception ex)
             {
 
-                return this.Content(ex.Message);
+                return this.PartialView("Error", new ErrorViewModel() { RequestId = "0" , Content = ex.Message});
 
             }
             return this.RedirectToAction("Index", new { id = viewModel.id });

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SocialMedia.Migrations
 {
-    public partial class CreatDb : Migration
+    public partial class CreateDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -350,22 +350,22 @@ namespace SocialMedia.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "238df304-ad4e-411f-9941-52e00cc855d8", "238df304-ad4e-411f-9941-52e00cc855d8", "Admin", "ADMIN" });
+                values: new object[] { "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c", "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CreatedOn", "DeletedOn", "IsDeleted" },
-                values: new object[] { "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1", 0, "8a35ff0f-341e-481a-971d-f2cf3cba3e02", "ApplicationUser", "Admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEEpBLvO7akmFPAUwiXWoEaKUZga9BHSGJLfvkmgjGHU+XbpoW8W6Qe1apmaYvDcvcw==", null, false, "AZVMXEHBSG3MTISR6RY6Y2IYTVD7SLKV", false, "Admin@gmail.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false });
+                values: new object[] { "24db1e13-757a-4ca6-a029-6a0e5f825509", 0, "8a35ff0f-341e-481a-971d-f2cf3cba3e02", "ApplicationUser", "Admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEFBI0dQ2/zYcSMJRi5e3NkWeNSquBvxx5CzXlWUfdOHIZnc3jBbHaEdyBiV1D0+qdg==", null, false, "AZVMXEHBSG3MTISR6RY6Y2IYTVD7SLKV", false, "Admin@gmail.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1", "238df304-ad4e-411f-9941-52e00cc855d8" });
+                values: new object[] { "24db1e13-757a-4ca6-a029-6a0e5f825509", "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c" });
 
             migrationBuilder.InsertData(
                 table: "Profils",
                 columns: new[] { "id", "Alcohol", "ApplicationUserId", "Cigarettes", "DateBirthday", "Description", "EyesColor", "From", "Gender", "HairColor", "Height", "IsDeleted", "Likes", "LookingFor", "Status", "UserName", "Weight" },
-                values: new object[] { 1, null, "6d12d42d-d9f7-4d15-94ed-2dd1cf0c78b1", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, null, 0, false, null, null, null, null, 0 });
+                values: new object[] { 1, null, "24db1e13-757a-4ca6-a029-6a0e5f825509", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, null, 0, false, null, null, null, "Admin", 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
