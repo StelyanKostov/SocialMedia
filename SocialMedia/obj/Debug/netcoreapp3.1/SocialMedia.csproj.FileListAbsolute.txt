@@ -449,3 +449,4 @@ C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razo
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\_ViewImports.cshtml.g.cs
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\_ViewStart.cshtml.g.cs
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\Admin\AllImg.cshtml.g.cs
+C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Shared\ImagesPartial.cshtml.g.cs

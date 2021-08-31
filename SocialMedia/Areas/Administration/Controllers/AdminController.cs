@@ -50,9 +50,10 @@ namespace SocialMedia.Areas.Administration.Controllers
 
             var user = await userManager.FindByIdAsync(profil.ApplicationUserId);
 
+            this.profilService.RealDeleteProfil(profilId);
+
             await this.userManager.DeleteAsync(user);
 
-            this.profilService.RealDeleteProfil(profilId);
 
             return this.Redirect("/");
         }

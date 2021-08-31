@@ -35,7 +35,6 @@ namespace SocialMedia.Controllers
         public IActionResult Index()
         {
 
-
             var id = this._userManager.GetUserId(this.User);
             var viewModel = this.profilService.getProfilByUserId(id);
 
@@ -93,5 +92,5 @@ namespace SocialMedia.Controllers
             return this.View(profil);
         }
     }
-   
+
 }

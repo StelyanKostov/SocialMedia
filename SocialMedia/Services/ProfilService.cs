@@ -59,8 +59,9 @@ namespace SocialMedia.Services
 
         public ProfilViewModel getProfilByUserId(string id)
         {
-            var profil = getProfil(id);                        
-            var profilViewModel = _mapper.Map<ProfilViewModel>(profil);
+            var profil = getProfil(id);
+            var profilWithImage = this.getProfilByProfilId(profil.id);
+            var profilViewModel = _mapper.Map<ProfilViewModel>(profilWithImage);
             return profilViewModel;
 
         }
@@ -82,9 +83,11 @@ namespace SocialMedia.Services
 
         public ProfilViewModel getProfilByProfilId(int id)
         {
-            var profil = this.db.Profils.Include(x=> x.Images).Where(x => x.id == id).FirstOrDefault();
+            var profil = this.db.Profils.Include(x=> x.Images).ThenInclude(x=> x.Likes).Include(x=> x.Images).ThenInclude(x=> x.Comments).Where(x => x.id == id).FirstOrDefault();
 
             var profilViewModel = _mapper.Map<ProfilViewModel>(profil);
+
+            
 
             return profilViewModel;
 
