@@ -1,7 +1,7 @@
 ﻿@model SocialMedia.ViewModels.Profil.AllProfils
 
 @{
-
+    this.ViewData["Title"] = "Profils";
 }
 <nav class="navbar navbar-light bg-light" style="background:#eeeeee !important">
     <form class="form-inline">
@@ -15,7 +15,6 @@
     <input type="checkbox" name="name" value=""  class="checkbox-male"/>
     <label>Жени</label>
     <input type="checkbox" name="name" value="" class="checkbox-female"/>
-
 </nav>
 
 @foreach (var item in Model.profils)

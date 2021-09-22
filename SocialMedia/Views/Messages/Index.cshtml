@@ -1,6 +1,8 @@
 ﻿@model List<SocialMedia.ViewModels.Profil.ProfilViewModel>
 
-
+@{ 
+    this.ViewData["Title"] = "Messages";
+}
 
 
 @foreach (var item in Model)
@@ -16,12 +18,7 @@
                 <h3>@item.UserName</h3>
                 <p>@item.Messages.OrderByDescending(x => x.CreateOn).FirstOrDefault().Content</p>
             </div>
-           
         </div>
     </div>
-    
-   
-
 </a>
 }
-

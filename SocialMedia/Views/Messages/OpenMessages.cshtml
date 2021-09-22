@@ -8,21 +8,14 @@
 }
 
 <button id="buttonResponse" class="btn btn-primary" type="button">Отговори</button>
-
-
-
 <div class="Response">
     <form class="formForResponse" asp-action="SendMessages" method="post">
         <input type="hidden" asp-for="@Model.FirstOrDefault().ProfilId" value="@SignInManager.UserManager.GetUserAsync(this.User).Result.Profil.id" />
         <input type="hidden" asp-for="@Model.FirstOrDefault().SecondProfilId" value="@rezult" />
-
-
     </form>
 </div>
 @foreach (var item in Model.OrderByDescending(x => x.CreateOn))
 {
-
-
     <div class="container border " style="font-weight:500" >
         <div class="row">
             <div class="col-2 ">
@@ -40,7 +33,6 @@
         </div>
     </div>
     <hr />
-
 }
 
 @section Scripts{ 

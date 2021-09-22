@@ -30,7 +30,7 @@ namespace SocialMedia.Services.Chat
         {
             var messagess = this.db.ChatRooms.Include(x=> x.Profil).ToList();
 
-            return messagess.OrderBy(x=> x.CreatedOn).ToList();
+            return messagess.OrderByDescending(x=> x.CreatedOn).ToList();
         }
     }
 }

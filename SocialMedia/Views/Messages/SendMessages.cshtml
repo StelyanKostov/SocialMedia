@@ -1,20 +1,9 @@
 ﻿@model SocialMedia.ViewModels.Messages.MessagesViewModel
 
-
-
-<h1>Msg</h1>
-
 <form method="post">
-
     <input type="hidden" asp-for="@Model.ProfilId" value="@Model.ProfilId" />
     <input type="hidden" asp-for="@Model.SecondProfilId" value="@Model.SecondProfilId" />
-
     <label asp-for="@Model.Content">Съобщение</label>
-    <textarea asp-for="@Model.Content">
-    
-</textarea>
-
+    <textarea asp-for="@Model.Content"></textarea>
     <button class="btn btn-primary" type="submit">Изпрати</button>
-
-
 </form>

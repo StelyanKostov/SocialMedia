@@ -62,20 +62,16 @@
 @if (Model != null)
 {
 
-
     <div class="containerr">
 
         @foreach (var item in Model.Where(x => !x.IsDeleted))
         {
-
-
             <label class="popUpChat btn btn-primary">
                 <span class="badge">@item.Messages.Where(x => x.Sender == item.WithProfilUserName).Count(x => !x.Seen)</span>
                 @item.WithProfilUserName
             </label>
             <div class="chat" style="display:none">
                 <input type="hidden" name="name" value="@item.Id" class="RouteChatId" />
-
                 <div class="title ">@item.WithProfilUserName <i class="far fa-trash-alt removeIcon" style="margin-left:2em"></i></div>
                 <div class="text messagesList" id="@item.WithProfilUserName">
 
@@ -97,11 +93,7 @@
                             </blockquote>
                         }
 
-
-                        @*<hr />*@
-
                     }
-
 
                 </div>
                 <div class="chatbox">
@@ -109,15 +101,11 @@
                         <div class="input-group-append">
                             <input type="hidden" name="name" value="@item.WithProfilId" class="profilId" />
                             <input type="text" class="messageInput form-control" />
-
                             <button class="sendButton btn btn-primary">Send</button>
                         </div>
-
                     </nav>
-
                 </div>
             </div>
-
 
         }
     </div>
@@ -127,9 +115,7 @@
 
     let element = document.querySelectorAll('.removeIcon').forEach(x => x.addEventListener('click', function (e) {
 
-
         e.currentTarget.parentElement.parentElement.previousSibling.previousSibling.remove();
-
 
         var routeId = e.currentTarget.parentElement.parentElement.getElementsByClassName('RouteChatId')[0].value;
 
@@ -141,20 +127,13 @@
             },
             body: JSON.stringify(routeId)
 
-
         })
             .then(x => x.json())
             .then(x => console.log(x))
 
-        console.log(routeId)
-
         e.currentTarget.parentElement.parentElement.remove()
 
     }))
-    /* window.scroll(0, 10000)*/
-
-    /* eee.scroll(0, 1999)*/
-
 
 </script>
 
@@ -162,13 +141,10 @@
 <script>
     let elements = document.querySelectorAll('.popUpChat').forEach(x => x.addEventListener('click', function (e) {
 
-
-
         let divChat = e.currentTarget.nextSibling.nextSibling;
         divChat.style.display = "";
 
         var id = divChat.getElementsByClassName('profilId')[0].value;
-        console.log(id)
         fetch(`/RealTimeChat/SeenMessages?id2=${id}`,
             {
                 method: 'GET',
@@ -179,13 +155,9 @@
                 /*body: JSON.stringify(id)*/
             })
             .then(x => x.json())
-            .then(x => {
-
-
-            })
+            .then(x => {})
 
         e.currentTarget.getElementsByClassName('badge')[0].innerHTML = 0;
-
 
         var mlForScroll = divChat.getElementsByClassName('messagesList')[0];
 
@@ -195,7 +167,6 @@
         labelPopUp.style.display = "none";
 
         divChat.getElementsByClassName('title')[0].addEventListener('click', function (e) {
-
 
             e.currentTarget.parentElement.style.display = 'none';
 
@@ -214,8 +185,6 @@
 
     connection.on("NewMessage",
         function (message) {
-            //var chatInfo = `<p>[${message.user}] ${escapeHtml(message.text)}</p>`;
-            //$(`#${message.user}`).append(chatInfo);
 
             let blockquoteElement = document.createElement("blockquote");
             blockquoteElement.classList.add("blockquote");
@@ -224,44 +193,23 @@
                                 <footer class="blockquote-footer" style="font-size: 50%;">${new Date().toLocaleString()}</footer>`;
             $(`#${message.user}`).append(blockquoteElement);
 
-
-
             let element = document.getElementById(message.user);
-            console.log();
             let dataBadge = element.parentElement.previousSibling.previousSibling.getElementsByClassName("badge")[0];
-
-            console.log(dataBadge);
             let valueBadge = parseInt(dataBadge.innerHTML) + 1;
-            console.log(valueBadge);
-
             dataBadge.innerHTML = valueBadge;
-
-            console.log(dataBadge);
-
             element.scrollTop = element.scrollHeight;
-
-
-
         });
-
 
     document.querySelectorAll('.sendButton').forEach(x => x.addEventListener('click', function (event) {
 
         var message = event.currentTarget.parentElement.getElementsByClassName('messageInput')[0].value;
-
         if (message === '') {
             return;
         }
-
         var recipientProfilId = event.currentTarget.parentElement.getElementsByClassName('profilId')[0].value;
 
         //todoo
         let elementMessagesList = event.currentTarget.parentElement.parentElement.parentElement.parentElement.getElementsByClassName('messagesList')[0];
-
-
-        //let pElement = document.createElement("p");
-        //pElement.innerHTML = `[me] ${escapeHtml(message)}`
-        //elementMessagesList.appendChild(pElement);
 
         let blockquoteElement = document.createElement("blockquote");
         blockquoteElement.classList.add("blockquote");
@@ -270,20 +218,12 @@
                                 <footer class="blockquote-footer" style="font-size: 50%;">${new Date().toLocaleString()}</footer>`;
         elementMessagesList.appendChild(blockquoteElement);
 
-
-
         var data = message + '<>=!' + recipientProfilId;
         connection.invoke("SendToOneProfil", data);
         $(".messageInput").val("");
 
         elementMessagesList.scrollTop = elementMessagesList.scrollHeight;
-
-
-        @*<blockquote class="blockquote text-left">
-                                <p class="mb-0" style="font-size: 100%;">@item2.Content</p>
-                                <footer class="blockquote-footer" style="font-size: 50%;"> @item2.CreateOn</footer>
-                            </blockquote>*@
-
+      
     }));
 
     connection.start().catch(function (err) {

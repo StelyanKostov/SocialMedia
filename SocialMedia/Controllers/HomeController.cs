@@ -6,6 +6,7 @@ using SocialMedia.Models;
 using SocialMedia.Services;
 using SocialMedia.Services.Chat;
 using System.Diagnostics;
+using System.Linq;
 
 namespace SocialMedia.Controllers
 {
@@ -18,10 +19,10 @@ namespace SocialMedia.Controllers
         private readonly IRealTimeChatService realTimeChatService;
         private readonly SignInManager<ApplicationUser> signInManager;
 
-        public HomeController(ILogger<HomeController> logger ,
+        public HomeController(ILogger<HomeController> logger,
             IGalleryService galleryService,
-            UserManager<ApplicationUser> userManager ,
-            IProfilService profilService ,
+            UserManager<ApplicationUser> userManager,
+            IProfilService profilService,
             IRealTimeChatService realTimeChatService,
              SignInManager<ApplicationUser> signInManager)
         {
@@ -40,8 +41,12 @@ namespace SocialMedia.Controllers
                 var id = this._userManager.GetUserId(this.User);
                 var viewModelId = this.profilService.getProfilByUserId(id).id;
                 this.ViewData["RealTimeChatViewModel"] = this.realTimeChatService.GetMessages(viewModelId);
-            } 
 
+
+                var avatar = this.galleryService.GetAllImage().Where(x => x.Profil.id == viewModelId).Where(x => x.ProfilImage == true).FirstOrDefault();
+                this.ViewBag.Avatar = $"images/ProfilImage/{avatar.Profil.UserName}/{avatar.Id}.{avatar.Extension}";
+            }
+            
             var viewModel = this.galleryService.GetAllImage();
 
             //todoo

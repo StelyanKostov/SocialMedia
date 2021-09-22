@@ -29,7 +29,7 @@
         connection.on("NewMessage",
             function (message) {
                 var chatInfo = `<div><a href="/Profil/OpenProfil/${message.profilId}">[${message.user}]:</a> ${escapeHtml(message.text)}</div>`;
-                $("#messagesList").append(chatInfo);
+                $("#messagesList").prepend(chatInfo);
             });
 
         $("#sendButton").click(function () {
