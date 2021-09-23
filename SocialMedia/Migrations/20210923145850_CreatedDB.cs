@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SocialMedia.Migrations
 {
-    public partial class CreateDb : Migration
+    public partial class CreatedDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,22 @@ namespace SocialMedia.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContactsMessages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Number = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Messages = table.Column<string>(nullable: true),
+                    SentOn = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContactsMessages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -350,22 +366,22 @@ namespace SocialMedia.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c", "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c", "Admin", "ADMIN" });
+                values: new object[] { "c15eb2e1-01e4-4d73-9d65-f5b149a636ae", "c15eb2e1-01e4-4d73-9d65-f5b149a636ae", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Discriminator", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "CreatedOn", "DeletedOn", "IsDeleted" },
-                values: new object[] { "24db1e13-757a-4ca6-a029-6a0e5f825509", 0, "8a35ff0f-341e-481a-971d-f2cf3cba3e02", "ApplicationUser", "Admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEFBI0dQ2/zYcSMJRi5e3NkWeNSquBvxx5CzXlWUfdOHIZnc3jBbHaEdyBiV1D0+qdg==", null, false, "AZVMXEHBSG3MTISR6RY6Y2IYTVD7SLKV", false, "Admin@gmail.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false });
+                values: new object[] { "3b40e05c-216f-49c9-b6fe-b8757fa71e42", 0, "8a35ff0f-341e-481a-971d-f2cf3cba3e02", "ApplicationUser", "Admin@gmail.com", true, false, null, "ADMIN@GMAIL.COM", "ADMIN@GMAIL.COM", "AQAAAAEAACcQAAAAEKA7m1xU9zV3yzQdjM4d2F/61WAn8tjc736C7WzxxW48Pr4DHdeQvx7i6LHTvMrMyA==", null, false, "AZVMXEHBSG3MTISR6RY6Y2IYTVD7SLKV", false, "Admin@gmail.com", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "UserId", "RoleId" },
-                values: new object[] { "24db1e13-757a-4ca6-a029-6a0e5f825509", "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c" });
+                values: new object[] { "3b40e05c-216f-49c9-b6fe-b8757fa71e42", "c15eb2e1-01e4-4d73-9d65-f5b149a636ae" });
 
             migrationBuilder.InsertData(
                 table: "Profils",
                 columns: new[] { "id", "Alcohol", "ApplicationUserId", "Cigarettes", "DateBirthday", "Description", "EyesColor", "From", "Gender", "HairColor", "Height", "IsDeleted", "Likes", "LookingFor", "Status", "UserName", "Weight" },
-                values: new object[] { 1, null, "24db1e13-757a-4ca6-a029-6a0e5f825509", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, null, 0, false, null, null, null, "Admin", 0 });
+                values: new object[] { 1, null, "3b40e05c-216f-49c9-b6fe-b8757fa71e42", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, null, null, null, 0, false, null, null, null, "Admin", 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -471,6 +487,9 @@ namespace SocialMedia.Migrations
 
             migrationBuilder.DropTable(
                 name: "Comments");
+
+            migrationBuilder.DropTable(
+                name: "ContactsMessages");
 
             migrationBuilder.DropTable(
                 name: "Likes");

@@ -24,6 +24,10 @@ namespace SocialMedia.AutoMapper
             CreateMap<ViewModels.Chat.RealTimeMessagesViewModel, Data.RealTimeChat>();
             CreateMap<Data.RealTimeChat, ViewModels.Chat.RealTimeMessagesViewModel>();
 
+            CreateMap<ViewModels.Contacts.ContactsInputModel, Data.ContactsMessages>();
+            CreateMap<Data.ContactsMessages, ViewModels.Contacts.ContactsInputModel>();
+
+
         }
 
     }

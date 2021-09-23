@@ -11,7 +11,10 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/navbar.css" />
+
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+
     @RenderSection("style", required: false)
 </head>
 <body>
@@ -31,14 +34,13 @@
                     </div>
                 </form>*@
             <div class="navbar-nav ">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Home</span></a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-item nav-link Home"><i class="fa fa-home"></i><span>Home</span></a>
                 @if (SignInManager.IsSignedIn(User))
                 {
-                    <a asp-area="" asp-controller="Profil" asp-action="Index" class="nav-item nav-link"><i class="fas fa-user-circle"></i><span>Профил</span></a>
-                    <a asp-area="" asp-controller="Profil" asp-action="AllProfils" class="nav-item nav-link"><i class="fas fa-users"></i><span>Профили</span></a>
-                    <a asp-area="" asp-controller="Messages" asp-action="Index" class="nav-item nav-link"><i class="fa fa-envelope"></i><span>Messages</span></a>
-                    <a asp-area="" asp-controller="Chat" asp-action="Index" class="nav-item nav-link"><i class="fab fa-rocketchat"></i><span>Чат стая</span></a>
-
+                    <a asp-area="" asp-controller="Profil" asp-action="Index" class="nav-item nav-link Profil"><i class="fas fa-user-circle"></i><span>Профил</span></a>
+                    <a asp-area="" asp-controller="Profil" asp-action="AllProfils" class="nav-item nav-link Profils"><i class="fas fa-users"></i><span>Профили</span></a>
+                    <a asp-area="" asp-controller="Messages" asp-action="Index" class="nav-item nav-link Messages"><i class="fa fa-envelope"></i><span>Messages</span></a>
+                    <a asp-area="" asp-controller="Chat" asp-action="Index" class="nav-item nav-link Chat"><i class="fab fa-rocketchat"></i><span>Чат стая</span></a>
                     <a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a>
 
                 }
@@ -48,7 +50,7 @@
 
                 }
             </div>
-            <div class="ml-auto">
+            <div class="ml-auto">               
                 <partial name="_LoginPartial" />
             </div>
         </div>
@@ -63,11 +65,22 @@
     {
         <partial name="RealTimeChatPartial" model="@this.ViewData["RealTimeChatViewModel"]" />
     }
-    @*<footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2021 - SocialMedia - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>*@
+    <footer class="border-top footer text-muted">
+        <div class="container text-center p-3">
+            &copy; 2021 - SocialMedia - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script>
+        window.addEventListener("load", function (e) {
+            let data = ["Profils", "Home", "Profil", "Messages", "Chat"]
+            if (data.some(x => x === this.document.title)) {
+
+                this.document.getElementsByClassName(this.document.title)[0].classList.add("active");
+            }
+        })
+
+    </script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

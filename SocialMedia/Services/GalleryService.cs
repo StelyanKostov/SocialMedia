@@ -17,17 +17,17 @@ namespace SocialMedia.Services
         private readonly IProfilService profilService;
         private readonly string[] allowedExtensions = new[] { "jpg", "png", "gif" };
 
-        public GalleryService(ApplicationDbContext db, IMapper mapper , IProfilService profilService)
+        public GalleryService(ApplicationDbContext db, IMapper mapper, IProfilService profilService)
         {
             this.db = db;
             this._mapper = mapper;
             this.profilService = profilService;
         }
-        public void AddImgae(IEnumerable<IFormFile> ImagesVieModel, string imagePath, string userId ,string description)
+        public void AddImgae(IEnumerable<IFormFile> ImagesVieModel, string imagePath, string userId, string description)
         {
             var profil = this.profilService.getProfil(userId);
 
-           
+
 
             Directory.CreateDirectory($"{imagePath}/ProfilImage/{profil.UserName}/");
             foreach (var image in ImagesVieModel)
@@ -44,7 +44,7 @@ namespace SocialMedia.Services
                     Extension = extension,
                     CreatedOn = DateTime.Now,
                     Description = description
-                    
+
                 };
                 profil.Images.Add(dbImage);
 
@@ -63,7 +63,7 @@ namespace SocialMedia.Services
 
             //var image = profil.Images.Where(x => x.Id == idImage).FirstOrDefault();
 
-            var image = this.db.images.Include(x=> x.Comments).Include(x=> x.Likes).Where(x => x.Id == idImage).FirstOrDefault();
+            var image = this.db.images.Include(x => x.Comments).Include(x => x.Likes).Where(x => x.Id == idImage).FirstOrDefault();
 
 
             this.db.images.Remove(image);
@@ -74,29 +74,36 @@ namespace SocialMedia.Services
         public void SetProfilImage(string idProfil, string idImage)
         {
             var profil = this.profilService.getProfil(idProfil);
-
             var image = profil.Images.Where(x => x.ProfilImage).FirstOrDefault();
-
             if (image != null)
             {
                 image.ProfilImage = false;
 
             }
-
             var newProfilImage = profil.Images.Where(x => x.Id == idImage).FirstOrDefault();
-
             newProfilImage.ProfilImage = true;
-
             this.db.SaveChanges();
 
         }
-       public List<ImageViewModel> GetAllImage()
+        public List<ImageViewModel> GetAllImage()
         {
-            var image = this.db.images.Include(x => x.Profil).Include(x=> x.Likes).Include(x=> x.Comments).ToList();
-
+            var image = this.db.images.Include(x => x.Profil).Include(x => x.Likes).Include(x => x.Comments).ToList();
             var viewModel = this._mapper.Map<List<ImageViewModel>>(image);
-
             return viewModel;
+        }
+
+        public string GetProfilImgPath(int id)
+        {
+            var profil = this.db.images.Where(x => x.Profil.id == id).Where(x => x.ProfilImage == true).FirstOrDefault();
+
+            var path = "";
+            if (profil != null)
+            {
+                path = $"images/ProfilImage/{profil.Profil.UserName}/{profil.Id}.{profil.Extension}";
+
+            }
+            return path;
+
         }
     }
 }

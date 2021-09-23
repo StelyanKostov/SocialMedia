@@ -38,26 +38,17 @@
 
             }
         </select>
-
         <label asp-for="@Model.From">От</label>
         <input asp-for="@Model.From" class="form-control"/>@Model.From
-
         <label asp-for="@Model.Likes">Харесва</label>
         <select asp-for="@Model.Likes"class="form-control">
-
             <option value="@Model.Likes" selected>@Model.Likes</option>
             <option value="Мъже">Мъже</option>
             <option value="Жени">Жени</option>
             <option value="Жени и мъже">Жени и мъже</option>
-
-
-
-
         </select>
-
         <label asp-for="@Model.LookingFor">Tърси</label>
         <select asp-for="@Model.LookingFor" class="form-control">
-
             <option value="@Model.LookingFor" selected>@Model.LookingFor</option>
             <option value="Нови запознанства">Нови Запознанства</option>
             <option value="Връзка">Връзка</option>
@@ -65,23 +56,16 @@
             <option value="Убивам време">Убивам време</option>
             <option value="Дискретна връзка">Дискретна връзка</option>
             <option value="Забавления">Забавления</option>
-
         </select>
-
         <label asp-for="@Model.Status">Статус</label>
         <select asp-for="@Model.Status" class="form-control">
-
             <option value="@Model.Status" selected>@Model.Status</option>
             <option value="Обвързан">Обвързан</option>
             <option value="Свободен">Свободен</option>
             <option value="Няма значение">Няма значение</option>
-
-
-
         </select>
         <label asp-for="@Model.EyesColor">Цвят на очите</label>
         <select asp-for="@Model.EyesColor" class="form-control">
-
             <option value="@Model.EyesColor" selected>@Model.EyesColor</option>
             <option value="Сини">Сини</option>
             <option value="Зелени">Зелени</option>
@@ -89,10 +73,8 @@
             <option value="Черни">Черни</option>
             <option value="Пъстри">Пъстри</option>
         </select>
-
         <label asp-for="@Model.HairColor">Цвят на косата</label>
         <select asp-for="@Model.HairColor" class="form-control">
-
             <option value="@Model.HairColor" selected>@Model.HairColor</option>
             <option value="Кестенява">Кестенява</option>
             <option value="Руса">Руса</option>
@@ -100,34 +82,23 @@
             <option value="Червен">Червен</option>
             <option value="Бръсната глава">Бръсната глава</option>
             <option value="Друга">Друга</option>
-
-
         </select>
-
         <label asp-for="@Model.Cigarettes">Цигари</label>
         <select asp-for="@Model.Cigarettes" class="form-control">
-
             <option value="@Model.Cigarettes" selected>@Model.Cigarettes</option>
             <option value="да">да</option>
             <option value="не">не</option>
             <option value="Пуша като комин">Пуша като комин</option>
-
         </select>
-
         <label asp-for="@Model.Alcohol">Алкохол</label>
         <select asp-for="@Model.Alcohol" class="form-control">
-
             <option value="@Model.Alcohol" selected>@Model.Alcohol</option>
             <option value="да">да</option>
             <option value="не">не</option>
             <option value="Не знам дали ми е останал черен дроб">Не знам дали ми е останал черен дроб</option>
-
         </select>
-
         <label asp-for="@Model.Description">Описание</label>
         <textarea asp-for="@Model.Description"style="height: 100px; width: 400px" class="form-control">@Model.Description</textarea>
-
-
         <button class="btn btn-dark" type="submit">Запази</button>
     </form>
 </div>

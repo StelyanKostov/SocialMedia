@@ -1,0 +1,25 @@
+﻿@model List<SocialMedia.ViewModels.Contacts.ContactsInputModel>
+
+<style>
+
+    div.contact-div {
+        margin-bottom: 50px;
+        display: block;
+        /*margin: 20px;*/
+        border-radius: 12px;
+        border: 1px solid lightblue;
+        border-radius: 4px;
+    }
+</style>
+
+@foreach (var item in Model)
+{
+    <div class="container contact-div">
+        <h2>@item.Email</h2>
+        <h3>@item.Number</h3>
+        <p>@item.Messages</p>
+
+        <span>@item.SentOn</span>
+
+    </div>
+}

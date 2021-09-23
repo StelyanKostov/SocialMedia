@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SocialMedia.Data;
 using SocialMedia.Services;
+using SocialMedia.Services.Contacts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,17 @@ namespace SocialMedia.Areas.Administration.Controllers
         private readonly IGalleryService galleryService;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IProfilService profilService;
+        private readonly IContactsService contactsService;
 
         public AdminController(IGalleryService galleryService,
             UserManager<ApplicationUser> userManager,
-            IProfilService profilService)
+            IProfilService profilService,
+            IContactsService contactsService)
         {
             this.galleryService = galleryService;
             this.userManager = userManager;
             this.profilService = profilService;
+            this.contactsService = contactsService;
         }
         public IActionResult Index()
         {
@@ -57,5 +61,8 @@ namespace SocialMedia.Areas.Administration.Controllers
 
             return this.Redirect("/");
         }
+
+        public IActionResult MsgContactForm() => this.View(this.contactsService.GetAllMsg());
+       
     }
 }

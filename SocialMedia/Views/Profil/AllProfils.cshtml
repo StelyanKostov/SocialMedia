@@ -26,7 +26,6 @@
                 <p class="h5" style=" font-family: Monospace">@item.UserName</p>
                 <input type="hidden" class="gender-input" value="@item.Gender" />
 
-
                 @if (item.Images.Count == 0 || item.Images.Where(x => x.ProfilImage).FirstOrDefault() == null)
                 {
                 }
@@ -36,9 +35,7 @@
 
                 }
 
-
             </a>
-
         </div>
     </div>
 }

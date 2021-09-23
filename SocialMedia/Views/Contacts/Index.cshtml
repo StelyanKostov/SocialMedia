@@ -1,0 +1,89 @@
+﻿@model SocialMedia.ViewModels.Contacts.ContactsInputModel
+@*<link rel="preconnect" href="https://fonts.googleapis.com">*@
+@*<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>*@
+<link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+<style>
+    input, textarea {
+        /*width: 100%;*/
+        display: block;
+        /*margin: 20px;*/
+        border-radius: 12px;
+        border: 1px solid lightblue;
+        padding: 10px;
+    }
+
+    button {
+        background: #0088FF;
+        color: white;
+        border-radius: 4px;
+        text-decoration: none;
+        padding: 5px;
+        margin: 10px;
+        position: relative;
+        right: 10px;
+    }
+
+        button:hover {
+            background: white;
+            color: #0088FF;
+        }
+
+
+    span.custam-span {
+        background: #0088FF;
+        color: white;
+        padding: 15px;
+        border-radius: 4px;
+    }
+
+    body { /*text-align: center;*/
+        background: url("http://moneymiracles.co.in/images/contact-img.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    h2 {
+        font-family: 'Lobster', cursive;
+    }
+
+    textarea {
+        width: 500px;
+        resize: none;
+    }
+</style>
+
+
+<div class="container">
+
+    @if (this.TempData["Response"] != null)
+    {
+        if (this.TempData["Response"].ToString() == "True")
+        {
+            <div style="margin-top:50px">
+                <span class="custam-span">Успешно изпратихте съобщение.</span>
+            </div>
+        }
+        else
+        {
+            <div style="margin-top:50px;">
+                <span class="custam-span" style="background: red;">Съобщението не беше изпратено успешно!</span>
+            </div>
+        }
+
+    }
+    else
+    {
+        <article>
+            <h2>Свържете се с нас като ни изпратите тази форма.</h2>
+            <form asp-action="ContactForm" method="post" class="container">
+                <input type="email" asp-for="@Model.Email" value="" placeholder="Имейл" />
+                <input type="text" asp-for="@Model.Number" value="" placeholder="Номер" />
+                <textarea asp-for="@Model.Messages" placeholder="Съобщение"></textarea>
+                <button type="submit">Изпрати</button>
+            </form>
+        </article>
+    }
+
+
+
+</div>

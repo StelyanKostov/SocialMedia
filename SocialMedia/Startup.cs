@@ -1,6 +1,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -13,6 +14,7 @@ using SocialMedia.Data;
 using SocialMedia.Hubs;
 using SocialMedia.Services;
 using SocialMedia.Services.Chat;
+using SocialMedia.Services.Contacts;
 using SocialMedia.Services.FeatureImage;
 using System;
 using System.Collections.Generic;
@@ -59,12 +61,11 @@ namespace SocialMedia
             services.AddTransient<IFeatureImageService, FeatureImageService>();
             services.AddTransient<IChatRoomsService, ChatRoomsService>();
             services.AddTransient<IRealTimeChatService, RealTimeChatService>();
+            services.AddTransient<IContactsService, ContactsService>();
+
             //services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, UserClaimsPrincipalFactory<ApplicationUser, IdentityRole>>();
-
-
-
-
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSession();
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new MappingProfile());
@@ -98,6 +99,8 @@ namespace SocialMedia
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

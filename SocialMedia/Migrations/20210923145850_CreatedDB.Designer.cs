@@ -10,8 +10,8 @@ using SocialMedia.Data;
 namespace SocialMedia.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210827083637_CreateDb")]
-    partial class CreateDb
+    [Migration("20210923145850_CreatedDB")]
+    partial class CreatedDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,8 +50,8 @@ namespace SocialMedia.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c",
-                            ConcurrencyStamp = "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c",
+                            Id = "c15eb2e1-01e4-4d73-9d65-f5b149a636ae",
+                            ConcurrencyStamp = "c15eb2e1-01e4-4d73-9d65-f5b149a636ae",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -217,8 +217,8 @@ namespace SocialMedia.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "24db1e13-757a-4ca6-a029-6a0e5f825509",
-                            RoleId = "0b594d31-6c5d-41b7-b1b5-9aa08d6bbe2c"
+                            UserId = "3b40e05c-216f-49c9-b6fe-b8757fa71e42",
+                            RoleId = "c15eb2e1-01e4-4d73-9d65-f5b149a636ae"
                         });
                 });
 
@@ -291,6 +291,30 @@ namespace SocialMedia.Migrations
                     b.HasIndex("ImageId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("SocialMedia.Data.ContactsMessages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Messages")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Number")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("SentOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactsMessages");
                 });
 
             modelBuilder.Entity("SocialMedia.Data.Image", b =>
@@ -445,7 +469,7 @@ namespace SocialMedia.Migrations
                         new
                         {
                             id = 1,
-                            ApplicationUserId = "24db1e13-757a-4ca6-a029-6a0e5f825509",
+                            ApplicationUserId = "3b40e05c-216f-49c9-b6fe-b8757fa71e42",
                             DateBirthday = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Height = 0,
                             IsDeleted = false,
@@ -532,7 +556,7 @@ namespace SocialMedia.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "24db1e13-757a-4ca6-a029-6a0e5f825509",
+                            Id = "3b40e05c-216f-49c9-b6fe-b8757fa71e42",
                             AccessFailedCount = 0,
                             ConcurrencyStamp = "8a35ff0f-341e-481a-971d-f2cf3cba3e02",
                             Email = "Admin@gmail.com",
@@ -540,7 +564,7 @@ namespace SocialMedia.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@GMAIL.COM",
                             NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFBI0dQ2/zYcSMJRi5e3NkWeNSquBvxx5CzXlWUfdOHIZnc3jBbHaEdyBiV1D0+qdg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEKA7m1xU9zV3yzQdjM4d2F/61WAn8tjc736C7WzxxW48Pr4DHdeQvx7i6LHTvMrMyA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "AZVMXEHBSG3MTISR6RY6Y2IYTVD7SLKV",
                             TwoFactorEnabled = false,

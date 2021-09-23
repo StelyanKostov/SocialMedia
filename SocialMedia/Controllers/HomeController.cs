@@ -7,6 +7,7 @@ using SocialMedia.Services;
 using SocialMedia.Services.Chat;
 using System.Diagnostics;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 
 namespace SocialMedia.Controllers
 {
@@ -39,12 +40,13 @@ namespace SocialMedia.Controllers
             if (signInManager.IsSignedIn(this.User))
             {
                 var id = this._userManager.GetUserId(this.User);
-                var viewModelId = this.profilService.getProfilByUserId(id).id;
-                this.ViewData["RealTimeChatViewModel"] = this.realTimeChatService.GetMessages(viewModelId);
+                var profil = this.profilService.getProfilByUserId(id);
+                this.ViewData["RealTimeChatViewModel"] = this.realTimeChatService.GetMessages(profil.id);
 
+                var pathToProfilImg = this.galleryService.GetProfilImgPath(profil.id);
+                this.HttpContext.Session.SetString("Avatar", pathToProfilImg);
+                this.HttpContext.Session.SetString("Username", profil.UserName);
 
-                var avatar = this.galleryService.GetAllImage().Where(x => x.Profil.id == viewModelId).Where(x => x.ProfilImage == true).FirstOrDefault();
-                this.ViewBag.Avatar = $"images/ProfilImage/{avatar.Profil.UserName}/{avatar.Id}.{avatar.Extension}";
             }
             
             var viewModel = this.galleryService.GetAllImage();

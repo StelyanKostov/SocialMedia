@@ -28,6 +28,8 @@ namespace SocialMedia.Data
 
         public DbSet<RouteChat> RouteChat { get; set; }
 
+        public DbSet<ContactsMessages> ContactsMessages { get; set; }
+
 
 
 

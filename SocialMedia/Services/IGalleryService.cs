@@ -12,5 +12,7 @@ namespace SocialMedia.Services
         public void SetProfilImage(string idProfil, string idImage);
 
         public List<ImageViewModel> GetAllImage();
+
+        public string GetProfilImgPath(int id);
     }
 }
