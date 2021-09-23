@@ -1,2 +1,2 @@
 # SocialMedia
-ASP.NET CORE MVC
+ASP.NET CORE
