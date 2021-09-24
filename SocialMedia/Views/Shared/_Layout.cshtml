@@ -17,6 +17,15 @@
 
     @RenderSection("style", required: false)
 </head>
+
+<style>
+    body {
+       /* max-width: 1463px !important;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;*/
+    }
+</style>
 <body>
     <header>
     </header>
@@ -46,11 +55,11 @@
                 }
                 @if (User.IsInRole("Admin"))
                 {
-                    <a asp-area="Administration" asp-controller="Admin" asp-action="Index" class="nav-item nav-link"><i class="fas fa-lock"></i><span>Admin</span></a>
+                    <a asp-area="Administration" asp-controller="Admin" asp-action="Index" class="nav-item nav-link Admin"><i class="fas fa-lock"></i><span>Admin</span></a>
 
                 }
             </div>
-            <div class="ml-auto">               
+            <div class="ml-auto">
                 <partial name="_LoginPartial" />
             </div>
         </div>
@@ -73,7 +82,7 @@
 
     <script>
         window.addEventListener("load", function (e) {
-            let data = ["Profils", "Home", "Profil", "Messages", "Chat"]
+            let data = ["Profils", "Home", "Profil", "Messages", "Chat", "Contacts", "Admin", "Register", "Login"]
             if (data.some(x => x === this.document.title)) {
 
                 this.document.getElementsByClassName(this.document.title)[0].classList.add("active");

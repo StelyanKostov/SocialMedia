@@ -451,3 +451,4 @@ C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razo
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Shared\ImagesPartial.cshtml.g.cs
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Views\Contacts\Index.cshtml.g.cs
 C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Areas\Administration\Views\Admin\MsgContactForm.cshtml.g.cs
+C:\Users\kosto\source\repos\SocialMedia\SocialMedia\obj\Debug\netcoreapp3.1\Razor\Areas\Identity\Pages\Account\Login.cshtml.g.cs

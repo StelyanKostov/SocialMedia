@@ -14,6 +14,14 @@
     label {
         margin: .4rem 0;
     }
+
+    select {
+        border-radius: 4px;
+    }
+
+    button{
+        margin-top:10px;
+    }
 </style>
 <h1>@ViewData["Title"]</h1>
 
@@ -51,35 +59,36 @@
 
                 </select>
             </div>
+           
+                <div class="form-group nav">
 
-            <div class="form-group">
+                    <label asp-for="Input.Day">Ден</label>
+                    <select asp-for="Input.Day">
+                        @for (int i = 1; i < 32; i++)
+                        {
+                            <option value="@i">@i</option>
 
-                <label asp-for="Input.Day">Ден</label>
-                <select asp-for="Input.Day">
-                    @for (int i = 1; i < 32; i++)
-                    {
-                        <option value="@i">@i</option>
+                        }
+                    </select>
+                    <label asp-for="Input.Month">Месец</label>
+                    <select asp-for="Input.Month">
+                        @for (int i = 1; i < 13; i++)
+                        {
+                            <option value="@i">@i</option>
 
-                    }
-                </select>
-                <label asp-for="Input.Month">Месец</label>
-                <select asp-for="Input.Month">
-                    @for (int i = 1; i < 13; i++)
-                    {
-                        <option value="@i">@i</option>
+                        }
+                    </select>
+                    <label asp-for="Input.Year">Година</label>
+                    <select asp-for="Input.Year">
+                        @for (int i = 1940; i < DateTime.Now.Year - 18; i++)
+                        {
+                            <option value="@i">@i</option>
 
-                    }
-                </select>
-                <label asp-for="Input.Year">Година</label>
-                <select asp-for="Input.Year">
-                    @for (int i = 1940; i < DateTime.Now.Year - 18; i++)
-                    {
-                        <option value="@i">@i</option>
+                        }
+                    </select>
 
-                    }
-                </select>
-
-            </div>
+                </div>
+           
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
     </div>

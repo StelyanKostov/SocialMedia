@@ -2,7 +2,7 @@
 @using SocialMedia.Data
 @model SocialMedia.ViewModels.Profil.ProfilViewModel
 @inject SignInManager<ApplicationUser> SignInManager
-@{ 
+@{
     Model.Description = "";
 
     this.ViewData["Title"] = "Gallery";
@@ -34,7 +34,7 @@
     <form method="post" class="col-md-6 offset-md-3 card"
           enctype="multipart/form-data">
         <div class="form-group">
-            <label asp-for="@Model.ImagesVieModel" >Прикачи снимка</label>
+            <label asp-for="@Model.ImagesVieModel">Прикачи снимка</label>
             <input asp-for="@Model.ImagesVieModel" class="form-control-file" />
             <span asp-validation-for="@Model.ImagesVieModel" class="text-danger"></span>
         </div>
@@ -66,7 +66,7 @@
                 </div>}
         </div>
     </div>
-   
+
     <script>
         function makeFullScreen() {
             var divObj = document.getElementById("theImage");
@@ -96,6 +96,21 @@ else
         <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
         <link href="~/gallery/css/mini.css" rel="stylesheet" />
         <link href="~/gallery/css/style.css" rel="stylesheet" />
+
+        <style>
+            .gallery-img {
+                max-width: 200px !important;
+                width: 100% !important;
+                margin:1px;
+
+            }
+            div.gg-box{
+                /*padding:0px;*/
+                /*margin:0px !important;*/
+                display:inline-block !important;
+            }
+            
+        </style>
     }
 
     <div class="content">
@@ -103,7 +118,8 @@ else
             <div class="gg-box">
                 @foreach (var item in @Model.Images)
                 {
-                    <img src="~/images/ProfilImage/@item.Profil.UserName/@item.Id.@item.Extension">
+                    <img class="gallery-img" src="~/images/ProfilImage/@item.Profil.UserName/@item.Id.@item.Extension">
+
 
                 }
 
