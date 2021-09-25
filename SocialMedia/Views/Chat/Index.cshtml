@@ -5,32 +5,103 @@
 
 <style>
 
+
+    /* Chrome, Edge, and Safari */
+    *::-webkit-scrollbar {
+        width: 16px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: gray;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: #000000;
+        border-radius: 17px;
+        border: 1px solid #ffffff;
+    }
+
     .chat-room-div {
         border: 5px solid black;
-        border-radius: 4px;
-        overflow:auto;
-        max-width: 950px;
+        border-right: none !important;
+        /*border-radius: 40px;*/
+        border-radius: 40px 0px 0px 40px;
+        overflow: auto;
+        max-width: 1000px;
         max-height: 700px;
-        min-width: 950px;
+        width: 100%;
+        min-width: 1000px;
         min-height: 700px;
-        position:relative;
+        position: relative;
+        box-shadow: -10px -11px 6px -1px rgba(0,0,0,0.76);
+        -webkit-box-shadow: -10px -11px 6px -1px rgba(0,0,0,0.76);
+        -moz-box-shadow: -10px -11px 6px -1px rgba(0,0,0,0.76);
+        background: url(/images/1010.jpg);
+        background-repeat: no-repeat;
+        /*background-attachment: fixed;*/
+        background-position: bottom;
     }
+
     #message-holder {
         bottom: 0;
-        position: absolute
+        /*position: absolute;*/
+        width: 100%;
     }
 
-    #message-holder input{
-       width:500px !important;
+        #message-holder input {
+            width: 1rem;
+            border-radius: 10px;
+            background: gray;
+            color: white;
+            border-color: black;
+        }
+
+    .messages-view {
+        word-wrap: break-word;
+        font-family: cursive;
+        color: gray;
     }
 
-   /* hr {
+    .custam-h1 {
+        text-align: center;
+        font-family: 'Lobster', cursive;
+    }
+
+    .custam-avtor {
+        background: gray;
+        color: white;
+        border-radius: 4px;
+        padding: 2px;
+        font-size: 80%;
+    }
+
+        .custam-avtor:hover {
+            background: white;
+            color: gray;
+            text-decoration: none;
+        }
+
+    #sendButton {
+        background: gray;
+        color: white;
+        border-radius: 10px;
+    }
+
+    ::placeholder {
+        color: white;
+    }
+
+    .div-footer {
+        BOTTOM: 0;
+        position: sticky;
+    }
+    /* hr {
         bottom: 100px;
         position: absolute
     }*/
 </style>
 
-<h1>@this.ViewBag.Title</h1>
+<h1 class="custam-h1">Чат стая</h1>
 <div class="container chat-room-div">
 
 
@@ -38,13 +109,15 @@
     <div id="messagesList" style="font-size: 28px;">
         @foreach (var item in Model)
         {
-<div><a asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.ProfilId">[@item.Profil.UserName]:</a> @item.Content</div>}
+            <div><a class="custam-avtor" asp-controller="Profil" asp-action="OpenProfil" asp-route-id="@item.ProfilId">@item.Profil.UserName</a><span class="messages-view"> @item.Content</span></div>}
     </div>
-    <hr style="height: 5px;" class="bg-dark" />
-    <div id="message-holder" class="mt-3 d-flex justify-content-start">
-        <h4>Message</h4>
-        <input class="w-75 ml-4 pl-3" type="text" id="messageInput" placeholder="Message..." />
-        <button id="sendButton" class="ml-4 btn btn-dark btn-lg">Send</button>
+    <div class="div-footer">
+        <hr style="height: 5px;" class="bg-secondary" />
+        <div id="message-holder" class="mt-3 d-flex justify-content-start">
+
+            <input class="w-75 ml-4 pl-3" type="text" id="messageInput" placeholder="Съобщение" />
+            <button id="sendButton" class="ml-4 btn btn-lg">Изпрати</button>
+        </div>
     </div>
 </div>
 
@@ -52,7 +125,7 @@
     <script>
         var e = document.getElementsByClassName("chat-room-div")[0];
         console.log(e)
-        //e.scrollTop = e.scrollHeight;
+        e.scrollTop = e.scrollHeight;
         var connection =
             new signalR.HubConnectionBuilder()
                 .withUrl("/chatter")
@@ -60,16 +133,32 @@
 
         connection.on("NewMessage",
             function (message) {
-                var chatInfo = `<div><a href="/Profil/OpenProfil/${message.profilId}">[${message.user}]:</a> ${escapeHtml(message.text)}</div>`;
+                var chatInfo = `<div><a class="custam-avtor" href="/Profil/OpenProfil/${message.profilId}">${message.user}</a> <span class="messages-view">${escapeHtml(message.text)}</span></div>`;
                 $("#messagesList").append(chatInfo);
                 e.scrollTop = e.scrollHeight;
             });
 
         $("#sendButton").click(function () {
             var message = $("#messageInput").val();
-            connection.invoke("Send", message);
-            $("#messageInput").val("");
+            if (!isEmptyOrSpaces(message)) {
+                connection.invoke("Send", message);
+                $("#messageInput").val("");
+            }
+
         });
+
+        $(window).keypress(function (e) {
+
+            if (e.key === 'Enter') {
+                var message = $("#messageInput").val();
+                if (!isEmptyOrSpaces(message)) {
+                    connection.invoke("Send", message);
+                    $("#messageInput").val("");
+                }
+            }
+
+        });
+
 
         connection.start().catch(function (err) {
             return console.error(err.toString());
@@ -82,5 +171,10 @@
                 .replace(/>/g, "&gt;")
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
-        }</script>
+        }
+
+        function isEmptyOrSpaces(str) {
+            return str === null || str.match(/^ *$/) !== null;
+        }
+    </script>
 }

@@ -13,7 +13,7 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <div class="nav-item dropdown">
-            <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"><img src="~/@this.HttpContextAccessor.HttpContext.Session.GetString("Avatar")" class="avatar" alt="Avatar">@this.HttpContextAccessor.HttpContext.Session.GetString("Username") <b class="caret"></b></a>
+            <a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"><img src="~/@this.HttpContextAccessor.HttpContext.Session.GetString("Avatar")" class="avatar" alt="Avatar" style=" object-fit: cover;">@this.HttpContextAccessor.HttpContext.Session.GetString("Username") <b class="caret"></b></a>
             <div class="dropdown-menu">
                 <a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
                 <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a>

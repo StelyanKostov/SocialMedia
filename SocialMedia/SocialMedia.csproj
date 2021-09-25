@@ -23,7 +23,6 @@
 
   <ItemGroup>
     <Folder Include="Views\RealTimeChat\" />
-    <Folder Include="wwwroot\images\ProfilImage\" />
     <Folder Include="wwwroot\lib\signalr\dist\browser\" />
   </ItemGroup>
 
